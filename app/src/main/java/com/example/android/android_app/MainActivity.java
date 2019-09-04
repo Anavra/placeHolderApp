@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContainerListView = (TextView) findViewById(R.id.containers_list);
-        String[] containerNames = {"Box", "Drawer", "Shelf"};
+        String[] containerNames = Containers.getContainers();
         for (String container : containerNames) {
             mContainerListView.append(container + "\n\n\n");
         }
