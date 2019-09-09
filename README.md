@@ -12,3 +12,9 @@ This means that you have to register your rooms, containers and objects first. Y
 You can even link some items so they can be shown as "Related items". 
 
 
+User Type
+-----------
+
+General public, people that need help with organization.
+
+
