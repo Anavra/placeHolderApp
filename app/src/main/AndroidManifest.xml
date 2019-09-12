@@ -9,6 +9,8 @@
         android:roundIcon="@drawable/ic_box"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Main2Activity"></activity>
+        <activity android:name=".room_list" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">My Items</string>
+    <string name="log_in_title">Log in</string>
+    <string name="log_in_button">Log in</string>
+
+    <string name="screen_title_root">Mina Rum</string>
+    <string name="user_name_field"></string>
+    <string name="user_name_hint">username</string>
+    <string name="user_name_tag">User</string>
+    <string name="password_tag">Password</string>
+    <string name="password_field"></string>
+    <string name="password_hint">password</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
