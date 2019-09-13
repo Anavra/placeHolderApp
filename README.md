@@ -18,3 +18,11 @@ User Type
 General public, people that need help with organization.
 
 
+Specifications
+-------------
+* Objects can be added, with description and other details.
+* Containers can be added, where objects can exist. The depth of containers should be set to 5.
+* Main screen after log in will consist of a list of the higher level containers.
+* Clicking on one of the containers will show the contents.
+* Clicking on an object will show its properties.
+
