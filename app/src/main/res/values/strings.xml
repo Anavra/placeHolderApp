@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">My Items</string>
+    <string name="app_name">PlaceHolder</string>
     <string name="log_in_title">Log in</string>
     <string name="log_in_button">Log in</string>
 
-    <string name="screen_title_root">Mina Rum</string>
+    <string name="rooms_activity">My Rooms</string>
+    <string name="screen_title_root">My Rooms</string>
     <string name="user_name_field"></string>
     <string name="user_name_hint">username</string>
     <string name="user_name_tag">User</string>
@@ -11,7 +12,9 @@
     <string name="password_field"></string>
     <string name="password_hint">password</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="settings_activity">Settings</string>
+    <string name="message_received">The item you added:</string>
+    <string name="enter_item_text">Enter Your Item Here</string>
 
 </resources>
