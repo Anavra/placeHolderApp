@@ -1,8 +1,9 @@
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\title{Tekniskt PM}
-\author{Vanessa \textsc{Rojas}}
+\usepackage{cite}
+\title{Tekniskt PM - Pie menus}
+\author{Vanessa Rojas vanro619}
 \date{\today}
  
 
@@ -10,38 +11,34 @@
 
 \maketitle
 \section{Introduction}
-When designing an application for mobile devices, a big consideration is how the users will be interacting with the product and how to make this process easier. My interest on pie menus comes first and foremost from the perspective of a user that has found these type of menus more intuitive and efficient. Without digging into the technical difficulties of implementing such an element, the question that emerges is:
+When creating an application for mobile devices, something to consider is how the users will be interacting with the product, and how to make this process easier. My interest on pie menus or circular shaped menus comes first and foremost from the perspective of a user that has found these type of menus more intuitive and efficient. Without digging into the technical difficulties of implementing such an element, the question that emerges is:
 
 
-In which conditions, if any, does a circular menu facilitate the use of an application and how?
-
-%Circular context menus are not a new invention Linear menus are default
-
-\section{Few and opposing options}
+\textbf{In which conditions, if any, does a circular menu facilitate the use of an application and how?}
 
 
-An empirical controlled study comparing circular menus with linear menus was published already by Callahan et al in 1988, where ``pie menus'' were found to decrease the time a user spends reaching their desired element by 15\%, requiring smaller movements and causing fewer misclicks. In general, circular menus result in better performance according to ``Fitts Law'' which describes how for a human, in the physical world, the time to point to a target decreases with a closer and larger target. The circular shape has the advantage of allowing menu options to be placed equidistant to a common center requiring only a small movement from the user towards a direction to indicate intent, making the targets effectively larger as well.
+\section{Use few and opposing options}
 
-However, not all tasks will benefit from a circular design. When seeking an item that is part of a sequence, linear menus have the advantage. Circular menus also occupy a larger area in the screen and don't scale well with larger or multiple options. 
+An empirical controlled study comparing circular menus with linear menus was published by Callahan et al back in 1988 \cite{Callahan:1988:ECP:57167.57182}, where ``pie menus'' decreased the time a user spends reaching their desired element by 15\%, requiring smaller movements and causing fewer misclicks.  The circular shape has the advantage of allowing menu options to be placed equidistant to a common center requiring only a small movement from the user towards a direction to indicate intent.
 
-The recommendation was thus to use radial menus to offer only very few, simple options, ideally of opposting nature such as open / close.
+According to the authors, not all tasks will benefit from a circular design. When seeking an item that is part of a sequence, linear menus have the advantage. Circular menus also occupy a larger area in the screen and don't scale well with larger or multiple options. 
 
-\section{The half pie}
+The recommendation was thus to use circular menus to offer only very few, simple options, ideally of opposting nature such as open / close.
 
-Things get complicated with the advent of newer technologies and touchscreens. Screens get larger and users interact with them in very unique ways, often with a single hand. Some of the most used apps use linear menus near the top of the screen. However Yang et al argues that circular and even more, semi-circular menus match the user's movements more naturally, especially when mobile devices are used with one hand. Semi-circular menus have shown to have not only better performance but also higher reported satisfaction with use. Semicircular menus also show a lower error frequency and lower need of adjusting the grip to keep the phone in place compared to linear menus.
+\section{Use a half pie and short words}
 
-Among the drawbacks for circular and semi-circular menus is the higher difficulty of development, and lack of suitability for long words in the menu options in English and other languages (They find it works a lot better with Chinese which uses one or two symbols instead of a chain of letters), and more difficult to use for beginners. However those beginners quickly improve and match more expert users.
+Things get complicated with the advent of newer technologies and touchscreens. According to Yang et all\cite{doi:10.1080/0144929X.2017.1312529}, Semicircular menus are found to match the user's movements more naturally, especially when mobile devices are used with one hand.  These \textbf{``Half pie''} menus have shown not only better performance but also higher reported satisfaction with use. Semicircular menus also show a lower error frequency and lower need of adjusting the grip to keep the phone in place compared to linear menus.
 
-%Context menus
+Among the drawbacks for circular and semi-circular menus is the higher difficulty of development, and lack of suitability for long words in the menu options in English and other languages (They find it works a lot better with Chinese which uses one or two symbols instead of a chain of letters). The authors note that these menus can be more difficult to use for beginners but that they shortly get used to it and perform at a satisfactory level.
+
+\section{Use a partial pie at the bottom of the screen}
+Banovic et al also showed favorable results with partial pie menus on touchscreens\cite{Banovic:2011:DUM:2076354.2076378}, after finding that a full pie menu can make some areas hard to reach for the user. Furthermore, users were shown to reach the menu from different directions and the authors recommend menus that invite the user to reach the options from the bottom of the screen (in cardinal notation South, SouthEast and East directions).
 
 \section{Conclusion}
 
-I suggest using easily recognizable graphical elements instead of long words.
+The literature reviewed seems to support the use of pie menus as long as they are simple and clear, with short words or symbols. Semi circles and other partial circular sections are more favorable than full circles. It's important to remember however, that despite these potential advantages, some of the most used apps still use linear menus near the top of the screen and users prefer familiar interfaces.
 
-
-\section{References}
-Använd IEEE
-
-
+\bibliography{bibl}
+\bibliographystyle{IEEEtran}
 
 \end{document}
