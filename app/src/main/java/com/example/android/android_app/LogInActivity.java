@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.support.v4.app.FragmentActivity;
+
 
 public class LogInActivity extends AppCompatActivity {
     private static final String LOG_TAG =
@@ -23,12 +25,38 @@ public class LogInActivity extends AppCompatActivity {
                         launchRoomList();
                     }
                 });
+        ((Button)findViewById(R.id.register_button))
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        launchRegisterFragment();
+                    }
+                });
     }
 
     private void launchRoomList() {
-        Log.d(LOG_TAG, "button clicked!");
+        Log.d(LOG_TAG, "Clicked Log in button!");
         Intent intent = new Intent( this, roomListActivity.class);
         /*intent.putExtra("name", "Nessa");*/
         startActivity(intent);
     }
+
+    private void launchRegisterFragment() {
+        Log.d(LOG_TAG, "Clicked register button!");
+        setContentView(R.layout.fragment_register);
+    }
 }
+
+/* To do1:
+*  Maybe have a big activity and then login and register can be fragments. Login can be the "default"
+* fragment to begin with, replace with register and then bring back login if needed.
+* Note: When you add a fragment to an activity layout by defining the fragment in the layout XML
+* file, you cannot remove the fragment at runtime. If you plan to swap your fragments in and out
+* during user interaction, you must add the fragment to the activity when the activity first
+* starts, as shown in Build a flexible UI.
+* https://developer.android.com/training/basics/fragments/fragment-ui
+* */
+
+/* TO do2:
+Add methods to control lifecycle. Right now we only have onCreate and onCreateView(in fragment)
+ */
