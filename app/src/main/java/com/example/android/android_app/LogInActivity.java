@@ -18,32 +18,6 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ((Button)findViewById(R.id.log_in_button))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        launchRoomList();
-                    }
-                });
-        ((Button)findViewById(R.id.register_button))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        launchRegisterFragment();
-                    }
-                });
-    }
-
-    private void launchRoomList() {
-        Log.d(LOG_TAG, "Clicked Log in button!");
-        Intent intent = new Intent( this, roomListActivity.class);
-        /*intent.putExtra("name", "Nessa");*/
-        startActivity(intent);
-    }
-
-    private void launchRegisterFragment() {
-        Log.d(LOG_TAG, "Clicked register button!");
-        setContentView(R.layout.fragment_register);
     }
 }
 
