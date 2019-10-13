@@ -4,6 +4,8 @@ package com.example.android.android_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,28 +28,41 @@ public class LogInFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_log_in, container,
                 false);
 
-        // Create the button and add a listener to it.
-        Button mButton = (Button) rootView.findViewById(R.id.log_in_button);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        // Create a button to show the list and add a listener to it.
+        Button inButton = (Button) rootView.findViewById(R.id.log_in_button);
+        inButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 launchRoomList();
             }
         });
+
+        // Create a button to show register and add a listener to it.
+        Button regButton = (Button) rootView.findViewById(R.id.register_button);
+        regButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                launchRegisterFragment();
+            }
+        });
+
         // Return the View for the fragment's UI
         return rootView;
     }
 
     private void launchRoomList() {
         Log.d(LOG_TAG, "Clicked Log in button!");
-        Intent intent = new Intent(getActivity(), roomListActivity.class);
-        startActivity(intent);
+        Intent inIntent = new Intent(getActivity(), roomListActivity.class);
+        startActivity(inIntent);
     }
 
-    /**
     private void launchRegisterFragment() {
         Log.d(LOG_TAG, "Clicked register button!");
-        setContentView(R.layout.fragment_register);
+        RegisterFragment fragment = new RegisterFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
     }
-     **/
-}
+ }
