@@ -1,10 +1,8 @@
-package com.example.android.android_app;
+package com.example.android.placeholder_inventory;
 
 
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 
 public class LogInActivity extends AppCompatActivity {

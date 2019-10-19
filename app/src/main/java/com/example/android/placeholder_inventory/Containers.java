@@ -1,4 +1,4 @@
-package com.example.android.android_app;
+package com.example.android.placeholder_inventory;
 
 public final class Containers {
 
