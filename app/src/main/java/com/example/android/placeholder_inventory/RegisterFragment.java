@@ -11,6 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class RegisterFragment extends Fragment {
+    OnLogInButtonPressedListener callback;
+
+    public void setOnLogInButtonPressedListener(OnLogInButtonPressedListener callback) {
+        this.callback = callback;
+    }
+
+    public interface OnLogInButtonPressedListener {
+        public void launchLogInFragment();
+    }
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -40,7 +49,7 @@ public class RegisterFragment extends Fragment {
         logButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                launchLogInFragment();
+                callback.launchLogInFragment();
             }
         });
 
@@ -54,13 +63,4 @@ public class RegisterFragment extends Fragment {
         startActivity(inIntent);
     }
 
-    private void launchLogInFragment() {
-        Log.d(LOG_TAG, "Clicked log in button!");
-        LogInFragment logfragment = new LogInFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, logfragment);
-        transaction.addToBackStack(null);
-
-        transaction.commit();
-    }
 }

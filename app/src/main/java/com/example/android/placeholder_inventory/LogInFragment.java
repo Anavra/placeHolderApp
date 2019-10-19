@@ -12,6 +12,16 @@ import android.widget.Button;
 import android.util.Log;
 
 public class LogInFragment extends Fragment {
+    OnRegisterButtonPressedListener callback;
+
+    public void setOnRegisterButtonPressedListener(OnRegisterButtonPressedListener callback) {
+       this.callback = callback;
+    }
+
+    public interface OnRegisterButtonPressedListener {
+        public void launchRegisterFragment();
+    }
+
     private static final String LOG_TAG =
             LogInFragment.class.getSimpleName();
 
@@ -41,7 +51,7 @@ public class LogInFragment extends Fragment {
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                launchRegisterFragment();
+                callback.launchRegisterFragment();
             }
         });
 
@@ -49,19 +59,11 @@ public class LogInFragment extends Fragment {
         return rootView;
     }
 
+
     private void launchRoomList() {
         Log.d(LOG_TAG, "Clicked Log in button!");
         Intent inIntent = new Intent(getActivity(), roomListActivity.class);
         startActivity(inIntent);
     }
 
-    private void launchRegisterFragment() {
-        Log.d(LOG_TAG, "Clicked register button!");
-        RegisterFragment fragment = new RegisterFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
-        transaction.addToBackStack(null);
-
-        transaction.commit();
-    }
  }

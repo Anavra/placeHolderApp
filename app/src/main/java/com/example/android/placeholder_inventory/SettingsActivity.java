@@ -19,3 +19,6 @@ public class SettingsActivity extends AppCompatActivity {
         textView.setText(message);
     }
 }
+
+
+//USE LISTFRAGMENT ?? for the different levels of the inventory
