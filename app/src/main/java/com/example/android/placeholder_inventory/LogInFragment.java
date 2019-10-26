@@ -1,25 +1,23 @@
 package com.example.android.placeholder_inventory;
-
-
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.util.Log;
+import android.widget.EditText;
 
 public class LogInFragment extends Fragment {
-    OnRegisterButtonPressedListener callback;
+    private OnButtonPressedListener callback;
 
-    public void setOnRegisterButtonPressedListener(OnRegisterButtonPressedListener callback) {
+    public void setOnButtonPressedListener(OnButtonPressedListener callback) {
        this.callback = callback;
     }
 
-    public interface OnRegisterButtonPressedListener {
-        public void launchRegisterFragment();
+    public interface OnButtonPressedListener {
+        // Interface defined here is implemented in LogInActivity
+        void launchRegisterFragment();
+        void launchRoomList();
     }
 
     private static final String LOG_TAG =
@@ -29,26 +27,35 @@ public class LogInFragment extends Fragment {
         // Required empty public constructor
     }
 
+    // LogIn fields:
+    private EditText mUserNameField;
+    private EditText mPasswordField;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_log_in, container,
                 false);
 
-        // Create a button to show the list and add a listener to it.
-        Button inButton = (Button) rootView.findViewById(R.id.log_in_button);
-        inButton.setOnClickListener(new View.OnClickListener() {
+        // LogIn fields:
+        mUserNameField = rootView.findViewById(R.id.user_name_field);
+        mPasswordField = rootView.findViewById(R.id.password_field);
+
+        // Buttons:
+        Button logInButton = (Button) rootView.findViewById(R.id.log_in_button);
+        Button switchToRegisterButton = (Button) rootView.findViewById(R.id.register_button);
+
+        //Button Listeners:
+        logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                launchRoomList();
+                callback.launchRoomList();
             }
         });
 
-        // Create a button to show register and add a listener to it.
-        Button regButton = (Button) rootView.findViewById(R.id.register_button);
-        regButton.setOnClickListener(new View.OnClickListener() {
+        switchToRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 callback.launchRegisterFragment();
@@ -59,11 +66,12 @@ public class LogInFragment extends Fragment {
         return rootView;
     }
 
+    public void logIn(Boolean result)
+    {
 
-    private void launchRoomList() {
-        Log.d(LOG_TAG, "Clicked Log in button!");
-        Intent inIntent = new Intent(getActivity(), roomListActivity.class);
-        startActivity(inIntent);
     }
+
+
+
 
  }

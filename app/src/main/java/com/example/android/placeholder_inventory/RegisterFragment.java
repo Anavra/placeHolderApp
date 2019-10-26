@@ -11,15 +11,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 public class RegisterFragment extends Fragment {
-    OnLogInButtonPressedListener callback;
+    private OnButtonPressedListener callback;
 
-    public void setOnLogInButtonPressedListener(OnLogInButtonPressedListener callback) {
+    public void setOnButtonPressedListener(OnButtonPressedListener callback) {
         this.callback = callback;
     }
 
-    public interface OnLogInButtonPressedListener {
-        public void launchLogInFragment();
+    public interface OnButtonPressedListener {
+        // Interface defined here is implemented in LogInActivity
+        void launchLogInFragment();
+        void launchRoomList();
     }
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -33,20 +36,19 @@ public class RegisterFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_register, container,
                 false);
 
-        // Create a button to show the list and add a listener to it.
-        Button inButton = (Button) rootView.findViewById(R.id.log_in_button);
-        inButton.setOnClickListener(new View.OnClickListener() {
+        // Buttons
+        Button LogInButton = (Button) rootView.findViewById(R.id.log_in_button);
+        Button SwitchToLogInButton = (Button) rootView.findViewById(R.id.button);
+
+        // Button Listeners
+        LogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                launchRoomList();
+                callback.launchRoomList();
             }
         });
 
-        // Create a button to show login and add a listener to it.
-        // TO DO: Change button names, it's confusing! Button rename to log_in_button
-        // log_in_button rename to "start_main" or something
-        Button logButton = (Button) rootView.findViewById(R.id.button);
-        logButton.setOnClickListener(new View.OnClickListener() {
+        SwitchToLogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 callback.launchLogInFragment();
@@ -56,11 +58,4 @@ public class RegisterFragment extends Fragment {
         // Return the View for the fragment's UI
         return rootView;
     }
-
-    private void launchRoomList() {
-        Log.d(LOG_TAG, "Clicked Log in button!");
-        Intent inIntent = new Intent(getActivity(), roomListActivity.class);
-        startActivity(inIntent);
-    }
-
 }

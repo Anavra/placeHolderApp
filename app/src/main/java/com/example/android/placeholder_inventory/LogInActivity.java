@@ -5,34 +5,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LogInActivity extends AppCompatActivity
-        implements LogInFragment.OnRegisterButtonPressedListener,
-        RegisterFragment.OnLogInButtonPressedListener {
+        implements LogInFragment.OnButtonPressedListener,
+        RegisterFragment.OnButtonPressedListener {
 
     private FirebaseAuth mAuth;
 
     @Override
     public void onAttachFragment(Fragment fragment) {
+        // Implementing the fragment interfaces defined in fragments
         if (fragment instanceof LogInFragment) {
             LogInFragment logInFragment = (LogInFragment) fragment;
-            logInFragment.setOnRegisterButtonPressedListener(this);
+            logInFragment.setOnButtonPressedListener(this);
         }
         if (fragment instanceof RegisterFragment) {
             RegisterFragment registerFragment = (RegisterFragment) fragment;
-            registerFragment.setOnLogInButtonPressedListener(this);
+            registerFragment.setOnButtonPressedListener(this);
         }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
@@ -60,6 +60,10 @@ public class LogInActivity extends AppCompatActivity
         //updateUI(currentUser);
     }
 
+    private void signInAnonymously() {
+
+    }
+
     public void launchRegisterFragment() {
         RegisterFragment fragment = new RegisterFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -76,18 +80,14 @@ public class LogInActivity extends AppCompatActivity
 
         transaction.commit();
     }
+
+    public void launchRoomList() {
+        Intent inIntent = new Intent(this, roomListActivity.class);
+        startActivity(inIntent);
+    }
 }
 
-/* To do1:
-*  Maybe have a big activity and then login and register can be fragments. Login can be the "default"
-* fragment to begin with, replace with register and then bring back login if needed.
-* Note: When you add a fragment to an activity layout by defining the fragment in the layout XML
-* file, you cannot remove the fragment at runtime. If you plan to swap your fragments in and out
-* during user interaction, you must add the fragment to the activity when the activity first
-* starts, as shown in Build a flexible UI.
-* https://developer.android.com/training/basics/fragments/fragment-ui
-* */
 
 /* TO do2:
-Add methods to control lifecycle. Right now we only have onCreate and onCreateView(in fragment)
+Add more methods to control lifecycle.
  */
