@@ -26,3 +26,12 @@ Specifications
 * Clicking on one of the containers will show the contents.
 * Clicking on an object will show its properties.
 
+[Differences between Placeholder and the competition] (https://gitlab.ida.liu.se/vanro619/android-app/wikis/Placeholder-vs-konkurrensen)
+
+
+Requirements
+------------
+
+[Kravlista](https://gitlab.ida.liu.se/vanro619/android-app/wikis/krav.md)
+
+
