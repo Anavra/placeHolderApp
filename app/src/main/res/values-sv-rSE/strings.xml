@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">PlaceHolder</string>
+<string name="log_in">Logga in</string>
+
+<string name="my_rooms">Mina rum</string>
+<string name="screen_title_root">Mina Rum</string>
+    <string name="user_name_hint">användarnamn</string>
+    <string name="password_tag">Lösenord</string>
+<string name="password_field">Lösenord</string>
+<string name="password_hint">lösenord</string>
+
+<string name="message_received">"Du har lagt till:  "</string>
+    <string name="register_button">REGISTRERA DIG</string>
+    <string name="log_in_text">Redan har ett konto?</string>
+
+    <string name="object_location">Plats</string>
+<string name="account">Konto</string>
+    <string name="about">Om</string>
+    <string name="add_new">Lägg till</string>
+    <string name="description">Beskrivning</string>
+    <string name="enter_item_text">Lägg till</string>
+    <string name="log_out">Logga ut</string>
+    <string name="user_name_tag">Användarnamn</string>
+    <string name="settings">Inställningar</string>
+    <string name="search">Sök</string>
+    <string name="register_text">Behöver ett konto?</string>
+</resources>

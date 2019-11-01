@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="user_name_tag">User</string>
-    <string name="user_hint">username</string>
-    <string name="register_button">REGISTER</string>
-    <string name="register_text">Need an account?</string>
-    <string name="log_in_text">Already have an account?</string>
+    <string name="app_name">PlaceHolder</string>
+    <string name="log_in">Ingresa</string>
+
+    <string name="my_rooms">Mis habitaciones</string>
+    <string name="screen_title_root">Mis habitaciones</string>
+    <string name="user_name_field">Usuario</string>
+    <string name="user_name_hint">nombre de usuario</string>
+    <string name="user_name_tag">Usuario</string>
+    <string name="password_tag">Contraseña</string>
+    <string name="password_field">Contraseña</string>
+    <string name="password_hint">contraseña</string>
+
+    <string name="message_received">Has agregado el objeto: </string>
+    <string name="enter_item_text">Ingresa un objeto</string>
+    <string name="register_button">REGISTRO</string>
+    <string name="register_text">Necesitas una cuenta?</string>
+    <string name="log_in_text">Ya tienes una cuenta?</string>
+
+    <string name="log_out">Salir</string>
+    <string name="search">Buscar</string>
+    <string name="add_new">Agregar</string>
+
+    <string name="settings">Configuración</string>
+    <string name="object_location">Lugar</string>
+    <string name="account">Cuenta</string>
+    <string name="about">Acerca</string>
+    <string name="description">Descripción</string>
 </resources>

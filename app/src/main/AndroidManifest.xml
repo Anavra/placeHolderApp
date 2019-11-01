@@ -19,7 +19,7 @@
         </activity>
 
         <activity android:name="com.example.android.placeholder_inventory.roomListActivity"
-            android:label="@string/rooms_activity">
+            android:label="@string/my_rooms">
             </activity>
     </application>
 
