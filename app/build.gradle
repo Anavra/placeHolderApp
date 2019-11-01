@@ -29,6 +29,8 @@ dependencies {
 
     def recyclerview_version = "1.0.0"
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    def cardview_version = "1.0.0"
+    implementation "androidx.cardview:cardview:$cardview_version"
 
 
     testImplementation 'junit:junit:4.12'

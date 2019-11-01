@@ -7,17 +7,11 @@ public final class Containers {
      */
     public static String[] getContainers() {
         return new String[] {
-                "Box",
-                "Shelf",
-                "Closet",
-                "Cabinet",
-                "Sofa",
-                "Lamp",
-                "Desk",
-                "Trash can",
-                "Oven",
-                "IKEA wall thing",
-                "Dishwasher"
+                "Living Room",
+                "Kitchen",
+                "Closet Room",
+                "Storage",
+                "Weird Box Outside"
         };
     }
 }
