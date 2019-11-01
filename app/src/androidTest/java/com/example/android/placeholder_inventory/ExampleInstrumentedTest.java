@@ -19,7 +19,8 @@ public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+        Context appContext;
+        appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         assertEquals("com.example.android.placeholder_inventory", appContext.getPackageName());
     }

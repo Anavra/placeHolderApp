@@ -27,4 +27,5 @@
     <string name="account">Cuenta</string>
     <string name="about">Acerca</string>
     <string name="description">Descripción</string>
+    <string name="icon_for_item">Icono del objeto</string>
 </resources>
