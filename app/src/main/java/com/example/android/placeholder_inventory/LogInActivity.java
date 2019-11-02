@@ -1,6 +1,7 @@
 package com.example.android.placeholder_inventory;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -8,15 +9,18 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LogInActivity extends AppCompatActivity
         implements LogInFragment.OnButtonPressedListener,
         RegisterFragment.OnButtonPressedListener {
-
-    private FirebaseAuth mAuth;
 
     @Override
     public void onAttachFragment(Fragment fragment) {
@@ -47,21 +51,22 @@ public class LogInActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, firstFragment).commit();
 
-            // Initialize Firebase Auth
-            mAuth = FirebaseAuth.getInstance();
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        //FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
     }
 
-    private void signInAnonymously() {
+    private void updateUI(FirebaseUser user){
+        boolean isSignedIn = (user != null);
 
+        if (isSignedIn){
+
+        } else {
+
+        }
     }
 
     public void launchRegisterFragment() {
