@@ -1,7 +1,9 @@
 package com.example.android.placeholder_inventory;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,19 +11,26 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomViewHolder> {
     private String[] mRoomList;
 
+    // Constructor - argument is an array of room names
+    public RoomListAdapter(String[] mRoomList) {
+
+        this.mRoomList = mRoomList;
+    }
+
     // ViewHolder that contains the recyclerviews given to it with the constructor
     public static class RoomViewHolder extends RecyclerView.ViewHolder {
         public TextView roomTextView;
-        public RoomViewHolder(View v) {
-            super(v);
-            TextView roomTextView = (TextView) v.findViewById(R.id.room_text);
-            this.roomTextView = roomTextView;
-        }
-    }
+        public ImageView roomImageView;
 
-    // Constructor - argument is an array of room names
-    public RoomListAdapter(String[] myRoomList) {
-        mRoomList = myRoomList;
+        public RoomViewHolder(View itemView) {
+            super(itemView);
+            if(itemView != null) {
+                TextView roomTextView = (TextView) itemView.findViewById(R.id.room_text);
+                this.roomTextView = roomTextView;
+                ImageView roomImageView = (ImageView) itemView.findViewById(R.id.room_image);
+                this.roomImageView = roomImageView;
+            }
+        }
     }
 
     // LayoutManager use. Creates instance of ViewHolder with recyclerViews in it
