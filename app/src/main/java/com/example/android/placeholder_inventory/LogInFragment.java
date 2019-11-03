@@ -76,7 +76,7 @@ public class LogInFragment extends Fragment {
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                signInAnonymously();
+                signIn();
             }
         });
 
@@ -121,17 +121,22 @@ public class LogInFragment extends Fragment {
         };
     }
 
-    private void signInAnonymously() {
-        mAuth.signInAnonymously()
+    private void signIn() {
+        // Make these into private variables and pass as arguments instead when called
+        String email = mEmailField.getText().toString();
+        String password = mPasswordField.getText().toString();
+        
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         String message;
                         if (task.isSuccessful()) {
-                            message = "Signed in anonymously";
-                            callback.launchRoomList();
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            message = "Huge success, " + user;
+                            callback.launchRoomList(); //pass user into it later
                         } else {
-                            message = "Failed anonymous sign in: " + task.getException();
+                            message = "Could not login: " + task.getException();
                         }
                         mAuthStateTextView.setText(message);
                     }

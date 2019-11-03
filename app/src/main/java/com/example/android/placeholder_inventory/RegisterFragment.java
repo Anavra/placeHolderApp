@@ -27,7 +27,6 @@ public class RegisterFragment extends Fragment {
 
     // Authentication fields:
     private EditText mEmailField;
-    private EditText mUserNameField;
     private EditText mPasswordField;
 
     public RegisterFragment() {
