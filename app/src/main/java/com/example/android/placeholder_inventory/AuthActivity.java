@@ -10,8 +10,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -47,7 +45,6 @@ public class AuthActivity extends AppCompatActivity
             if (savedInstanceState != null) {
                 return;
             }
-
             //Set up the first fragment
             AuthFragment firstFragment = new AuthFragment();
             getSupportFragmentManager().beginTransaction()

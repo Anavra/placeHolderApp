@@ -38,22 +38,6 @@
             android:autofillHints="" />
 
         <TextView
-            android:id="@+id/user_name_tag"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/user_name_tag" />
-
-        <EditText
-            android:id="@+id/user_name_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/user_name_hint"
-            android:ems="10"
-            android:hint="@string/user_name_hint"
-            android:inputType="textPersonName"
-            android:text="@string/user_name_field" />
-
-        <TextView
             android:id="@+id/password_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +59,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/log_in"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
@@ -159,6 +144,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="monospace"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#673AB7"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/log_in_button" />

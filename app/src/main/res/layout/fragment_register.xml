@@ -24,21 +24,19 @@
         app:layout_constraintTop_toTopOf="@+id/guideline3">
 
         <TextView
-            android:id="@+id/user_name_tag"
+            android:id="@+id/email_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/user_name_tag" />
+            android:text="@string/email_tag" />
 
         <EditText
-            android:id="@+id/user_name_field"
+            android:id="@+id/email_field"
             style="@android:style/Widget.DeviceDefault.Light.EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="@string/user_name_hint"
             android:ems="10"
-            android:hint="@string/user_name_hint"
-            android:inputType="textPersonName"
-            android:text="@string/user_name_field" />
+            android:hint="@string/email_tag"
+            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/password_tag"
@@ -50,7 +48,6 @@
             android:id="@+id/password_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
             android:ems="10"
             android:hint="@string/password_hint"
             android:inputType="textPassword" />
@@ -141,5 +138,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="389dp" />
+
+    <TextView
+        android:id="@+id/auth_state_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#673AB7"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline11"
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toBottomOf="@+id/log_in_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class AuthFragment extends Fragment {
     private OnButtonPressedListener callback;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
 
     private static final String LOG_TAG =
@@ -29,6 +28,7 @@ public class AuthFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     // package-private: no access modifier needs to be declared
     void setOnButtonPressedListener(OnButtonPressedListener callback) {
         this.callback = callback;
@@ -37,9 +37,7 @@ public class AuthFragment extends Fragment {
     public interface OnButtonPressedListener {
         // Interface defined here is implemented in AuthActivity
         void launchLogInFragment();
-
         void launchRegisterFragment();
-
         void launchRoomList();
     }
 

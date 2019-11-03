@@ -28,7 +28,6 @@ public class LogInFragment extends Fragment {
 
     // LogIn fields:
     private EditText mEmailField;
-    private EditText mUserNameField;
     private EditText mPasswordField;
 
 
@@ -64,9 +63,8 @@ public class LogInFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_log_in, container,
                 false);
 
-        // LogIn fields:
+        // Authentication variables:
         mEmailField = rootView.findViewById(R.id.email_field);
-        mUserNameField = rootView.findViewById(R.id.user_name_field);
         mPasswordField = rootView.findViewById(R.id.password_field);
         mAuthStateTextView = rootView.findViewById(R.id.auth_state_text);
 
@@ -142,7 +140,6 @@ public class LogInFragment extends Fragment {
 
     private void linkAccount() {
         String email = mEmailField.getText().toString();
-        String username = mUserNameField.getText().toString();
         String password = mPasswordField.getText().toString();
 
         AuthCredential credential = EmailAuthProvider.getCredential(email, password);
