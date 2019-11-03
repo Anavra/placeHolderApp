@@ -60,6 +60,10 @@ public class AuthActivity extends AppCompatActivity
         super.onStart();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
     public void launchRegisterFragment() {
         RegisterFragment fragment = new RegisterFragment();
