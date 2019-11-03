@@ -5,7 +5,6 @@
 
     <string name="my_rooms">Mis habitaciones</string>
     <string name="screen_title_root">Mis habitaciones</string>
-    <string name="user_name_field">Usuario</string>
     <string name="user_name_hint">nombre de usuario</string>
     <string name="user_name_tag">Usuario</string>
     <string name="password_tag">Contraseña</string>
@@ -28,4 +27,7 @@
     <string name="about">Acerca</string>
     <string name="description">Descripción</string>
     <string name="icon_for_item">Icono del objeto</string>
+    <string name="email_tag">Email</string>
+    <string name="skip_button">Omitir</string>
+    <string name="skip_text">O prueba sin registrarte:</string>
 </resources>

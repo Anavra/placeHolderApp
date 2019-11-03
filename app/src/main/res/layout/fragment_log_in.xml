@@ -24,6 +24,20 @@
         app:layout_constraintTop_toTopOf="@+id/guideline3">
 
         <TextView
+            android:id="@+id/email_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/email_tag" />
+
+        <EditText
+            android:id="@+id/email_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="none|textEmailAddress"
+            android:autofillHints="" />
+
+        <TextView
             android:id="@+id/user_name_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -18,7 +18,7 @@ public class RegisterFragment extends Fragment {
     }
 
     public interface OnButtonPressedListener {
-        // Interface defined here is implemented in LogInActivity
+        // Interface defined here is implemented in AuthActivity
         void launchLogInFragment();
         void launchRoomList();
     }

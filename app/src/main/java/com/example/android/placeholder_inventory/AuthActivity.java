@@ -18,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LogInActivity extends AppCompatActivity
+public class AuthActivity extends AppCompatActivity
         implements LogInFragment.OnButtonPressedListener,
         RegisterFragment.OnButtonPressedListener {
 
