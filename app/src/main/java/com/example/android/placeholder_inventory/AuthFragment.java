@@ -7,8 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class RegisterFragment extends Fragment {
+public class AuthFragment extends Fragment {
     private OnButtonPressedListener callback;
+    private static final String LOG_TAG =
+            AuthFragment.class.getSimpleName();
+
+    public AuthFragment() {
+        // Required empty public constructor
+    }
 
     public void setOnButtonPressedListener(OnButtonPressedListener callback) {
         this.callback = callback;
@@ -17,28 +23,24 @@ public class RegisterFragment extends Fragment {
     public interface OnButtonPressedListener {
         // Interface defined here is implemented in AuthActivity
         void launchLogInFragment();
+        void launchRegisterFragment();
         void launchRoomList();
     }
-
-    public RegisterFragment() {
-        // Required empty public constructor
-    }
-    private static final String LOG_TAG =
-            RegisterFragment.class.getSimpleName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.fragment_register, container,
+        final View rootView = inflater.inflate(R.layout.fragment_auth, container,
                 false);
 
         // Buttons
-        Button LogInButton = (Button) rootView.findViewById(R.id.log_in_button);
-        Button SwitchToLogInButton = (Button) rootView.findViewById(R.id.button);
+        Button SkipButton = (Button) rootView.findViewById(R.id.skip_button);
+        Button SwitchToLogInButton = (Button) rootView.findViewById(R.id.log_in_button);
+        Button SwitchToRegisterButton = (Button) rootView.findViewById(R.id.register_button);
 
         // Button Listeners
-        LogInButton.setOnClickListener(new View.OnClickListener() {
+        SkipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 callback.launchRoomList();
@@ -49,6 +51,13 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v){
                 callback.launchLogInFragment();
+            }
+        });
+
+        SwitchToRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                callback.launchRegisterFragment();
             }
         });
 

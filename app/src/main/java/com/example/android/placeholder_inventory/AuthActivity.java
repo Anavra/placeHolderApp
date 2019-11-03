@@ -20,16 +20,19 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class AuthActivity extends AppCompatActivity
         implements LogInFragment.OnButtonPressedListener,
-        RegisterFragment.OnButtonPressedListener {
+        RegisterFragment.OnButtonPressedListener,
+        AuthFragment.OnButtonPressedListener {
 
     @Override
     public void onAttachFragment(Fragment fragment) {
         // Implementing the fragment interfaces defined in fragments
-        if (fragment instanceof LogInFragment) {
+        if (fragment instanceof AuthFragment) {
+            AuthFragment authFragment = (AuthFragment) fragment;
+            authFragment.setOnButtonPressedListener(this);
+        } if (fragment instanceof LogInFragment) {
             LogInFragment logInFragment = (LogInFragment) fragment;
             logInFragment.setOnButtonPressedListener(this);
-        }
-        if (fragment instanceof RegisterFragment) {
+        } if (fragment instanceof RegisterFragment) {
             RegisterFragment registerFragment = (RegisterFragment) fragment;
             registerFragment.setOnButtonPressedListener(this);
         }
@@ -46,11 +49,9 @@ public class AuthActivity extends AppCompatActivity
             }
 
             //Set up the first fragment
-            LogInFragment firstFragment = new LogInFragment();
-
+            AuthFragment firstFragment = new AuthFragment();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, firstFragment).commit();
-
         }
     }
 
@@ -59,15 +60,6 @@ public class AuthActivity extends AppCompatActivity
         super.onStart();
     }
 
-    private void updateUI(FirebaseUser user){
-        boolean isSignedIn = (user != null);
-
-        if (isSignedIn){
-
-        } else {
-
-        }
-    }
 
     public void launchRegisterFragment() {
         RegisterFragment fragment = new RegisterFragment();
@@ -82,7 +74,6 @@ public class AuthActivity extends AppCompatActivity
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
         transaction.addToBackStack(null);
-
         transaction.commit();
     }
 
