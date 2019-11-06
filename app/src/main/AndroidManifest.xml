@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
-        <activity android:name="com.example.android.placeholder_inventory.AuthActivity">
+        <activity android:name="com.example.android.placeholder_inventory.activities.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.android.placeholder_inventory.RoomListActivity"
+
+        <activity android:name="com.example.android.placeholder_inventory.activities.RoomListActivity"
             android:label="@string/my_rooms">
             </activity>
     </application>
