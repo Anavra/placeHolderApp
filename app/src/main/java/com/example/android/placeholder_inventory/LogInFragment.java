@@ -125,7 +125,7 @@ public class LogInFragment extends Fragment {
         // Make these into private variables and pass as arguments instead when called
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
-        
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override

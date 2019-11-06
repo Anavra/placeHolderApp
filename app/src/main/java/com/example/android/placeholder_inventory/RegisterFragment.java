@@ -136,6 +136,7 @@ public class RegisterFragment extends Fragment {
                             FirebaseUser user = task.getResult().getUser();
                             message = "This was a triumph, " + user;
                             callback.launchRoomList(); //pass user into it later
+                            // Can send it and depending on that it'll show something different
                         } else {
                             message = "Could not link account. " + task.getException();
                         }
