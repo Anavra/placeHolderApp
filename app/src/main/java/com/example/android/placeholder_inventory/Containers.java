@@ -1,6 +1,6 @@
 package com.example.android.placeholder_inventory;
 
-public final class Containers {
+public class Containers {
 
     /**
      * This will return a list of the current containers.
@@ -11,7 +11,10 @@ public final class Containers {
                 "Kitchen",
                 "Closet Room",
                 "Storage",
-                "Weird Box Outside"
+                "Weird Box Outside",
+                "BedroomA",
+                "BedroomB",
+                "Attic"
         };
     }
 }
