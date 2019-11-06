@@ -39,7 +39,7 @@ public class AuthFragment extends Fragment {
         // Interface defined here is implemented in AuthActivity
         void launchLogInFragment();
         void launchRegisterFragment();
-        void launchRoomList();
+        void onValidAuth(FirebaseUser user);
     }
 
     @Override
@@ -94,6 +94,9 @@ public class AuthFragment extends Fragment {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthStateListener);
+        if (mAuth.getCurrentUser() != null){
+          callback.onValidAuth(mAuth.getCurrentUser());
+        }
     }
 
     @Override
@@ -126,8 +129,9 @@ public class AuthFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         String message;
                         if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
                             message = "Signed in anonymously";
-                            callback.launchRoomList();
+                            callback.onValidAuth(user);
                         } else {
                             message = "Failed anonymous sign in: " + task.getException();
                         }

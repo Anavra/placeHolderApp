@@ -4,14 +4,19 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.placeholder_inventory.R;
+import com.example.android.placeholder_inventory.Models.User;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -20,11 +25,14 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
+
 public class RegisterFragment extends Fragment {
     private OnButtonPressedListener callback;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
+    private static final String REQUIRED = "@string/required";
 
     // Authentication fields:
     private EditText mEmailField;
@@ -41,7 +49,7 @@ public class RegisterFragment extends Fragment {
     public interface OnButtonPressedListener {
         // Interface defined here is implemented in AuthActivity
         void launchLogInFragment();
-        void launchRoomList();
+        void onValidAuth(FirebaseUser user);
     }
 
 
@@ -54,7 +62,7 @@ public class RegisterFragment extends Fragment {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        startAuthState();
+        checkAuthState();
     }
 
     @Override
@@ -77,7 +85,11 @@ public class RegisterFragment extends Fragment {
         LogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                linkAccount();
+                if (mAuth.getCurrentUser() != null) {
+                    linkAccount();
+                } else {
+                    createAccount();
+                }
             }
         });
 
@@ -106,7 +118,7 @@ public class RegisterFragment extends Fragment {
         }
     }
 
-    private void startAuthState(){
+    private void checkAuthState(){
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -123,6 +135,9 @@ public class RegisterFragment extends Fragment {
     }
 
     private void linkAccount() {
+        if(!validateForm()){
+            return;
+        }
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
 
@@ -136,7 +151,7 @@ public class RegisterFragment extends Fragment {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
                             message = "This was a triumph, " + user;
-                            callback.launchRoomList(); //pass user into it later
+                            callback.onValidAuth(user); //pass user into it later
                             // Can send it and depending on that it'll show something different
                         } else {
                             message = "Could not link account. " + task.getException();
@@ -146,4 +161,45 @@ public class RegisterFragment extends Fragment {
                 });
     }
 
+    private void createAccount(){
+        if(!validateForm()){
+            return;
+        }
+        String email = mEmailField.getText().toString();
+        String password = mPasswordField.getText().toString();
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            callback.onValidAuth(user);
+                        } else {
+                            Toast.makeText(getContext(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private boolean validateForm() {
+        boolean valid = true;
+        String email = mEmailField.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            mEmailField.setError(REQUIRED);
+            valid = false;
+        } else {
+            mEmailField.setError(null);
+        }
+
+        String password = mPasswordField.getText().toString();
+        if (TextUtils.isEmpty(password)){
+            mPasswordField.setError(REQUIRED);
+            valid = false;
+        } else {
+            mPasswordField.setError(null);
+        }
+        return valid;
+    }
 }

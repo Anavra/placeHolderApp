@@ -3,6 +3,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ public class LogInFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
+    private static final String REQUIRED = "@string/required";
     private static final String LOG_TAG =
             LogInFragment.class.getSimpleName();
 
@@ -44,7 +47,7 @@ public class LogInFragment extends Fragment {
     public interface OnButtonPressedListener {
         // Interface defined here is implemented in AuthActivity
         void launchRegisterFragment();
-        void launchRoomList();
+        void onValidAuth(FirebaseUser user);
     }
 
     @Override
@@ -124,6 +127,9 @@ public class LogInFragment extends Fragment {
 
     private void signIn() {
         // Make these into private variables and pass as arguments instead when called
+        if(!validateForm()){
+            return;
+        }
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
 
@@ -135,7 +141,7 @@ public class LogInFragment extends Fragment {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             message = "Huge success, " + user;
-                            callback.launchRoomList(); //pass user into it later
+                            callback.onValidAuth(user); //pass user into it later
                         } else {
                             message = "Could not login: " + task.getException();
                         }
@@ -144,30 +150,25 @@ public class LogInFragment extends Fragment {
                 });
     }
 
-    private void linkAccount() {
+
+    private boolean validateForm() {
+        boolean valid = true;
         String email = mEmailField.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            mEmailField.setError(REQUIRED);
+            valid = false;
+        } else {
+            mEmailField.setError(null);
+        }
+
         String password = mPasswordField.getText().toString();
-
-        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
-
-        mAuth.getCurrentUser().linkWithCredential(credential)
-                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        String message;
-                        if (task.isSuccessful()) {
-                            message = "This was a triumph";
-                            FirebaseUser user = task.getResult().getUser();
-                        } else {
-                            message = "Could not link account";
-                        }
-                        mAuthStateTextView.setText(message);
-                    }
-                });
-    }
-
-    private void validateLinkForm() {
-
+        if (TextUtils.isEmpty(password)){
+            mPasswordField.setError(REQUIRED);
+            valid = false;
+        } else {
+            mPasswordField.setError(null);
+        }
+        return valid;
     }
  }
 
