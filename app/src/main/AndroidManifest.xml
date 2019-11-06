@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.android.placeholder_inventory.roomListActivity"
+        <activity android:name="com.example.android.placeholder_inventory.RoomListActivity"
             android:label="@string/my_rooms">
             </activity>
     </application>

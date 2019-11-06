@@ -1,20 +1,12 @@
 package com.example.android.placeholder_inventory;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class AuthActivity extends AppCompatActivity
         implements LogInFragment.OnButtonPressedListener,
@@ -79,7 +71,7 @@ public class AuthActivity extends AppCompatActivity
     }
 
     public void launchRoomList() {
-        Intent inIntent = new Intent(this, roomListActivity.class);
+        Intent inIntent = new Intent(this, RoomListActivity.class);
         startActivity(inIntent);
     }
 }
