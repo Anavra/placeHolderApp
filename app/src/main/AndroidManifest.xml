@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.example.android.placeholder_inventory.activities.AuthActivity">
+        <activity android:name="com.example.android.placeholder_inventory.Activities.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,7 +18,7 @@
         </activity>
 
 
-        <activity android:name="com.example.android.placeholder_inventory.activities.RoomListActivity"
+        <activity android:name="com.example.android.placeholder_inventory.Activities.RoomListActivity"
             android:label="@string/my_rooms">
             </activity>
     </application>

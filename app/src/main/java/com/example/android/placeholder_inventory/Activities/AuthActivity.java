@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.activities;
+package com.example.android.placeholder_inventory.Activities;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,6 @@ import com.example.android.placeholder_inventory.Fragments.LogInFragment;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
 import com.example.android.placeholder_inventory.Fragments.RegisterFragment;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

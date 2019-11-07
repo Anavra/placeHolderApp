@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.activities;
+package com.example.android.placeholder_inventory.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.android.placeholder_inventory.Models.Containers;
+import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
 import com.example.android.placeholder_inventory.Models.Room;
 import com.example.android.placeholder_inventory.Adapters.RoomListAdapter;
@@ -22,6 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class RoomListActivity extends AppCompatActivity{
     private RecyclerView recyclerView;
@@ -29,6 +35,7 @@ public class RoomListActivity extends AppCompatActivity{
     private RecyclerView.LayoutManager layoutManager;
 
     private DatabaseReference mDatabase;
+    private DatabaseReference mRooms;
     private EditText mAddNewField;
     private Button mAddNewButton;
     private static final String REQUIRED = "@string/required";
@@ -54,6 +61,8 @@ public class RoomListActivity extends AppCompatActivity{
         //Add new item things
         // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mRooms = mDatabase.child("rooms").child()
+
         // [END initialize_database_ref]
 
         mAddNewField = findViewById(R.id.addNewField);
@@ -75,41 +84,51 @@ public class RoomListActivity extends AppCompatActivity{
 
     private void addNewRoom(){
         final String name = mAddNewField.getText().toString();
+        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // A name is required to submit
         if (TextUtils.isEmpty(name)) {
             mAddNewField.setError(REQUIRED);
             return;
         }
 
-        Toast.makeText(this, "Posting...", Toast.LENGTH_SHORT).show();
+        //mDatabase.child("users").child(UserId).setValue(user);
 
-        Room room = new Room(name);
-        mDatabase.child("rooms").child(room.name).setValue(room);
-    }
-
-    public void readWrite(){
-        // [START write_message]
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mRef = database.getReference("rooms");
-
-        // [END write_message]
-
-        // [START read_message]
-        mRef.addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(LOG_TAG, "Value is: " + value);
+                User user = dataSnapshot.getValue(User.class);
+
+                if(user == null) {
+                    Toast.makeText(RoomListActivity.this,
+                            "Error: could not fetch user.",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Actually adding the room here:
+                    Toast.makeText(RoomListActivity.this, "Posting...", Toast.LENGTH_SHORT).show();
+                    Room room = new Room(name, userID);
+
+                    // Making the userID "represent" the room
+                    Map<String, Object> roomProperties = room.makeMap();
+
+                    // New room saved to rooms
+                    String key = mDatabase.child("rooms").push().getKey();
+                    Map<String, Object> childUpdates = new HashMap<>();
+                    childUpdates.put("/user-rooms/" + userID + "/" + key, roomProperties);
+                    mDatabase.updateChildren(childUpdates);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(LOG_TAG, "Failed to read value.", databaseError.toException());
+
             }
         });
-        // [END read_message]
+
     }
 }
 
 
+/**
+ * Code related to FireBase inspired after following the documents at
+ * https://firebase.google.com and the accompanying examples.
+ **/
