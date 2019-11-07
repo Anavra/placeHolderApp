@@ -17,6 +17,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * This is the first fragment that is shown when opening the app.
+ * Contained in activity AuthActivity, which implements interface.
+ */
+
 public class AuthFragment extends Fragment {
     private OnButtonPressedListener callback;
     private FirebaseAuth mAuth;
@@ -36,9 +41,11 @@ public class AuthFragment extends Fragment {
     }
 
     public interface OnButtonPressedListener {
-        // Interface defined here is implemented in AuthActivity
+        // When switching to Register or Log In
         void launchLogInFragment();
         void launchRegisterFragment();
+
+        // When pressing the button skip, log in anonymously.
         void onValidAuth(FirebaseUser user);
     }
 
@@ -55,6 +62,7 @@ public class AuthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_auth, container,
                 false);
         mAuthStateTextView = rootView.findViewById(R.id.auth_state_text);

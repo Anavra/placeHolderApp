@@ -9,18 +9,16 @@
         android:roundIcon="@drawable/ic_box"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="com.example.android.placeholder_inventory.Activities.AuthActivity">
+        <activity android:name=".Activities.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name="com.example.android.placeholder_inventory.Activities.RoomListActivity"
-            android:label="@string/my_rooms">
-            </activity>
+        <activity
+            android:name=".Activities.RoomListActivity"
+            android:label="@string/my_rooms"></activity>
     </application>
 
 </manifest>

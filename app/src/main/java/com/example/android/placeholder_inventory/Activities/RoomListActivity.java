@@ -2,21 +2,15 @@ package com.example.android.placeholder_inventory.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.android.placeholder_inventory.Models.Containers;
+import com.example.android.placeholder_inventory.Fragments.ShowListFragment;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
 import com.example.android.placeholder_inventory.Models.Room;
-import com.example.android.placeholder_inventory.Adapters.RoomListAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,52 +22,41 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This activity is responsible for handling its fragments and interacting with
+ * the database to retrieve user item lists.
+ */
 
-public class RoomListActivity extends AppCompatActivity{
-    private RecyclerView recyclerView;
-    private RoomListAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+
+public class RoomListActivity extends AppCompatActivity
+    implements ShowListFragment.OnFragmentInteractionListener {
 
     private DatabaseReference mDatabase;
-    private DatabaseReference mRooms;
-    private EditText mAddNewField;
-    private Button mAddNewButton;
-    private static final String REQUIRED = "@string/required";
 
-    private static final String LOG_TAG =
-            RoomListActivity.class.getSimpleName();
-
+    @Override
+    public void onAttachFragment(Fragment fragment){
+        if (fragment instanceof ShowListFragment) {
+            ShowListFragment showListFragment = (ShowListFragment) fragment;
+            showListFragment.setOnFragmentInteractionListener(this);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_list);
-        recyclerView = (RecyclerView) findViewById(R.id.room_list_recycler_view);
+        setContentView(R.layout.activity_login);
 
-        // Using a grid layout manager for the recycler view
-        layoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(layoutManager);
-
-        // Adapter for the room list
-        mAdapter = new RoomListAdapter(Containers.getContainers());
-        recyclerView.setAdapter(mAdapter);
-
-        //Add new item things
-        // [START initialize_database_ref]
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        //mRooms = mDatabase.child("rooms").child()
 
-        // [END initialize_database_ref]
-
-        mAddNewField = findViewById(R.id.addNewField);
-        mAddNewButton = findViewById(R.id.addNewButton);
-
-        mAddNewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewRoom();
+        if (findViewById(R.id.fragment_container) != null){
+            if (savedInstanceState != null) {
+                return;
             }
-        });
+
+            ShowListFragment firstFragment = new ShowListFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, firstFragment).commit();
+        }
     }
 
     @Override
@@ -82,16 +65,14 @@ public class RoomListActivity extends AppCompatActivity{
 
     }
 
-    private void addNewRoom(){
-        final String name = mAddNewField.getText().toString();
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    public void addNewRoom(String name){
+        final String roomName = name;
         final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        if (TextUtils.isEmpty(name)) {
-            mAddNewField.setError(REQUIRED);
-            return;
-        }
-
-        //mDatabase.child("users").child(UserId).setValue(user);
 
         mDatabase.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -105,7 +86,7 @@ public class RoomListActivity extends AppCompatActivity{
                 } else {
                     // Actually adding the room here:
                     Toast.makeText(RoomListActivity.this, "Posting...", Toast.LENGTH_SHORT).show();
-                    Room room = new Room(name, userID);
+                    Room room = new Room(roomName, userID);
 
                     // Making the userID "represent" the room
                     Map<String, Object> roomProperties = room.makeMap();
@@ -120,7 +101,9 @@ public class RoomListActivity extends AppCompatActivity{
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(RoomListActivity.this,
+                        "Error: "+databaseError.toException(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
