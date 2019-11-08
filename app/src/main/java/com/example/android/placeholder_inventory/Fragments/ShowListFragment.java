@@ -76,11 +76,6 @@ public class ShowListFragment extends Fragment {
 
         // Binding the recyclerView for the list
         recyclerView = (RecyclerView) roomView.findViewById(R.id.room_list_recycler_view);
-        // Using a grid layout manager for the recycler view
-        layoutManager = new GridLayoutManager(getActivity(), 2);
-        recyclerView.setLayoutManager(layoutManager);
-
-
 
         //Add new item field
         mAddNewField = roomView.findViewById(R.id.addNewField);
@@ -104,7 +99,12 @@ public class ShowListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new RoomListAdapter(getContext(), mRoomList);
+
+        // Using a grid layout manager for the recycler view
+        layoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new RoomListAdapter(getActivity(), mRoomList);
+
         recyclerView.setAdapter(mAdapter);
     }
 

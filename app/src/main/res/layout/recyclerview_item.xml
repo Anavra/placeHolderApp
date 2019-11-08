@@ -32,5 +32,11 @@
             android:textColor="#C5C5DF"
             android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

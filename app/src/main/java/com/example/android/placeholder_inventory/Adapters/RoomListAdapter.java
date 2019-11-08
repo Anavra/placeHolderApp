@@ -23,15 +23,14 @@ import java.util.List;
 
 public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomViewHolder> {
     private Context mContext;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mRooms;
     private ChildEventListener mChildEventListener;
     private List<Room> mRoomList = new ArrayList<>();
 
     // Constructor - argument is an array of room names
     public RoomListAdapter(final Context context, DatabaseReference mData) {
-        this.mDatabase = mData;
+        this.mRooms = mData;
         this.mContext = context;
-
 
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
@@ -42,7 +41,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
                             "Error: could not fetch room.",
                             Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(mContext, "The room is: " + room.name, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "The room is: " + room.name, Toast.LENGTH_SHORT).show();
                 mRoomList.add(room);
             }
 
@@ -68,7 +67,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
                         Toast.LENGTH_SHORT).show();
             }
         };
-        mData.addChildEventListener(childEventListener);
+        mRooms.addChildEventListener(childEventListener);
 
         mChildEventListener = childEventListener;
     }
@@ -87,10 +86,10 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
     // LayoutManager use. Creates instance of ViewHolder with recyclerViews in it
     @Override
-    public RoomListAdapter.RoomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = (View) LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.recyclerview_item, parent, false);
-        return new RoomViewHolder(v);
+    public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        return new RoomViewHolder(inflater.inflate(R.layout.recyclerview_item, parent, false));
     }
 
     // LayoutManager use. Sets content to the recyclerViews in the ViewHolder
@@ -107,13 +106,13 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
         return mRoomList.size();
     }
 
-    /*
+
     public void clearListener(){
         if (mChildEventListener != null){
-            mDatabase.removeEventListener(mChildEventListener);
+            mRooms.removeEventListener(mChildEventListener);
         }
     }
 
-     */
+
 
 }
