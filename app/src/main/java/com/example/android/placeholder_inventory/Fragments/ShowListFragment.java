@@ -14,8 +14,15 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.android.placeholder_inventory.Adapters.RoomListAdapter;
-import com.example.android.placeholder_inventory.Models.Containers;
+import com.example.android.placeholder_inventory.Models.Room;
 import com.example.android.placeholder_inventory.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This fragment is contained by RoomListActivity and its action buttons implemented
@@ -26,10 +33,18 @@ import com.example.android.placeholder_inventory.R;
 
 public class ShowListFragment extends Fragment {
     private OnFragmentInteractionListener callback;
-    private RecyclerView recyclerView;
-    private RoomListAdapter mAdapter;
+
+    // Text field to add new item
     private EditText mAddNewField;
+
+    // RecyclerView adapter and related
+    private RoomListAdapter mAdapter;
+    private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+
+    // Getting the room list from the database
+    private DatabaseReference mRoomList;
+
     private static final String REQUIRED = "@string/required";
 
     public ShowListFragment() {
@@ -49,21 +64,23 @@ public class ShowListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         // Inflate the layout for this fragment
         final View roomView = inflater.inflate(R.layout.fragment_room_list, container,
                 false);
 
+        // [START create_database_reference]
+        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mRoomList = FirebaseDatabase.getInstance().getReference().child("user-rooms").child(userID);
+        // [END create_database_reference]
+
         // Binding the recyclerView for the list
         recyclerView = (RecyclerView) roomView.findViewById(R.id.room_list_recycler_view);
-
         // Using a grid layout manager for the recycler view
-        layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
 
 
-        // Adapter for the room list
-        mAdapter = new RoomListAdapter(Containers.getContainers());
-        recyclerView.setAdapter(mAdapter);
 
         //Add new item field
         mAddNewField = roomView.findViewById(R.id.addNewField);
@@ -84,7 +101,24 @@ public class ShowListFragment extends Fragment {
         return roomView;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mAdapter = new RoomListAdapter(getContext(), mRoomList);
+        recyclerView.setAdapter(mAdapter);
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        //mAdapter.clearListener();
+    }
     @Override
     public void onDetach() {
         super.onDetach();

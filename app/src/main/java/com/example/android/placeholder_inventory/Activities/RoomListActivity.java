@@ -19,22 +19,30 @@ import com.google.firebase.database.ValueEventListener;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * This activity is responsible for handling its fragments and interacting with
- * the database to retrieve user item lists.
+ * the database to modify user item lists.
  */
+
+/**
+ * Code related to FireBase inspired after following the documents at
+ * https://firebase.google.com and the accompanying examples.
+ **/
 
 
 public class RoomListActivity extends AppCompatActivity
     implements ShowListFragment.OnFragmentInteractionListener {
 
     private DatabaseReference mDatabase;
+    List<Room> mRoomList = new ArrayList<>();
 
     @Override
-    public void onAttachFragment(Fragment fragment){
+    public void onAttachFragment(Fragment fragment) {
         if (fragment instanceof ShowListFragment) {
             ShowListFragment showListFragment = (ShowListFragment) fragment;
             showListFragment.setOnFragmentInteractionListener(this);
@@ -48,7 +56,7 @@ public class RoomListActivity extends AppCompatActivity
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        if (findViewById(R.id.fragment_container) != null){
+        if (findViewById(R.id.fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;
             }
@@ -60,7 +68,7 @@ public class RoomListActivity extends AppCompatActivity
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
 
     }
@@ -70,7 +78,7 @@ public class RoomListActivity extends AppCompatActivity
         super.onPause();
     }
 
-    public void addNewRoom(String name){
+    public void addNewRoom(String name) {
         final String roomName = name;
         final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -79,7 +87,7 @@ public class RoomListActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
 
-                if(user == null) {
+                if (user == null) {
                     Toast.makeText(RoomListActivity.this,
                             "Error: could not fetch user.",
                             Toast.LENGTH_SHORT).show();
@@ -102,16 +110,12 @@ public class RoomListActivity extends AppCompatActivity
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(RoomListActivity.this,
-                        "Error: "+databaseError.toException(),
+                        "Error: " + databaseError.toException(),
                         Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
+
 }
-
-
-/**
- * Code related to FireBase inspired after following the documents at
- * https://firebase.google.com and the accompanying examples.
- **/

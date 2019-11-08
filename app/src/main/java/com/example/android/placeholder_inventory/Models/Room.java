@@ -6,10 +6,7 @@ import java.util.Map;
 public class Room {
     // Room properties
     public String name;
-    public String description;
     public String userId;
-
-
 
     public Room() {
         // Default public constructor
