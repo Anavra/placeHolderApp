@@ -104,6 +104,7 @@ public class ShowListFragment extends Fragment {
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
         mAdapter = new RoomListAdapter(getActivity(), mRoomList);
+        mAdapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(mAdapter);
     }

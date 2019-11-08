@@ -28,7 +28,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     private List<Room> mRoomList = new ArrayList<>();
 
     // Constructor - argument is an array of room names
-    public RoomListAdapter(final Context context, DatabaseReference mData) {
+    public RoomListAdapter(final Context context, final DatabaseReference mData) {
         this.mRooms = mData;
         this.mContext = context;
 
@@ -43,6 +43,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
                 }
                 //Toast.makeText(mContext, "The room is: " + room.name, Toast.LENGTH_SHORT).show();
                 mRoomList.add(room);
+                notifyItemInserted(mRoomList.size() - 1);
             }
 
             @Override
