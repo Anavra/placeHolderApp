@@ -32,6 +32,8 @@
     <string name="skip_button">Skip</string>
     <string name="skip_text">Or try it without logging in:</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_add">Add New</string>
+    <string name="item_name">Name</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="action_settings">action_settings</string>
 </resources>

@@ -2,11 +2,16 @@ package com.example.android.placeholder_inventory.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.android.placeholder_inventory.Fragments.AddItemFragment;
 import com.example.android.placeholder_inventory.Fragments.ShowListFragment;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
@@ -52,18 +57,22 @@ public class RoomListActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_room_list);
+
+        // Creating toolbar at the top
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        setSupportActionBar(myToolbar);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        if (findViewById(R.id.fragment_container) != null) {
+        if (findViewById(R.id.main_fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;
             }
 
             ShowListFragment firstFragment = new ShowListFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, firstFragment).commit();
+                    .add(R.id.main_fragment_container, firstFragment).commit();
         }
     }
 
@@ -115,6 +124,31 @@ public class RoomListActivity extends AppCompatActivity
             }
         });
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.toolmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                launchAddNewFragment();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void launchAddNewFragment() {
+        AddItemFragment fragment = new AddItemFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

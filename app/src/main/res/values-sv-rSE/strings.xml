@@ -30,4 +30,8 @@
     <string name="skip_button">Hopp</string>
     <string name="skip_text">Testa utan att logga in:</string>
     <string name="required">Obligatorisk</string>
+    <string name="action_add">Add New</string>
+    <string name="item_name">Namn</string>
+    <string name="cancel_button">Avbryt</string>
+    <string name="action_settings">action_settings</string>
 </resources>

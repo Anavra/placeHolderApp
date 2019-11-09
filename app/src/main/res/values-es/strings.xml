@@ -31,4 +31,8 @@
     <string name="skip_button">Omitir</string>
     <string name="skip_text">O prueba sin registrarte:</string>
     <string name="required">Requerido</string>
+    <string name="action_add">Add New</string>
+    <string name="item_name">Nombre</string>
+    <string name="cancel_button">Cancelar</string>
+    <string name="action_settings">action_settings</string>
 </resources>
