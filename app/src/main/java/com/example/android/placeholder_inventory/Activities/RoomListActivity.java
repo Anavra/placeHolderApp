@@ -3,9 +3,12 @@ package com.example.android.placeholder_inventory.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +19,7 @@ import com.example.android.placeholder_inventory.Fragments.ShowListFragment;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
 import com.example.android.placeholder_inventory.Models.Room;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,10 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,7 +43,12 @@ import java.util.Map;
 
 public class RoomListActivity extends AppCompatActivity
     implements ShowListFragment.OnFragmentInteractionListener,
-        AddItemFragment.OnFragmentInteractionListener {
+        AddItemFragment.OnFragmentInteractionListener,
+        NavigationView.OnNavigationItemSelectedListener {
+
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+
     private DatabaseReference mDatabase;
 
     @Override
@@ -65,6 +71,11 @@ public class RoomListActivity extends AppCompatActivity
         // Creating toolbar at the top
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(myToolbar);
+
+        // Creating navigation drawer on the left
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -146,6 +157,21 @@ public class RoomListActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_user_profile:{
+                break;
+            }
+            case R.id.nav_log_out:{
+                logOut();
+            }
+        }
+        menuItem.setChecked(true);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
     public void launchAddNewFragment() {
         AddItemFragment fragment = new AddItemFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -160,5 +186,15 @@ public class RoomListActivity extends AppCompatActivity
         transaction.replace(R.id.main_fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    //PLEASE MOVE THIS FUNCTION OUT SOON! Make a class that handles all authentication-related
+    // things or just call intent on AuthActivity and have the logging out happen there.
+    private void logOut() {
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+        Intent intent = new Intent(this, AuthActivity.class);
+        startActivity(intent);
     }
 }

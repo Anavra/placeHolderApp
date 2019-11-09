@@ -97,6 +97,7 @@ public class AuthActivity extends AppCompatActivity
         User user = new User(UserId);
         mDatabase.child("users").child(UserId).setValue(user);
     }
+
 }
 
 
