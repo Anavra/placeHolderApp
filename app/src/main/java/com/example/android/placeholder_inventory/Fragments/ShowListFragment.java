@@ -34,9 +34,6 @@ import java.util.List;
 public class ShowListFragment extends Fragment {
     private OnFragmentInteractionListener callback;
 
-    // Text field to add new item
-    private EditText mAddNewField;
-
     // RecyclerView adapter and related
     private RoomListAdapter mAdapter;
     private RecyclerView recyclerView;
@@ -44,8 +41,6 @@ public class ShowListFragment extends Fragment {
 
     // Getting the room list from the database
     private DatabaseReference mRoomList;
-
-    private static final String REQUIRED = "@string/required";
 
     public ShowListFragment() {
         // Required empty public constructor
@@ -58,7 +53,6 @@ public class ShowListFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        void addNewRoom(String name);
     }
 
     @Override
@@ -76,22 +70,6 @@ public class ShowListFragment extends Fragment {
 
         // Binding the recyclerView for the list
         recyclerView = (RecyclerView) roomView.findViewById(R.id.room_list_recycler_view);
-
-        //Add new item field
-        mAddNewField = roomView.findViewById(R.id.addNewField);
-
-        // Buttons
-        Button mAddNewButton = roomView.findViewById(R.id.addNewButton);
-
-        mAddNewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view){
-                final String name = mAddNewField.getText().toString();
-                if (formIsValid(name)) {
-                    callback.addNewRoom(name);
-                }
-            }
-        });
 
         return roomView;
     }
@@ -124,15 +102,5 @@ public class ShowListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         callback = null;
-    }
-
-    private boolean formIsValid(String name){
-        if (TextUtils.isEmpty(name)) {
-            mAddNewField.setError(REQUIRED);
-            return false;
-        }
-        else {
-            return true;
-        }
     }
 }

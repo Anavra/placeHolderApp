@@ -41,16 +41,19 @@ import java.util.Map;
 
 
 public class RoomListActivity extends AppCompatActivity
-    implements ShowListFragment.OnFragmentInteractionListener {
-
+    implements ShowListFragment.OnFragmentInteractionListener,
+        AddItemFragment.OnFragmentInteractionListener {
     private DatabaseReference mDatabase;
-    List<Room> mRoomList = new ArrayList<>();
 
     @Override
     public void onAttachFragment(Fragment fragment) {
         if (fragment instanceof ShowListFragment) {
             ShowListFragment showListFragment = (ShowListFragment) fragment;
             showListFragment.setOnFragmentInteractionListener(this);
+        }
+        if (fragment instanceof AddItemFragment) {
+            AddItemFragment addItemFragment = (AddItemFragment) fragment;
+            addItemFragment.setOnFragmentInteractionListener(this);
         }
     }
 
@@ -151,5 +154,11 @@ public class RoomListActivity extends AppCompatActivity
         transaction.commit();
     }
 
-
+    public void launchShowListFragment() {
+        ShowListFragment fragment = new ShowListFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }
