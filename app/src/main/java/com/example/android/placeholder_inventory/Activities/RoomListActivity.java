@@ -93,7 +93,6 @@ public class RoomListActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
-
     }
 
     @Override

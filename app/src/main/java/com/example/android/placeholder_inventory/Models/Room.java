@@ -6,7 +6,7 @@ import java.util.Map;
 public class Room {
     // Room properties
     public String name;
-    public String userId;
+    public String userId; //Only the userId not the entire User object
 
     public Room() {
         // Default public constructor

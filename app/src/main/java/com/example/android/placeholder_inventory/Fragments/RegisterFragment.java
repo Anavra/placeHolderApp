@@ -32,7 +32,7 @@ public class RegisterFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
-    private static final String REQUIRED = "@string/required";
+    private final String REQUIRED = getResources().getString(R.string.required);
 
     // Authentication fields:
     private EditText mEmailField;
@@ -60,7 +60,7 @@ public class RegisterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialize Firebase Auth
+        // Initialize FireBase Auth
         mAuth = FirebaseAuth.getInstance();
         checkAuthState();
     }

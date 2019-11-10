@@ -15,9 +15,7 @@ import android.widget.TextView;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -26,7 +24,7 @@ public class LogInFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
-    private static final String REQUIRED = "@string/required";
+    private final String REQUIRED = getResources().getString(R.string.required);
     private static final String LOG_TAG =
             LogInFragment.class.getSimpleName();
 
@@ -54,7 +52,7 @@ public class LogInFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialize Firebase Auth
+        // Initialize FireBase Auth
         mAuth = FirebaseAuth.getInstance();
         startAuthState();
     }
