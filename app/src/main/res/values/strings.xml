@@ -4,11 +4,9 @@
 
     <string name="my_rooms">My Rooms</string>
     <string name="screen_title_root">My Rooms</string>
-    <string name="user_name_field"></string>
     <string name="user_name_hint">username</string>
     <string name="user_name_tag">User</string>
     <string name="password_tag">Password</string>
-    <string name="password_field"></string>
     <string name="password_hint">password</string>
 
     <string name="message_received">The item you added:</string>
@@ -37,4 +35,6 @@
     <string name="cancel_button">Cancel</string>
     <string name="action_settings">action_settings</string>
     <string name="user_profile">Profile</string>
+    <string name="details_location">Location:</string>
+    <string name="details_description">Description:</string>
 </resources>

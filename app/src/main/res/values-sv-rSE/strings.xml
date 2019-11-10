@@ -7,7 +7,6 @@
 <string name="screen_title_root">Mina Rum</string>
     <string name="user_name_hint">användarnamn</string>
     <string name="password_tag">Lösenord</string>
-<string name="password_field">Lösenord</string>
 <string name="password_hint">lösenord</string>
 
 <string name="message_received">"Du har lagt till:  "</string>
@@ -26,7 +25,7 @@
     <string name="search">Sök</string>
     <string name="register_text">Behöver ett konto?</string>
     <string name="icon_for_item">Objekt Ikon</string>
-    <string name="email_tag">Email</string>
+    <string name="email_tag">E-post</string>
     <string name="skip_button">Hopp</string>
     <string name="skip_text">Testa utan att logga in:</string>
     <string name="required">Obligatorisk</string>
@@ -35,4 +34,6 @@
     <string name="cancel_button">Avbryt</string>
     <string name="action_settings">action_settings</string>
     <string name="user_profile">Profile</string>
+    <string name="details_description">Beskrivning:</string>
+    <string name="details_location">Plats:</string>
 </resources>

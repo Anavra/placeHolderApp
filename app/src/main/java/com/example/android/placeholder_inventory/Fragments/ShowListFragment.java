@@ -6,23 +6,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.android.placeholder_inventory.Adapters.RoomListAdapter;
-import com.example.android.placeholder_inventory.Models.Room;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This fragment is contained by RoomListActivity and its action buttons implemented
@@ -31,8 +23,8 @@ import java.util.List;
  * and sending it to the parent activity.
  */
 
-public class ShowListFragment extends Fragment {
-    private OnFragmentInteractionListener callback;
+public class ShowListFragment extends Fragment implements RoomListAdapter.OnAdapterInteractionListener{
+    private OnFragmentInteractionListener mCallback;
 
     // RecyclerView adapter and related
     private RoomListAdapter mAdapter;
@@ -48,12 +40,14 @@ public class ShowListFragment extends Fragment {
 
     public void setOnFragmentInteractionListener(OnFragmentInteractionListener callback) {
         if (callback != null) {
-            this.callback = callback;
+            this.mCallback = callback;
         }
     }
 
     public interface OnFragmentInteractionListener {
+        void onItemClick(int position);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,16 +75,16 @@ public class ShowListFragment extends Fragment {
         // Using a grid layout manager for the recycler view
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RoomListAdapter(getActivity(), mRoomList);
+        mAdapter = new RoomListAdapter(getActivity(), mRoomList, this);
         mAdapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(mAdapter);
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
-
     }
 
     @Override
@@ -101,6 +95,11 @@ public class ShowListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        callback = null;
+        mCallback = null;
     }
+
+    public void onItemClick(int position) {
+        mCallback.onItemClick(position);
+    }
+
 }

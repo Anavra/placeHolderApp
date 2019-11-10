@@ -8,7 +8,6 @@
     <string name="user_name_hint">nombre de usuario</string>
     <string name="user_name_tag">Usuario</string>
     <string name="password_tag">Contraseña</string>
-    <string name="password_field">Contraseña</string>
     <string name="password_hint">contraseña</string>
 
     <string name="message_received">Has agregado el objeto: </string>
@@ -36,4 +35,6 @@
     <string name="cancel_button">Cancelar</string>
     <string name="action_settings">action_settings</string>
     <string name="user_profile">Profile</string>
+    <string name="details_description">Descripción:</string>
+    <string name="details_location">"Lugar: "</string>
 </resources>

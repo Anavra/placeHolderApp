@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.android.placeholder_inventory.Fragments.AddItemFragment;
+import com.example.android.placeholder_inventory.Fragments.DetailsFragment;
 import com.example.android.placeholder_inventory.Fragments.ShowListFragment;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
@@ -195,5 +196,19 @@ public class RoomListActivity extends AppCompatActivity
         mAuth.signOut();
         Intent intent = new Intent(this, AuthActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        // Creating details fragment and sending arguments to it
+        DetailsFragment fragment = new DetailsFragment();
+        Bundle args = new Bundle();
+        args.putInt("itemPos", position);
+        fragment.setArguments(args);
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment_container,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

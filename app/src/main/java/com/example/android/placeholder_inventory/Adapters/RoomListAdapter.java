@@ -25,12 +25,15 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     private Context mContext;
     private DatabaseReference mRooms;
     private ChildEventListener mChildEventListener;
+    private OnAdapterInteractionListener mClickListener;
     private List<Room> mRoomList = new ArrayList<>();
 
     // Constructor - argument is an array of room names
-    public RoomListAdapter(final Context context, final DatabaseReference mData) {
+    public RoomListAdapter(final Context context, final DatabaseReference mData,
+                           OnAdapterInteractionListener clickListener) {
         this.mRooms = mData;
         this.mContext = context;
+        this.mClickListener = clickListener;
 
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
@@ -73,24 +76,15 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
         mChildEventListener = childEventListener;
     }
 
-    // ViewHolder that contains the recyclerviews given to it with the constructor
-    public static class RoomViewHolder extends RecyclerView.ViewHolder {
-        public TextView roomNameTextView;
-        public ImageView roomImageView;
-
-        public RoomViewHolder(View itemView) {
-            super(itemView);
-                roomNameTextView = (TextView) itemView.findViewById(R.id.room_text);
-                roomImageView = (ImageView) itemView.findViewById(R.id.room_image);
-        }
-    }
-
     // LayoutManager use. Creates instance of ViewHolder with recyclerViews in it
     @Override
     public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view;
+        view = inflater.inflate(R.layout.recyclerview_item, parent, false);
 
-        return new RoomViewHolder(inflater.inflate(R.layout.recyclerview_item, parent, false));
+        RoomViewHolder itemViewHolder =  new RoomViewHolder(view);
+        return itemViewHolder;
     }
 
     // LayoutManager use. Sets content to the recyclerViews in the ViewHolder
@@ -114,6 +108,26 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
         }
     }
 
+    // ViewHolder that contains the recyclerViews given to it with the constructor
+    public class RoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        TextView roomNameTextView;
+        ImageView roomImageView;
+
+        public RoomViewHolder(View itemView) {
+            super(itemView);
+            roomNameTextView = (TextView) itemView.findViewById(R.id.room_text);
+            roomImageView = (ImageView) itemView.findViewById(R.id.room_image);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mClickListener.onItemClick(getAdapterPosition());
+        }
+    }
+    public interface OnAdapterInteractionListener {
+        void onItemClick(int position);
+    }
 
 
 }
