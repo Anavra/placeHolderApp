@@ -38,9 +38,6 @@ public class ShowListFragment extends Fragment implements RoomListAdapter.OnAdap
         // Required empty public constructor
     }
 
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
