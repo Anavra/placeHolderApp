@@ -24,7 +24,6 @@ public class LogInFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
-    private final String REQUIRED = getResources().getString(R.string.required);
     private static final String LOG_TAG =
             LogInFragment.class.getSimpleName();
 
@@ -151,6 +150,7 @@ public class LogInFragment extends Fragment {
 
     private boolean validateForm() {
         boolean valid = true;
+        final String REQUIRED = getResources().getString(R.string.required);
         String email = mEmailField.getText().toString();
         if (TextUtils.isEmpty(email)) {
             mEmailField.setError(REQUIRED);

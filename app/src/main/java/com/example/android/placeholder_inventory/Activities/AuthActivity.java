@@ -44,14 +44,16 @@ public class AuthActivity extends AppCompatActivity
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        if (findViewById(R.id.fragment_container) != null) {
+        if (findViewById(R.id.auth_fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;
             }
             //Set up the first fragment
             AuthFragment firstFragment = new AuthFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, firstFragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.auth_fragment_container, firstFragment)
+                    .commit();
         }
     }
 
@@ -73,7 +75,7 @@ public class AuthActivity extends AppCompatActivity
     public void launchRegisterFragment() {
         RegisterFragment fragment = new RegisterFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
+        transaction.replace(R.id.auth_fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -81,7 +83,7 @@ public class AuthActivity extends AppCompatActivity
     public void launchLogInFragment() {
         LogInFragment fragment = new LogInFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, fragment);
+        transaction.replace(R.id.auth_fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

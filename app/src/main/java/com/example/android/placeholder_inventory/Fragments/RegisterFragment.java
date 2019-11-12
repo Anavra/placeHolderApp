@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.placeholder_inventory.R;
-import com.example.android.placeholder_inventory.Models.User;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +31,6 @@ public class RegisterFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
-    private final String REQUIRED = getResources().getString(R.string.required);
 
     // Authentication fields:
     private EditText mEmailField;
@@ -185,6 +183,7 @@ public class RegisterFragment extends Fragment {
 
     private boolean validateForm() {
         boolean valid = true;
+        final String REQUIRED = getResources().getString(R.string.required);
         String email = mEmailField.getText().toString();
         if (TextUtils.isEmpty(email)) {
             mEmailField.setError(REQUIRED);

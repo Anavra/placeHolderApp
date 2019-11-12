@@ -86,8 +86,10 @@ public class RoomListActivity extends AppCompatActivity
             }
 
             ShowListFragment firstFragment = new ShowListFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.main_fragment_container, firstFragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.main_fragment_container, firstFragment)
+                    .commit();
         }
     }
 
