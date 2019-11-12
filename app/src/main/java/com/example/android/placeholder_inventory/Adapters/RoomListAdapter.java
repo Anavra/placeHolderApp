@@ -28,7 +28,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     private OnAdapterInteractionListener mClickListener;
     private List<Room> mRoomList = new ArrayList<>();
 
-    // Constructor - argument is an array of room names
+    // Constructor - argument is db reference with rooms of the user
     public RoomListAdapter(final Context context, final DatabaseReference mData,
                            OnAdapterInteractionListener clickListener) {
         this.mRooms = mData;
@@ -122,11 +122,14 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
         @Override
         public void onClick(View view) {
-            mClickListener.onItemClick(getAdapterPosition());
+            int position = getAdapterPosition();
+            Room room = mRoomList.get(position);
+            final String itemId = room.getItemId();
+            mClickListener.onItemClick(itemId);
         }
     }
     public interface OnAdapterInteractionListener {
-        void onItemClick(int position);
+        void onItemClick(String itemId);
     }
 
 

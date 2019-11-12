@@ -12,11 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.android.placeholder_inventory.R;
 
 public class DetailsFragment extends Fragment {
-    private DetailsViewModel mViewModel;
+    //private DetailsViewModel mViewModel;
     private TextView mItemName;
 
     /**public static DetailsFragment newInstance() {
@@ -30,7 +29,10 @@ public class DetailsFragment extends Fragment {
         final View detailsView = inflater.inflate(R.layout.details_fragment, container, false);
         mItemName = detailsView.findViewById(R.id.details_item_name);
         Bundle args = getArguments();
-        mItemName.setText(args.getString("itemPos"));
+        mItemName.setText(args.getString("itemId"));
+        if (mItemName == null) {
+            throw new IllegalArgumentException("Must pass itemId");
+        }
 
         return detailsView;
     }

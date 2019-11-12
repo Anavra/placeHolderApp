@@ -117,15 +117,15 @@ public class RoomListActivity extends AppCompatActivity
                             "Error: could not fetch user.",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    // Actually adding the room here:
+                    // Actually adding a new room to the database:
+                    final String key = mDatabase.child("rooms").push().getKey();
                     Toast.makeText(RoomListActivity.this, "Posting...", Toast.LENGTH_SHORT).show();
-                    Room room = new Room(roomName, userID);
-
+                    Room room = new Room(roomName, userID, key);
                     // Making the userID "represent" the room
                     Map<String, Object> roomProperties = room.makeMap();
 
                     // New room saved to rooms
-                    String key = mDatabase.child("rooms").push().getKey();
+
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("/user-rooms/" + userID + "/" + key, roomProperties);
                     mDatabase.updateChildren(childUpdates);
@@ -201,11 +201,11 @@ public class RoomListActivity extends AppCompatActivity
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(String itemId) {
         // Creating details fragment and sending arguments to it
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
-        args.putInt("itemPos", position);
+        args.putString("itemId", itemId);
         fragment.setArguments(args);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

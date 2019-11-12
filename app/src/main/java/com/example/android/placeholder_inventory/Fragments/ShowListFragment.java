@@ -38,15 +38,7 @@ public class ShowListFragment extends Fragment implements RoomListAdapter.OnAdap
         // Required empty public constructor
     }
 
-    public void setOnFragmentInteractionListener(OnFragmentInteractionListener callback) {
-        if (callback != null) {
-            this.mCallback = callback;
-        }
-    }
 
-    public interface OnFragmentInteractionListener {
-        void onItemClick(int position);
-    }
 
 
     @Override
@@ -59,7 +51,11 @@ public class ShowListFragment extends Fragment implements RoomListAdapter.OnAdap
 
         // [START create_database_reference]
         final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mRoomList = FirebaseDatabase.getInstance().getReference().child("user-rooms").child(userID);
+        // Only the list of rooms of that user is acquired.
+        mRoomList = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("user-rooms")
+                .child(userID);
         // [END create_database_reference]
 
         // Binding the recyclerView for the list
@@ -98,8 +94,18 @@ public class ShowListFragment extends Fragment implements RoomListAdapter.OnAdap
         mCallback = null;
     }
 
-    public void onItemClick(int position) {
-        mCallback.onItemClick(position);
+    public void setOnFragmentInteractionListener(OnFragmentInteractionListener callback) {
+        if (callback != null) {
+            this.mCallback = callback;
+        }
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onItemClick(String itemId);
+    }
+
+    public void onItemClick(String itemId) {
+        mCallback.onItemClick(itemId);
     }
 
 }
