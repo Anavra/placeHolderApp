@@ -33,12 +33,13 @@ import java.util.Map;
  *  and sending clicks back to its containing activity.
  */
 
-public class AddItemFragment extends Fragment {
+public class AddItemFragment extends BaseFragment {
     private OnFragmentInteractionListener callback;
 
     private DatabaseReference mDatabase;
     // Text field to add new item
     private EditText mNameField;
+    private EditText mDescriptionField;
     private static final String REQUIRED = "Required";
 
     public AddItemFragment() {
@@ -65,8 +66,9 @@ public class AddItemFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        //Add new item field
+        //Add new item fields
         mNameField = addItemView.findViewById(R.id.name_field);
+        mDescriptionField = addItemView.findViewById(R.id.item_description_field);
 
         // Buttons
         Button AddNewButton = addItemView.findViewById(R.id.add_button);
@@ -104,7 +106,8 @@ public class AddItemFragment extends Fragment {
 
     private void addNewRoom(String name) {
         final String roomName = name;
-        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String itemDescription = mDescriptionField.getText().toString();
+        final String userID = getUserId();
 
         mDatabase.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -117,16 +120,16 @@ public class AddItemFragment extends Fragment {
                             Toast.LENGTH_SHORT).show();
                 } else {
                     // Actually adding a new room to the database:
-                    final String key = mDatabase.child("rooms").push().getKey();
+                    final String itemId = mDatabase.child("rooms").push().getKey();
                     Toast.makeText(getActivity(), "Posting...", Toast.LENGTH_SHORT).show();
-                    Room room = new Room(roomName, userID, key);
+                    Room room = new Room(roomName, itemId, itemDescription);
                     // Making the userID "represent" the room
                     Map<String, Object> roomProperties = room.makeMap();
 
                     // New room saved to rooms
 
                     Map<String, Object> childUpdates = new HashMap<>();
-                    childUpdates.put("/user-rooms/" + userID + "/" + key, roomProperties);
+                    childUpdates.put("/user-rooms/" + userID + "/" + itemId, roomProperties);
                     mDatabase.updateChildren(childUpdates);
                 }
             }

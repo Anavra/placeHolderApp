@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 /**
  * This fragment is contained by RoomListActivity. It is responsible
  * for retrieving and showing the item details.
@@ -31,6 +32,8 @@ public class DetailsFragment extends BaseFragment {
     private ValueEventListener mItemListener;
 
     private TextView mItemNameView;
+    private TextView mItemDescriptionView;
+    private TextView mItemLocationView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,6 +42,8 @@ public class DetailsFragment extends BaseFragment {
         final View detailsView = inflater.inflate(R.layout.details_fragment,
                 container, false);
         mItemNameView = detailsView.findViewById(R.id.details_item_name);
+        mItemDescriptionView = detailsView.findViewById(R.id.details_item_description);
+        mItemLocationView = detailsView.findViewById(R.id.details_item_location);
 
         // Receiving itemId from arguments
         Bundle args = getArguments();
@@ -72,6 +77,8 @@ public class DetailsFragment extends BaseFragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Room room = dataSnapshot.getValue(Room.class);
                 mItemNameView.setText(room.name);
+                mItemDescriptionView.setText(room.getItemDescription());
+                mItemLocationView.setText("This is one of your rooms.");
             }
 
             @Override

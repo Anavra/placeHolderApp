@@ -7,7 +7,7 @@ public class Room {
     // Room properties
     public String name;
     private String itemId;
-    private String userId; //Only the userId not the entire User object
+    private String itemDescription;
 
     public Room() {
         // Default public constructor
@@ -15,10 +15,10 @@ public class Room {
 
     // Two constructors one for "Rooms" and one for other objects?
     // Or one for those that have no children and another for containers
-    public Room(String roomName, String userId, String key) {
+    public Room(String roomName, String itemId, String itemDescription) {
         this.name = roomName;
-        this.itemId = key;
-        this.userId = userId;
+        this.itemId = itemId;
+        this.itemDescription = itemDescription;
     }
 
     // Object to Map to use with FireBase
@@ -26,11 +26,15 @@ public class Room {
         HashMap<String, Object> result = new HashMap<>();
         result.put("name", name);
         result.put("itemId", itemId);
-        result.put("userId", userId);
+        result.put("itemDescription", itemDescription);
         return result;
     }
 
     public String getItemId(){
         return itemId;
+    }
+
+    public String getItemDescription(){
+        return itemDescription;
     }
 }
