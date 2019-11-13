@@ -12,28 +12,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.android.placeholder_inventory.Fragments.AddItemFragment;
 import com.example.android.placeholder_inventory.Fragments.DetailsFragment;
 import com.example.android.placeholder_inventory.Fragments.ShowListFragment;
-import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
-import com.example.android.placeholder_inventory.Models.Room;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 import com.google.firebase.auth.FirebaseAuth;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * This activity is responsible for handling its fragments and interacting with
- * the database to modify user item lists.
+ * This activity is responsible for handling its fragments and the navigation
+ * elements.
  */
 
 /**
@@ -50,7 +41,7 @@ public class RoomListActivity extends AppCompatActivity
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
-    private DatabaseReference mDatabase;
+
 
     @Override
     public void onAttachFragment(Fragment fragment) {
@@ -78,8 +69,6 @@ public class RoomListActivity extends AppCompatActivity
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
         if (findViewById(R.id.main_fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;
@@ -103,44 +92,7 @@ public class RoomListActivity extends AppCompatActivity
         super.onPause();
     }
 
-    public void addNewRoom(String name) {
-        final String roomName = name;
-        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        mDatabase.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-
-                if (user == null) {
-                    Toast.makeText(RoomListActivity.this,
-                            "Error: could not fetch user.",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    // Actually adding a new room to the database:
-                    final String key = mDatabase.child("rooms").push().getKey();
-                    Toast.makeText(RoomListActivity.this, "Posting...", Toast.LENGTH_SHORT).show();
-                    Room room = new Room(roomName, userID, key);
-                    // Making the userID "represent" the room
-                    Map<String, Object> roomProperties = room.makeMap();
-
-                    // New room saved to rooms
-
-                    Map<String, Object> childUpdates = new HashMap<>();
-                    childUpdates.put("/user-rooms/" + userID + "/" + key, roomProperties);
-                    mDatabase.updateChildren(childUpdates);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(RoomListActivity.this,
-                        "Error: " + databaseError.toException(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         super.onCreateOptionsMenu(menu);

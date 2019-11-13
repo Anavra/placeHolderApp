@@ -22,6 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomViewHolder> {
+    /**
+     * This Adapter gets a databaseReference from FireBase and adapts it into
+     * information that can be shown in the ShowListFragment (its view)
+     */
+
     private Context mContext;
     private DatabaseReference mRooms;
     private ChildEventListener mChildEventListener;
@@ -113,7 +118,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
         TextView roomNameTextView;
         ImageView roomImageView;
 
-        public RoomViewHolder(View itemView) {
+        RoomViewHolder(View itemView) {
             super(itemView);
             roomNameTextView = (TextView) itemView.findViewById(R.id.room_text);
             roomImageView = (ImageView) itemView.findViewById(R.id.room_image);

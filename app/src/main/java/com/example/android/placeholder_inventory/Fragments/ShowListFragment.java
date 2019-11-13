@@ -19,17 +19,15 @@ import com.google.firebase.database.FirebaseDatabase;
 /**
  * This fragment is contained by RoomListActivity and its action buttons implemented
  * by it.
- * This fragment is responsible for showing the list, catching the input
+ * This fragment is responsible for showing the items list, catching the input
  * and sending it to the parent activity.
  */
 
 public class ShowListFragment extends Fragment implements RoomListAdapter.OnAdapterInteractionListener{
     private OnFragmentInteractionListener mCallback;
 
-    // RecyclerView adapter and related
-    private RoomListAdapter mAdapter;
+    // RecyclerView to show the list of items
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
 
     // Getting the room list from the database
     private DatabaseReference mRoomList;
@@ -65,12 +63,15 @@ public class ShowListFragment extends Fragment implements RoomListAdapter.OnAdap
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // Using a grid layout manager for the recycler view
+        // Using a grid layout manager for the recyclerView
+        RecyclerView.LayoutManager layoutManager;
         layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
+
+        // Adapter for the recyclerView
+        RoomListAdapter mAdapter;
         mAdapter = new RoomListAdapter(getActivity(), mRoomList, this);
         mAdapter.notifyDataSetChanged();
-
         recyclerView.setAdapter(mAdapter);
     }
 
