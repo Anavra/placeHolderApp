@@ -2,7 +2,6 @@ package com.example.android.placeholder_inventory.Fragments;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.example.android.placeholder_inventory.Adapters.RoomListAdapter;
 import com.example.android.placeholder_inventory.R;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,7 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
  * and sending it to the parent activity.
  */
 
-public class ShowListFragment extends Fragment implements RoomListAdapter.OnAdapterInteractionListener{
+public class ShowListFragment extends BaseFragment
+        implements RoomListAdapter.OnAdapterInteractionListener{
+
     private OnFragmentInteractionListener mCallback;
 
     // RecyclerView to show the list of items
@@ -45,7 +45,7 @@ public class ShowListFragment extends Fragment implements RoomListAdapter.OnAdap
                 false);
 
         // [START create_database_reference]
-        final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String userID = getUserId();
         // Only the list of rooms of that user is acquired.
         mRoomList = FirebaseDatabase.getInstance()
                 .getReference()
