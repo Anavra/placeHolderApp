@@ -69,9 +69,10 @@ public class AddItemFragment extends Fragment {
         mNameField = addItemView.findViewById(R.id.name_field);
 
         // Buttons
-        Button mAddNewButton = addItemView.findViewById(R.id.add_button);
+        Button AddNewButton = addItemView.findViewById(R.id.add_button);
+        Button CancelButton = addItemView.findViewById(R.id.cancel_button);
 
-        mAddNewButton.setOnClickListener(new View.OnClickListener() {
+        AddNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 final String name = mNameField.getText().toString();
@@ -79,6 +80,13 @@ public class AddItemFragment extends Fragment {
                     addNewRoom(name);
                     callback.launchShowListFragment();
                 }
+            }
+        });
+
+        CancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.launchShowListFragment();
             }
         });
 
@@ -94,7 +102,7 @@ public class AddItemFragment extends Fragment {
         }
     }
 
-    public void addNewRoom(String name) {
+    private void addNewRoom(String name) {
         final String roomName = name;
         final String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
