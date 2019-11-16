@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Room {
     // Room properties
-    public String name;
+    private String name;
     private String itemId;
     private String itemDescription;
 
@@ -30,11 +30,15 @@ public class Room {
         return result;
     }
 
-    public String getItemId(){
+    public String getName() {
+        return name;
+    }
+
+    public String getItemId() {
         return itemId;
     }
 
-    public String getItemDescription(){
+    public String getItemDescription() {
         return itemDescription;
     }
 }

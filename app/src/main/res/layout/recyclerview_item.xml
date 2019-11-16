@@ -5,31 +5,35 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@color/colorPrimaryDark"
     card_view:cardCornerRadius="6dp"
-    card_view:cardElevation="6dp">
+    card_view:cardElevation="6dp"
+    card_view:cardBackgroundColor="@color/semi_transparent_color"
+    card_view:contentPadding="10dp"
+    >
 
     <RelativeLayout
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
         android:padding="5dp">
-
 
         <ImageView
             android:id="@+id/room_image"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:contentDescription="@string/icon_for_item"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_placeholder_boxes" />
+
         <TextView
             android:id="@+id/room_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
-            android:textColor="#C5C5DF"
+            android:gravity="center_horizontal"
+            android:textColor="#A7FFEB"
             android:textSize="18sp" />
 
     </RelativeLayout>

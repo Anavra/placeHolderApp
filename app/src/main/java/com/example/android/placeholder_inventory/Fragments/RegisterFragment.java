@@ -133,7 +133,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void linkAccount() {
-        if(!validateForm()){
+        if(validateForm()){
             return;
         }
         String email = mEmailField.getText().toString();
@@ -160,7 +160,7 @@ public class RegisterFragment extends Fragment {
     }
 
     private void createAccount(){
-        if(!validateForm()){
+        if(validateForm()){
             return;
         }
         String email = mEmailField.getText().toString();
@@ -199,6 +199,6 @@ public class RegisterFragment extends Fragment {
         } else {
             mPasswordField.setError(null);
         }
-        return valid;
+        return !valid;
     }
 }

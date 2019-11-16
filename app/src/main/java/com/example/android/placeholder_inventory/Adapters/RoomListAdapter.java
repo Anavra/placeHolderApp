@@ -27,11 +27,11 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
      * information that can be shown in the ShowListFragment (its view)
      */
 
-    private Context mContext;
-    private DatabaseReference mRooms;
-    private ChildEventListener mChildEventListener;
-    private OnAdapterInteractionListener mClickListener;
-    private List<Room> mRoomList = new ArrayList<>();
+    private final Context mContext;
+    private final DatabaseReference mRooms;
+    private final ChildEventListener mChildEventListener;
+    private final OnAdapterInteractionListener mClickListener;
+    private final List<Room> mRoomList = new ArrayList<>();
 
     // Constructor - argument is db reference with rooms of the user
     public RoomListAdapter(final Context context, final DatabaseReference mData,
@@ -88,8 +88,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
         View view;
         view = inflater.inflate(R.layout.recyclerview_item, parent, false);
 
-        RoomViewHolder itemViewHolder =  new RoomViewHolder(view);
-        return itemViewHolder;
+        return new RoomViewHolder(view);
     }
 
     // LayoutManager use. Sets content to the recyclerViews in the ViewHolder
@@ -97,7 +96,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     public void onBindViewHolder(RoomViewHolder holder, int position) {
         // This function automatically loops through the positions
         Room room = mRoomList.get(position);
-        holder.roomNameTextView.setText(room.name);
+        holder.roomNameTextView.setText(room.getName());
     }
 
     // LayoutManager use. Item count.
@@ -115,8 +114,8 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
     // ViewHolder that contains the recyclerViews given to it with the constructor
     public class RoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView roomNameTextView;
-        ImageView roomImageView;
+        final TextView roomNameTextView;
+        final ImageView roomImageView;
 
         RoomViewHolder(View itemView) {
             super(itemView);

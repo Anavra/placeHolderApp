@@ -14,7 +14,7 @@ public class BaseFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public String getUserId(){
+    String getUserId(){
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 }

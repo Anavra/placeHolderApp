@@ -47,6 +47,10 @@ public class DetailsFragment extends BaseFragment {
 
         // Receiving itemId from arguments
         Bundle args = getArguments();
+        if (args ==  null) {
+            throw new IllegalArgumentException("No arguments were passed.");
+        }
+
         String itemId = args.getString(ITEM_ID);
 
         if (itemId == null) {
@@ -76,7 +80,7 @@ public class DetailsFragment extends BaseFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Room room = dataSnapshot.getValue(Room.class);
-                mItemNameView.setText(room.name);
+                mItemNameView.setText(room.getName());
                 mItemDescriptionView.setText(room.getItemDescription());
                 mItemLocationView.setText("This is one of your rooms.");
             }

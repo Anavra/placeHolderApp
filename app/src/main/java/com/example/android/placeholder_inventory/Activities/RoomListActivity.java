@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.android.placeholder_inventory.Fragments.AddItemFragment;
 import com.example.android.placeholder_inventory.Fragments.DetailsFragment;
@@ -22,12 +24,11 @@ import com.google.android.material.navigation.NavigationView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
 /**
  * This activity is responsible for handling its fragments and the navigation
  * elements.
- */
-
-/**
  * Code related to FireBase inspired after following the documents at
  * https://firebase.google.com and the accompanying examples.
  **/
@@ -39,8 +40,6 @@ public class RoomListActivity extends AppCompatActivity
         NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
-
 
 
     @Override
@@ -66,9 +65,17 @@ public class RoomListActivity extends AppCompatActivity
 
         // Creating navigation drawer on the left
         drawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.navigation_view);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.navigation_header);
+        TextView navUser = (TextView)headerView.findViewById(R.id.nav_user);
+        navUser.setText("Hello User!");
+
         navigationView.setNavigationItemSelectedListener(this);
 
+        // Adding a test background image
+        drawerLayout.setBackgroundResource(R.drawable.bg_grungy_hor);
+
+        // Setting up the first fragment
         if (findViewById(R.id.main_fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;
@@ -126,7 +133,7 @@ public class RoomListActivity extends AppCompatActivity
         return true;
     }
 
-    public void launchAddNewFragment() {
+    private void launchAddNewFragment() {
         AddItemFragment fragment = new AddItemFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_fragment_container, fragment);
