@@ -70,8 +70,8 @@ public class LogInFragment extends Fragment {
         mAuthStateTextView = rootView.findViewById(R.id.auth_state_text);
 
         // Buttons:
-        Button logInButton = (Button) rootView.findViewById(R.id.log_in_button);
-        Button switchToRegisterButton = (Button) rootView.findViewById(R.id.register_button);
+        Button logInButton = (Button) rootView.findViewById(R.id.login_auth_button);
+        Button switchToRegisterButton = (Button) rootView.findViewById(R.id.switch_to_register_button);
 
         //Button Listeners:
         logInButton.setOnClickListener(new View.OnClickListener() {

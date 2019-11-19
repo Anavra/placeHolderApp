@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/middle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -18,32 +18,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_box" />
 
     <Button
-        android:id="@+id/log_in_button"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/MainButton"
+        android:id="@+id/register_auth_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/log_in"
-        app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintEnd_toStartOf="@+id/vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/vertical_left"
+        app:layout_constraintTop_toTopOf="@+id/middle" />
+
 
     <Button
         android:id="@+id/register_button"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/SecondaryButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/register_button"
-        app:layout_constraintEnd_toStartOf="@+id/guideline9"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/log_in_button" />
+        app:layout_constraintEnd_toStartOf="@+id/vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/register_auth_button" />
 
     <Button
         android:id="@+id/skip_button"
@@ -52,22 +53,23 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="@string/skip_button"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/guideline9" />
+        app:layout_constraintBottom_toTopOf="@+id/bottom"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_right" />
 
     <TextView
-        android:id="@+id/textView"
+        style="@style/TextAppearance"
+        android:id="@+id/skip_text_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:text="@string/skip_text"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintBottom_toTopOf="@+id/bottom"
         app:layout_constraintEnd_toStartOf="@+id/skip_button"
         app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="@+id/guideline8" />
+        app:layout_constraintStart_toStartOf="@+id/vertical_left" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline5"
+        android:id="@+id/bottom"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="32dp"
@@ -76,26 +78,25 @@
         app:layout_constraintGuide_begin="600dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="30sp"
+        android:textAppearance="@style/TitleTextAppearance"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline8"
+        android:id="@+id/vertical_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.2" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline9"
+        android:id="@+id/vertical_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="68dp"
@@ -109,10 +110,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:layout_marginBottom="8dp"
-        android:fontFamily="monospace"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="#673AB7"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:textAppearance="@style/DebugTextAppearance"
+        app:layout_constraintBottom_toTopOf="@+id/skip_text_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_button"

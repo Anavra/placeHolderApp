@@ -72,7 +72,7 @@ public class AuthFragment extends Fragment {
 
         // Buttons
         Button SkipButton = (Button) rootView.findViewById(R.id.skip_button);
-        Button SwitchToLogInButton = (Button) rootView.findViewById(R.id.log_in_button);
+        Button SwitchToLogInButton = (Button) rootView.findViewById(R.id.register_auth_button);
         Button SwitchToRegisterButton = (Button) rootView.findViewById(R.id.register_button);
 
         // Button Listeners

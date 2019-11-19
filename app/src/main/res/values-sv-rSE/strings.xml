@@ -37,4 +37,5 @@
     <string name="details_description">Beskrivning:</string>
     <string name="details_location">Plats:</string>
     <string name="item_description">Beskrivning</string>
+    <string name="register_title">Register</string>
 </resources>

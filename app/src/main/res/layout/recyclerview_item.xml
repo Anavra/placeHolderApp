@@ -11,7 +11,7 @@
     card_view:contentPadding="10dp"
     >
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:orientation="vertical"
@@ -20,21 +20,22 @@
 
         <ImageView
             android:id="@+id/room_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="top|center"
             android:contentDescription="@string/icon_for_item"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_placeholder_boxes" />
 
-        <TextView
-            android:id="@+id/room_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            android:textColor="#A7FFEB"
-            android:textSize="18sp" />
 
-    </RelativeLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/room_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:textAlignment="center"
+        android:textColor="@color/color_on_primary_variant"
+        android:textSize="18sp" />
 </androidx.cardview.widget.CardView>

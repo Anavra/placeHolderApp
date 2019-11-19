@@ -39,4 +39,5 @@
     <string name="details_description">Description:</string>
 
     <string name="item_description">Description</string>
+    <string name="register_title">Register</string>
 </resources>

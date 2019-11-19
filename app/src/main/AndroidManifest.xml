@@ -8,8 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_box"
         android:supportsRtl="true"
-        android:theme="@style/PlaceHolder.ThemeDark">
-        <activity android:name=".Activities.AuthActivity">
+        android:theme="@style/PlaceHolderTheme">
+        <activity
+            android:name=".Activities.AuthActivity"
+            android:theme="@style/PlaceHolderTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/PlaceHolderTheme"
             android:name=".Activities.RoomListActivity"
             android:label="@string/my_rooms" />
     </application>
