@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.Activities;
+package com.example.android.placeholder_inventory.ItemLists;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,16 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.android.placeholder_inventory.Fragments.AddItemFragment;
-import com.example.android.placeholder_inventory.Fragments.DetailsFragment;
-import com.example.android.placeholder_inventory.Fragments.ShowListFragment;
+import com.example.android.placeholder_inventory.Authentication.AuthActivity;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.material.navigation.NavigationView;
-
-
-import com.google.firebase.auth.FirebaseAuth;
-
-import org.w3c.dom.Text;
 
 /**
  * This activity is responsible for handling its fragments and the navigation
@@ -60,14 +53,14 @@ public class RoomListActivity extends AppCompatActivity
         setContentView(R.layout.activity_room_list);
 
         // Creating toolbar at the top
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        Toolbar myToolbar = findViewById(R.id.app_toolbar);
         setSupportActionBar(myToolbar);
 
         // Creating navigation drawer on the left
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         View headerView = navigationView.inflateHeaderView(R.layout.navigation_header);
-        TextView navUser = (TextView)headerView.findViewById(R.id.nav_user);
+        TextView navUser = headerView.findViewById(R.id.nav_user);
         navUser.setText("Hello User!");
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -101,6 +94,7 @@ public class RoomListActivity extends AppCompatActivity
 
 
     @Override
+
     public boolean onCreateOptionsMenu(Menu menu){
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.toolmenu, menu);
@@ -126,6 +120,10 @@ public class RoomListActivity extends AppCompatActivity
             }
             case R.id.nav_log_out:{
                 logOut();
+                break;
+            }
+            case R.id.nav_home: {
+                launchShowListFragment();
             }
         }
         menuItem.setChecked(true);
@@ -149,13 +147,10 @@ public class RoomListActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    //PLEASE MOVE THIS FUNCTION OUT SOON! Make a class that handles all authentication-related
-    // things or just call intent on AuthActivity and have the logging out happen there.
     private void logOut() {
-        FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
         Intent intent = new Intent(this, AuthActivity.class);
+        /** How to signal this? **/
+        intent.putExtra("flag", true);
         startActivity(intent);
     }
 

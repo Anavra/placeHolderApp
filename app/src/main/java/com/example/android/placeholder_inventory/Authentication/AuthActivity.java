@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.Activities;
+package com.example.android.placeholder_inventory.Authentication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -6,11 +6,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.android.placeholder_inventory.Fragments.AuthFragment;
-import com.example.android.placeholder_inventory.Fragments.LogInFragment;
+import com.example.android.placeholder_inventory.ItemLists.RoomListActivity;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
-import com.example.android.placeholder_inventory.Fragments.RegisterFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,6 +41,16 @@ public class AuthActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        Bundle receiveBundle = this.getIntent().getExtras();
+        if (receiveBundle != null) {
+            boolean loggingOut = receiveBundle.getBoolean("flag");
+            if (loggingOut) {
+                FirebaseAuth mAuth;
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+            }
+        }
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         if (findViewById(R.id.auth_fragment_container) != null) {
@@ -49,11 +58,7 @@ public class AuthActivity extends AppCompatActivity
                 return;
             }
             //Set up the first fragment
-            AuthFragment firstFragment = new AuthFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.auth_fragment_container, firstFragment)
-                    .commit();
+            launchInitialFragment();
         }
     }
 
@@ -68,8 +73,16 @@ public class AuthActivity extends AppCompatActivity
     }
 
     public void onValidAuth(FirebaseUser user) {
-        addNewUserToDataBase(user.getUid()); //Careful dont add it every time??
+        addNewUserToDataBase(user.getUid());
         launchRoomList();
+    }
+
+    public void launchInitialFragment() {
+        AuthFragment firstFragment = new AuthFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.auth_fragment_container, firstFragment)
+                .commit();
     }
 
     public void launchRegisterFragment() {

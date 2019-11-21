@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.Fragments;
+package com.example.android.placeholder_inventory.ItemLists;
 
 import android.os.Bundle;
 
@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.placeholder_inventory.Adapters.RoomListAdapter;
+import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -54,7 +55,7 @@ public class ShowListFragment extends BaseFragment
         // [END create_database_reference]
 
         // Binding the recyclerView for the list
-        recyclerView = (RecyclerView) roomView.findViewById(R.id.room_list_recycler_view);
+        recyclerView = roomView.findViewById(R.id.room_list_recycler_view);
 
         return roomView;
     }

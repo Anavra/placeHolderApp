@@ -1,17 +1,17 @@
-package com.example.android.placeholder_inventory.Fragments;
-
+package com.example.android.placeholder_inventory.Authentication;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,35 +19,31 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-/**
- * This is the first fragment that is shown when opening the app.
- * Contained in activity AuthActivity, which implements interface.
- */
-
-public class AuthFragment extends Fragment {
+public class LogInFragment extends BaseFragment {
     private OnButtonPressedListener callback;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
-
     private static final String LOG_TAG =
-            AuthFragment.class.getSimpleName();
+            LogInFragment.class.getSimpleName();
 
-    public AuthFragment() {
+    // LogIn fields:
+    private EditText mEmailField;
+    private EditText mPasswordField;
+
+
+    public LogInFragment() {
         // Required empty public constructor
     }
 
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-
+    // package-private: no access modifier needs to be declared
     public void setOnButtonPressedListener(OnButtonPressedListener callback) {
-        this.callback = callback;
+       this.callback = callback;
     }
 
     public interface OnButtonPressedListener {
-        // When switching to Register or Log In
-        void launchLogInFragment();
+        // Interface defined here is implemented in AuthActivity
         void launchRegisterFragment();
-
-        // When pressing the button skip, log in anonymously.
         void onValidAuth(FirebaseUser user);
     }
 
@@ -55,7 +51,6 @@ public class AuthFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(LOG_TAG, "Created.");
         // Initialize FireBase Auth
         mAuth = FirebaseAuth.getInstance();
         startAuthState();
@@ -66,33 +61,29 @@ public class AuthFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.fragment_auth, container,
+        final View rootView = inflater.inflate(R.layout.fragment_log_in, container,
                 false);
+
+        // Authentication variables:
+        mEmailField = rootView.findViewById(R.id.email_field);
+        mPasswordField = rootView.findViewById(R.id.password_field);
         mAuthStateTextView = rootView.findViewById(R.id.auth_state_text);
 
-        // Buttons
-        Button SkipButton = (Button) rootView.findViewById(R.id.skip_button);
-        Button SwitchToLogInButton = (Button) rootView.findViewById(R.id.register_auth_button);
-        Button SwitchToRegisterButton = (Button) rootView.findViewById(R.id.register_button);
+        // Buttons:
+        Button logInButton = rootView.findViewById(R.id.login_auth_button);
+        Button switchToRegisterButton = rootView.findViewById(R.id.switch_to_register_button);
 
-        // Button Listeners
-        SkipButton.setOnClickListener(new View.OnClickListener() {
+        //Button Listeners:
+        logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                signInAnonymously();
+            public void onClick(View v){
+                signIn();
             }
         });
 
-        SwitchToLogInButton.setOnClickListener(new View.OnClickListener() {
+        switchToRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                callback.launchLogInFragment();
-            }
-        });
-
-        SwitchToRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 callback.launchRegisterFragment();
             }
         });
@@ -105,20 +96,17 @@ public class AuthFragment extends Fragment {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthStateListener);
-        if (mAuth.getCurrentUser() != null){
-          callback.onValidAuth(mAuth.getCurrentUser());
-        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthStateListener != null) {
+        if (mAuthStateListener != null){
             mAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
 
-    private void startAuthState() {
+    private void startAuthState(){
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -133,21 +121,51 @@ public class AuthFragment extends Fragment {
             }
         };
     }
-    private void signInAnonymously() {
-        mAuth.signInAnonymously()
+
+    private void signIn() {
+        if(!validateForm()){
+            return;
+        }
+        String email = mEmailField.getText().toString();
+        String password = mPasswordField.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         String message;
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            message = "Signed in anonymously";
-                            callback.onValidAuth(user);
+                            message = "Huge success, " + user;
+                            callback.onValidAuth(user); //pass user into it later
                         } else {
-                            message = "Failed anonymous sign in: " + task.getException();
+                            message = "Could not login: " + task.getException();
                         }
                         mAuthStateTextView.setText(message);
                     }
                 });
     }
-}
+
+
+    private boolean validateForm() {
+        boolean valid = true;
+        final String REQUIRED = getResources().getString(R.string.required);
+        String email = mEmailField.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            mEmailField.setError(REQUIRED);
+            valid = false;
+        } else {
+            mEmailField.setError(null);
+        }
+
+        String password = mPasswordField.getText().toString();
+        if (TextUtils.isEmpty(password)){
+            mPasswordField.setError(REQUIRED);
+            valid = false;
+        } else {
+            mPasswordField.setError(null);
+        }
+        return valid;
+    }
+ }
+

@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.Fragments;
+package com.example.android.placeholder_inventory.ItemLists;
 
 import android.os.Bundle;
 
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.Models.Room;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.database.DataSnapshot;

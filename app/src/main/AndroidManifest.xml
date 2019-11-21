@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/PlaceHolderTheme">
         <activity
-            android:name=".Activities.AuthActivity"
+            android:name=".Authentication.AuthActivity"
             android:theme="@style/PlaceHolderTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:theme="@style/PlaceHolderTheme"
-            android:name=".Activities.RoomListActivity"
+            android:name=".ItemLists.RoomListActivity"
             android:label="@string/my_rooms" />
     </application>
 

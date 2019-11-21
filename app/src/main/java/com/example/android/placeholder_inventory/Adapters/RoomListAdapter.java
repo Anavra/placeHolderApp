@@ -119,8 +119,8 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
         RoomViewHolder(View itemView) {
             super(itemView);
-            roomNameTextView = (TextView) itemView.findViewById(R.id.room_text);
-            roomImageView = (ImageView) itemView.findViewById(R.id.room_image);
+            roomNameTextView = itemView.findViewById(R.id.room_text);
+            roomImageView = itemView.findViewById(R.id.room_image);
             itemView.setOnClickListener(this);
         }
 

@@ -1,9 +1,8 @@
-package com.example.android.placeholder_inventory.Fragments;
+package com.example.android.placeholder_inventory.Authentication;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends BaseFragment {
     private OnButtonPressedListener callback;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -76,8 +76,8 @@ public class RegisterFragment extends Fragment {
         mAuthStateTextView = rootView.findViewById(R.id.auth_state_text);
 
         // Buttons
-        Button LogInButton = (Button) rootView.findViewById(R.id.register_auth_button);
-        Button SwitchToLogInButton = (Button) rootView.findViewById(R.id.switch_to_login_button);
+        Button LogInButton = rootView.findViewById(R.id.register_auth_button);
+        Button SwitchToLogInButton = rootView.findViewById(R.id.switch_to_login_button);
 
         // Button Listeners
         LogInButton.setOnClickListener(new View.OnClickListener() {
