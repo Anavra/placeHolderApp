@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.android.placeholder_inventory.Authentication.AuthActivity;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  * This activity is responsible for handling its fragments and the navigation
@@ -33,6 +34,7 @@ public class RoomListActivity extends AppCompatActivity
         NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     @Override
@@ -51,6 +53,8 @@ public class RoomListActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_list);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         // Creating toolbar at the top
         Toolbar myToolbar = findViewById(R.id.app_toolbar);
@@ -149,7 +153,7 @@ public class RoomListActivity extends AppCompatActivity
 
     private void logOut() {
         Intent intent = new Intent(this, AuthActivity.class);
-        /** How to signal this? **/
+        /** IF USER IS ANON, set flag to false**/
         intent.putExtra("flag", true);
         startActivity(intent);
     }
@@ -161,6 +165,10 @@ public class RoomListActivity extends AppCompatActivity
         Bundle args = new Bundle();
         args.putString("itemId", itemId);
         fragment.setArguments(args);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Anonymous");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_fragment_container,fragment);

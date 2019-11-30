@@ -15,6 +15,7 @@ import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +30,8 @@ public class AuthFragment extends BaseFragment {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private TextView mAuthStateTextView;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private static final String LOG_TAG =
             AuthFragment.class.getSimpleName();
@@ -37,7 +40,6 @@ public class AuthFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     public void setOnButtonPressedListener(OnButtonPressedListener callback) {
         this.callback = callback;
@@ -55,6 +57,8 @@ public class AuthFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
         Log.i(LOG_TAG, "Created.");
         // Initialize FireBase Auth
@@ -156,6 +160,11 @@ public class AuthFragment extends BaseFragment {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             message = "Signed in anonymously";
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString(FirebaseAnalytics.Param.METHOD, "Anonymous");
+                            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
+
                             callback.onValidAuth(user);
                         } else {
                             message = "Failed anonymous sign in: " + task.getException();

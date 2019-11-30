@@ -17,6 +17,7 @@ import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.Models.Room;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +37,8 @@ public class AddItemFragment extends BaseFragment {
     private OnFragmentInteractionListener callback;
 
     private DatabaseReference mDatabase;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     // Text field to add new item
     private EditText mNameField;
     private EditText mDescriptionField;
@@ -64,6 +67,7 @@ public class AddItemFragment extends BaseFragment {
                 false);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
         //Add new item fields
         mNameField = addItemView.findViewById(R.id.name_field);
@@ -108,6 +112,8 @@ public class AddItemFragment extends BaseFragment {
         final String itemDescription = mDescriptionField.getText().toString();
         final String userID = getUserId();
 
+
+
         mDatabase.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -130,6 +136,10 @@ public class AddItemFragment extends BaseFragment {
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("/user-rooms/" + userID + "/" + itemId, roomProperties);
                     mDatabase.updateChildren(childUpdates);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, roomName);
+                    mFirebaseAnalytics.logEvent("Add_Item", bundle);
                 }
             }
 
@@ -139,6 +149,8 @@ public class AddItemFragment extends BaseFragment {
                         "Error: " + databaseError.toException(),
                         Toast.LENGTH_SHORT).show();
             }
+
+
         });
 
     }
