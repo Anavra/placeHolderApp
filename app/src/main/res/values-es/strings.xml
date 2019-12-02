@@ -39,4 +39,7 @@
     <string name="details_location">"Lugar: "</string>
     <string name="item_description">Descripción</string>
     <string name="register_title">Register</string>
+    <string name="continue_text">Continúa</string>
+    <string name="home">Inicio</string>
+    <string name="action_remove">Eliminar</string>
 </resources>

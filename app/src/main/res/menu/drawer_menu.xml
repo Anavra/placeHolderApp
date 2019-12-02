@@ -2,10 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_home"
-            android:title="Home"></item>
+            android:title="@string/home"></item>
         <item android:id="@+id/nav_user_profile"
             android:title="@string/user_profile" />
         <item android:id="@+id/nav_log_out"
             android:title="@string/log_out" />
+        <item android:id="@+id/nav_convert"
+            android:title="@string/register_title"/>
     </group>
 </menu>

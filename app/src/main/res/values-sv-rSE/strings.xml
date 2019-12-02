@@ -26,7 +26,7 @@
     <string name="register_text">Behöver ett konto?</string>
     <string name="icon_for_item">Objekt Ikon</string>
     <string name="email_tag">E-post</string>
-    <string name="skip_button">Hopp</string>
+    <string name="skip_button">Hoppa över</string>
     <string name="skip_text">Testa utan att logga in:</string>
     <string name="required">Obligatorisk</string>
     <string name="action_add">Add New</string>
@@ -38,4 +38,7 @@
     <string name="details_location">Plats:</string>
     <string name="item_description">Beskrivning</string>
     <string name="register_title">Register</string>
+    <string name="continue_text">Fortsätt</string>
+    <string name="home">Hem</string>
+    <string name="action_remove">Ta bort</string>
 </resources>

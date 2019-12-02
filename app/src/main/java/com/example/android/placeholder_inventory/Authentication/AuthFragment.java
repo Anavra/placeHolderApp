@@ -3,6 +3,7 @@ package com.example.android.placeholder_inventory.Authentication;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -78,8 +79,18 @@ public class AuthFragment extends BaseFragment {
 
         // Buttons
         Button SkipButton = rootView.findViewById(R.id.skip_button);
-        Button SwitchToLogInButton = rootView.findViewById(R.id.register_auth_button);
-        Button SwitchToRegisterButton = rootView.findViewById(R.id.register_button);
+
+        // This button reads "Log in" if no user is currently logged in and "Continue"
+        // if a user is already logged in.
+        Button SwitchToLogInButton = rootView.findViewById(R.id.login_auth_button);
+        if (mAuth.getCurrentUser() != null) {
+            SwitchToLogInButton.setText(getString(R.string.continue_text));
+            callback.onValidAuth(getCurrentUser());
+        } else {
+            callback.launchLogInFragment();
+        }
+
+       Button SwitchToRegisterButton = rootView.findViewById(R.id.register_button);
 
         // Button Listeners
         SkipButton.setOnClickListener(new View.OnClickListener() {

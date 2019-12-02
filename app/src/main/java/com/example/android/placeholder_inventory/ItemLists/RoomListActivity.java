@@ -21,8 +21,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
- * This activity is responsible for handling its fragments and the navigation
- * elements.
+ * This activity is responsible for handling fragments switching,
+ * fragment communication, and the navigation elements (top bar
+ * and navigation drawer).
+ *
  * Code related to FireBase inspired after following the documents at
  * https://firebase.google.com and the accompanying examples.
  **/
@@ -111,6 +113,9 @@ public class RoomListActivity extends AppCompatActivity
             case R.id.action_add:
                 launchAddNewFragment();
                 return true;
+            case R.id.action_remove:
+                //fragment method
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -124,6 +129,9 @@ public class RoomListActivity extends AppCompatActivity
             }
             case R.id.nav_log_out:{
                 logOut();
+                break;
+            }
+            case R.id.nav_convert:{
                 break;
             }
             case R.id.nav_home: {

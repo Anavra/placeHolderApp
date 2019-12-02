@@ -15,6 +15,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * This activity is responsible for handling fragment switching, fragment
+ * communication.
+ * **/
+
 public class AuthActivity extends AppCompatActivity
         implements LogInFragment.OnButtonPressedListener,
         RegisterFragment.OnButtonPressedListener,
