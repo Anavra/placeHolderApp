@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -61,6 +63,15 @@ public class AuthFragment extends BaseFragment {
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
+        /**
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
+                GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+         **/
+
+        //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         Log.i(LOG_TAG, "Created.");
         // Initialize FireBase Auth
         mAuth = getInstance();
@@ -85,10 +96,8 @@ public class AuthFragment extends BaseFragment {
         Button SwitchToLogInButton = rootView.findViewById(R.id.login_auth_button);
         if (mAuth.getCurrentUser() != null) {
             SwitchToLogInButton.setText(getString(R.string.continue_text));
-            callback.onValidAuth(getCurrentUser());
-        } else {
-            callback.launchLogInFragment();
         }
+
 
        Button SwitchToRegisterButton = rootView.findViewById(R.id.register_button);
 
