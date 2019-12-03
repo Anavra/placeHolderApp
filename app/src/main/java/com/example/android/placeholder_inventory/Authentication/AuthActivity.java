@@ -28,7 +28,7 @@ public class AuthActivity extends AppCompatActivity
 
     private DatabaseReference mDatabase;
     private FirebaseAnalytics mFirebaseAnalytics;
-    private GoogleSignInClient mGoogleSignInClient;
+
 
     @Override
     public void onAttachFragment(Fragment fragment) {
@@ -120,6 +120,11 @@ public class AuthActivity extends AppCompatActivity
     private void addNewUserToDataBase(String UserId){
         User user = new User(UserId);
         mDatabase.child("users").child(UserId).setValue(user);
+    }
+
+    public void googleSignIn(GoogleSignInClient googleSignInClient, int google_rc_sign_in){
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, google_rc_sign_in);
     }
 
 }

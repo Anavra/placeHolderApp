@@ -1,5 +1,6 @@
 package com.example.android.placeholder_inventory.Authentication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,13 +16,19 @@ import android.widget.TextView;
 import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 /**
  * This is the first fragment that is shown when opening the app.
@@ -35,6 +42,8 @@ public class AuthFragment extends BaseFragment {
     private TextView mAuthStateTextView;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 1986;
 
     private static final String LOG_TAG =
             AuthFragment.class.getSimpleName();
@@ -55,6 +64,7 @@ public class AuthFragment extends BaseFragment {
 
         // When pressing the button skip, log in anonymously.
         void onValidAuth(FirebaseUser user);
+        void googleSignIn(GoogleSignInClient googleSignInClient, int google_rc_sign_in);
     }
 
     @Override
@@ -63,14 +73,15 @@ public class AuthFragment extends BaseFragment {
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
-        /**
+        // Initialize Google sign-in method
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("727364686482-009h8jlk4c5u4etqujmjqh55pj569lp5.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
-         **/
 
-        //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
 
         Log.i(LOG_TAG, "Created.");
         // Initialize FireBase Auth
@@ -98,8 +109,13 @@ public class AuthFragment extends BaseFragment {
             SwitchToLogInButton.setText(getString(R.string.continue_text));
         }
 
-
        Button SwitchToRegisterButton = rootView.findViewById(R.id.register_button);
+
+        // Google SignIn button
+        SignInButton signInButton = rootView.findViewById(R.id.sign_in_button);
+        signInButton.setStyle(signInButton.SIZE_WIDE, signInButton.COLOR_DARK);
+
+
 
         // Button Listeners
         SkipButton.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +143,13 @@ public class AuthFragment extends BaseFragment {
             }
         });
 
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                googleSignIn(mGoogleSignInClient, RC_SIGN_IN);
+            }
+        });
+
         // Return the View for the fragment's UI
         return rootView;
     }
@@ -137,6 +160,7 @@ public class AuthFragment extends BaseFragment {
 
         mAuth.addAuthStateListener(mAuthStateListener);
 
+        // Check if user is signed in
         FirebaseUser currentUser = getCurrentUser();
 
         // Go in automatically if non-anon user logged in
@@ -155,6 +179,49 @@ public class AuthFragment extends BaseFragment {
             mAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result from launching Intent
+        if (requestCode == RC_SIGN_IN) {
+            String message;
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+                message = "Signed in with Google";
+            } catch (ApiException e) {
+                message = "Google sign in failed";
+            }
+            mAuthStateTextView.setText(message);
+        }
+    }
+
+    public void googleSignIn(GoogleSignInClient googleSignInClient, int google_rc_sign_in){
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, google_rc_sign_in);
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account){
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(AuthFragment.this.getActivity(), new OnCompleteListener<AuthResult>(){
+                   @Override
+                   public void onComplete(@NonNull Task<AuthResult> task) {
+                       String message;
+                       if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            message = "signed in successfully";
+                       } else {
+                            message = "Authentication Failed";
+                       }
+                       mAuthStateTextView.setText(message);
+                   }
+                });
+    }
+
 
     private void startAuthState() {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
