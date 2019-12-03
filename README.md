@@ -33,5 +33,6 @@ Requirements
 ------------
 
 [Kravlista](https://gitlab.ida.liu.se/vanro619/android-app/wikis/krav.md)
+[Uppnådda Krav](https://gitlab.ida.liu.se/vanro619/android-app/wikis/Uppn%C3%A5dda-krav)
 
 
