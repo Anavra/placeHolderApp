@@ -11,7 +11,9 @@
         android:theme="@style/PlaceHolderTheme">
         <activity
             android:name=".Authentication.AuthActivity"
-            android:theme="@style/PlaceHolderTheme">
+            android:theme="@style/PlaceHolderTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,6 +23,7 @@
         <activity
             android:theme="@style/PlaceHolderTheme"
             android:name=".ItemLists.RoomListActivity"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:label="@string/my_rooms" />
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"

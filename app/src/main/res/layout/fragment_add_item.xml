@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:inputType="text"
+            android:inputType="textAutoCorrect"
             android:singleLine="true" />
 
         <TextView
@@ -48,7 +48,7 @@
             android:id="@+id/item_description_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textLongMessage" />
+            android:inputType="textMultiLine|textAutoCorrect" />
 
     </LinearLayout>
 

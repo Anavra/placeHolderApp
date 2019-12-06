@@ -112,8 +112,6 @@ public class AddItemFragment extends BaseFragment {
         final String itemDescription = mDescriptionField.getText().toString();
         final String userID = getUserId();
 
-
-
         mDatabase.child("users").child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -132,7 +130,6 @@ public class AddItemFragment extends BaseFragment {
                     Map<String, Object> roomProperties = room.makeMap();
 
                     // New room saved to rooms
-
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("/user-rooms/" + userID + "/" + itemId, roomProperties);
                     mDatabase.updateChildren(childUpdates);
