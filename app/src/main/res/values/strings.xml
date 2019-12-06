@@ -44,4 +44,10 @@
 
     <string name="item_description">Description</string>
     <string name="register_title">Register</string>
+
+    <string name="google_token" translatable="false">727364686482-009h8jlk4c5u4etqujmjqh55pj569lp5.apps.googleusercontent.com</string>
+
+    <string name="facebook_app_id" translatable="false">2548016512147265</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb2548016512147265</string>
+
 </resources>

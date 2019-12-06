@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+
 /**
  * This activity is responsible for handling fragment switching, fragment
  * communication.
@@ -122,10 +124,6 @@ public class AuthActivity extends AppCompatActivity
         mDatabase.child("users").child(UserId).setValue(user);
     }
 
-    public void googleSignIn(GoogleSignInClient googleSignInClient, int google_rc_sign_in){
-        Intent signInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, google_rc_sign_in);
-    }
 
 }
 

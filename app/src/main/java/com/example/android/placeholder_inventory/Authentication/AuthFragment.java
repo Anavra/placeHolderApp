@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +14,12 @@ import android.widget.TextView;
 
 import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,9 +31,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+import java.util.Arrays;
+
 
 /**
  * This is the first fragment that is shown when opening the app.
@@ -37,13 +48,22 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class AuthFragment extends BaseFragment {
     private OnButtonPressedListener callback;
+
+    // FireBase
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private TextView mAuthStateTextView;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseAnalytics mFirebaseAnalytics;
+
+    // Google login
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 1986;
+    private static final String GOOGLE_TOKEN = "727364686482-009h8jlk4c5u4etqujmjqh55pj569lp5.apps.googleusercontent.com";
+
+    // Facebook login
+    private CallbackManager mCallbackManager;
+    private static final String EMAIL = "email";
 
     private static final String LOG_TAG =
             AuthFragment.class.getSimpleName();
@@ -64,7 +84,6 @@ public class AuthFragment extends BaseFragment {
 
         // When pressing the button skip, log in anonymously.
         void onValidAuth(FirebaseUser user);
-        void googleSignIn(GoogleSignInClient googleSignInClient, int google_rc_sign_in);
     }
 
     @Override
@@ -76,12 +95,14 @@ public class AuthFragment extends BaseFragment {
         // Initialize Google sign-in method
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("727364686482-009h8jlk4c5u4etqujmjqh55pj569lp5.apps.googleusercontent.com")
+                .requestIdToken(GOOGLE_TOKEN)
                 .requestEmail()
                 .build();
 
 
         mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
+
+        mCallbackManager = CallbackManager.Factory.create();
 
         Log.i(LOG_TAG, "Created.");
         // Initialize FireBase Auth
@@ -116,6 +137,10 @@ public class AuthFragment extends BaseFragment {
         signInButton.setStyle(signInButton.SIZE_WIDE, signInButton.COLOR_DARK);
 
 
+        // Facebook login button
+        LoginButton loginButton = rootView.findViewById(R.id.facebook_login_button);
+        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        loginButton.setFragment(this);
 
         // Button Listeners
         SkipButton.setOnClickListener(new View.OnClickListener() {
@@ -150,8 +175,47 @@ public class AuthFragment extends BaseFragment {
             }
         });
 
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(LOG_TAG, "facebook:onSuccess:" + loginResult);
+                firebaseAuthWithFacebook(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(LOG_TAG, "facebook:onCancel");
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(LOG_TAG, "facebook:onError", error);
+            }
+        });
+
         // Return the View for the fragment's UI
         return rootView;
+    }
+
+    private void firebaseAuthWithFacebook(AccessToken accessToken) {
+        Log.d(LOG_TAG, "firebaseAuthWithFacebook:" + accessToken);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        String message;
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            message = "Signed in with Facebook";
+                        } else {
+                            message = "Facebook sign in Failed";
+                        }
+                        mAuthStateTextView.setText(message);
+                    }
+                });
     }
 
     @Override
@@ -182,6 +246,7 @@ public class AuthFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result from launching Intent
