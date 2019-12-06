@@ -9,6 +9,8 @@ import android.os.Bundle;
 import com.example.android.placeholder_inventory.ItemLists.RoomListActivity;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +32,7 @@ public class AuthActivity extends AppCompatActivity
 
     private DatabaseReference mDatabase;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private boolean mUserLoggedInWithFacebook;
 
 
     @Override
@@ -52,18 +55,25 @@ public class AuthActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        mUserLoggedInWithFacebook = accessToken != null && !accessToken.isExpired();
+
         Bundle receiveBundle = this.getIntent().getExtras();
         if (receiveBundle != null) {
-            boolean loggingOut = receiveBundle.getBoolean("flag");
+            boolean loggingOut = receiveBundle.getBoolean("loggingOut");
             if (loggingOut) {
                 FirebaseAuth mAuth;
                 mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();
+                if(mUserLoggedInWithFacebook) {
+                    LoginManager.getInstance().logOut();
+                }
             }
         }
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 
         if (findViewById(R.id.auth_fragment_container) != null) {
             if (savedInstanceState != null) {

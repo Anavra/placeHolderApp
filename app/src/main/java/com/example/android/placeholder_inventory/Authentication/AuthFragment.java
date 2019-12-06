@@ -65,6 +65,7 @@ public class AuthFragment extends BaseFragment {
     private CallbackManager mCallbackManager;
     private static final String EMAIL = "email";
 
+
     private static final String LOG_TAG =
             AuthFragment.class.getSimpleName();
 
@@ -84,6 +85,7 @@ public class AuthFragment extends BaseFragment {
 
         // When pressing the button skip, log in anonymously.
         void onValidAuth(FirebaseUser user);
+
     }
 
     @Override
@@ -141,6 +143,7 @@ public class AuthFragment extends BaseFragment {
         LoginButton loginButton = rootView.findViewById(R.id.facebook_login_button);
         loginButton.setReadPermissions(Arrays.asList(EMAIL));
         loginButton.setFragment(this);
+
 
         // Button Listeners
         SkipButton.setOnClickListener(new View.OnClickListener() {
@@ -264,7 +267,8 @@ public class AuthFragment extends BaseFragment {
         }
     }
 
-    public void googleSignIn(GoogleSignInClient googleSignInClient, int google_rc_sign_in){
+
+    private void googleSignIn(GoogleSignInClient googleSignInClient, int google_rc_sign_in){
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, google_rc_sign_in);
     }

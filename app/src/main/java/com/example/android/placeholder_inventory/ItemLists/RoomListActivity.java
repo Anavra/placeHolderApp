@@ -128,10 +128,14 @@ public class RoomListActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_log_out:{
-                logOut();
+                onBackToAuth(true);
                 break;
             }
             case R.id.nav_convert:{
+                Bundle bundle = new Bundle();
+                bundle.putString("attempt_to_convert", "true");
+                mFirebaseAnalytics.logEvent("attempt_to_convert", bundle);
+                onBackToAuth(false);
                 break;
             }
             case R.id.nav_home: {
@@ -159,12 +163,12 @@ public class RoomListActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    private void logOut() {
+    private void onBackToAuth(boolean loggingOut) {
         Intent intent = new Intent(this, AuthActivity.class);
-        /** IF USER IS ANON, set flag to false**/
-        intent.putExtra("flag", true);
+        intent.putExtra("loggingOut", loggingOut);
         startActivity(intent);
     }
+
 
     @Override
     public void onItemClick(String itemId) {
@@ -175,7 +179,7 @@ public class RoomListActivity extends AppCompatActivity
         fragment.setArguments(args);
 
         Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Anonymous");
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
