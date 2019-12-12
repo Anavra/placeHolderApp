@@ -18,8 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 /**
  * This fragment is contained by RoomListActivity and its action buttons implemented
  * by it.
- * This fragment is responsible for showing the items list, catching the input
- * and sending it to the parent activity.
+ * This fragment is responsible for showing the items list with its adapter,
+ * catching the input and sending it to the parent activity.
  */
 
 public class ShowListFragment extends BaseFragment

@@ -23,10 +23,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 /**
  * This activity is responsible for handling fragments switching,
  * fragment communication, and the navigation elements (top bar
- * and navigation drawer).
- *
- * Code related to FireBase inspired after following the documents at
- * https://firebase.google.com and the accompanying examples.
+ * and navigation drawer)
  **/
 
 
@@ -58,35 +55,18 @@ public class RoomListActivity extends AppCompatActivity
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        // Creating toolbar at the top
-        Toolbar myToolbar = findViewById(R.id.app_toolbar);
-        setSupportActionBar(myToolbar);
-
-        // Creating navigation drawer on the left
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        View headerView = navigationView.inflateHeaderView(R.layout.navigation_header);
-        TextView navUser = headerView.findViewById(R.id.nav_user);
-        navUser.setText("Hello User!");
-
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // Adding a test background image
-        drawerLayout.setBackgroundResource(R.drawable.bg_grungy_hor);
+        setUpTopToolBar();
+        setUpNavigationDrawer();
 
         // Setting up the first fragment
         if (findViewById(R.id.main_fragment_container) != null) {
             if (savedInstanceState != null) {
                 return;
             }
-
-            ShowListFragment firstFragment = new ShowListFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.main_fragment_container, firstFragment)
-                    .commit();
+            launchInitialFragment();
         }
     }
+
 
     @Override
     public void onStart() {
@@ -147,29 +127,6 @@ public class RoomListActivity extends AppCompatActivity
         return true;
     }
 
-    private void launchAddNewFragment() {
-        AddItemFragment fragment = new AddItemFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    public void launchShowListFragment() {
-        ShowListFragment fragment = new ShowListFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_fragment_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    private void onBackToAuth(boolean loggingOut) {
-        Intent intent = new Intent(this, AuthActivity.class);
-        intent.putExtra("loggingOut", loggingOut);
-        startActivity(intent);
-    }
-
-
     @Override
     public void onItemClick(String itemId) {
         // Creating details fragment and sending arguments to it
@@ -187,4 +144,55 @@ public class RoomListActivity extends AppCompatActivity
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    public void launchInitialFragment() {
+        ShowListFragment firstFragment = new ShowListFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.main_fragment_container, firstFragment)
+                .commit();
+    }
+
+    private void launchAddNewFragment() {
+        AddItemFragment fragment = new AddItemFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void launchShowListFragment() {
+        ShowListFragment fragment = new ShowListFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+    private void onBackToAuth(boolean loggingOut) {
+        Intent intent = new Intent(this, AuthActivity.class);
+        intent.putExtra("loggingOut", loggingOut);
+        startActivity(intent);
+    }
+
+    private void setUpTopToolBar(){
+        // Creating toolbar at the top
+        Toolbar myToolbar = findViewById(R.id.app_toolbar);
+        setSupportActionBar(myToolbar);
+    }
+
+    private void setUpNavigationDrawer(){
+        // Creating navigation drawer on the left
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.navigation_header);
+        TextView navUser = headerView.findViewById(R.id.nav_user);
+        navUser.setText("Hello User!");
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // Adding a test background image
+        drawerLayout.setBackgroundResource(R.drawable.bg_grungy_hor);
+    }
+
 }
