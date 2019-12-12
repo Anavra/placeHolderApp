@@ -95,7 +95,7 @@ public class AuthActivity extends AppCompatActivity
     }
 
     public void onValidAuth(FirebaseUser user) {
-        addNewUserToDataBase(user.getUid());
+        addNewUserToDataBase(user.getUid(), user.isAnonymous());
         launchRoomList();
     }
 
@@ -129,15 +129,10 @@ public class AuthActivity extends AppCompatActivity
         startActivity(inIntent);
     }
 
-    private void addNewUserToDataBase(String UserId){
-        User user = new User(UserId);
+    private void addNewUserToDataBase(String UserId, Boolean isAnon){
+        User user = new User(UserId, isAnon);
         mDatabase.child("users").child(UserId).setValue(user);
     }
-
-
 }
 
 
-/* TO do2:
-Add more methods to control lifecycle.
- */

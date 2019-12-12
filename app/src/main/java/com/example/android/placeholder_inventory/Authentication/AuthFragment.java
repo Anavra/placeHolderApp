@@ -35,8 +35,6 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 import java.util.Arrays;
 
@@ -136,7 +134,7 @@ public class AuthFragment extends BaseFragment {
 
         // Google SignIn button
         SignInButton signInButton = rootView.findViewById(R.id.sign_in_button);
-        signInButton.setStyle(signInButton.SIZE_WIDE, signInButton.COLOR_DARK);
+        signInButton.setStyle(SignInButton.SIZE_WIDE, SignInButton.COLOR_DARK);
 
 
         // Facebook login button
