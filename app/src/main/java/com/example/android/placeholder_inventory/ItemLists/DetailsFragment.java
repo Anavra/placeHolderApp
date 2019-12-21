@@ -11,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.placeholder_inventory.BaseFragment;
-import com.example.android.placeholder_inventory.Models.Room;
+import com.example.android.placeholder_inventory.Models.UserItem;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -82,9 +82,9 @@ public class DetailsFragment extends BaseFragment {
         ValueEventListener itemListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Room room = dataSnapshot.getValue(Room.class);
-                mItemNameView.setText(room.getName());
-                mItemDescriptionView.setText(room.getItemDescription());
+                UserItem userItem = dataSnapshot.getValue(UserItem.class);
+                mItemNameView.setText(userItem.getName());
+                mItemDescriptionView.setText(userItem.getItemDescription());
                 mItemLocationView.setText("This is one of your rooms.");
             }
 

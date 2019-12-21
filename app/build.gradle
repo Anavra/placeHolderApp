@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res/layouts/authentication', 'src/main/res/layouts/itemLists', 'src/main/res']
+        }
+    }
 }
 
 dependencies {
@@ -30,7 +35,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.facebook.android:facebook-login:[5,6)'
-
 
 
     def recyclerview_version = "1.0.0"

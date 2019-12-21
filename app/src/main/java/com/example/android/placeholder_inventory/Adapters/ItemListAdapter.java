@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.placeholder_inventory.Models.Room;
+import com.example.android.placeholder_inventory.Models.UserItem;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +31,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     private final DatabaseReference mRooms;
     private final ChildEventListener mChildEventListener;
     private final OnAdapterInteractionListener mClickListener;
-    private final List<Room> mRoomList = new ArrayList<>();
+    private final List<UserItem> mUserItemList = new ArrayList<>();
 
     // Constructor - argument is db reference with rooms of the user
     public ItemListAdapter(final Context context, final DatabaseReference mData,
@@ -43,20 +43,20 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Room room = dataSnapshot.getValue(Room.class);
-                if (room == null){
+                UserItem userItem = dataSnapshot.getValue(UserItem.class);
+                if (userItem == null){
                     Toast.makeText(mContext,
-                            "Error: could not fetch room.",
+                            "Error: could not fetch userItem.",
                             Toast.LENGTH_SHORT).show();
                 }
-                //Toast.makeText(mContext, "The room is: " + room.name, Toast.LENGTH_SHORT).show();
-                mRoomList.add(room);
-                notifyItemInserted(mRoomList.size() - 1);
+                //Toast.makeText(mContext, "The userItem is: " + userItem.name, Toast.LENGTH_SHORT).show();
+                mUserItemList.add(userItem);
+                notifyItemInserted(mUserItemList.size() - 1);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Room room = dataSnapshot.getValue(Room.class);
+                UserItem userItem = dataSnapshot.getValue(UserItem.class);
                 // To implement
             }
 
@@ -95,14 +95,14 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         // This function automatically loops through the positions
-        Room room = mRoomList.get(position);
-        holder.roomNameTextView.setText(room.getName());
+        UserItem userItem = mUserItemList.get(position);
+        holder.roomNameTextView.setText(userItem.getName());
     }
 
     // LayoutManager use. Item count.
     @Override
     public int getItemCount() {
-        return mRoomList.size();
+        return mUserItemList.size();
     }
 
 
@@ -127,8 +127,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            Room room = mRoomList.get(position);
-            final String itemId = room.getItemId();
+            UserItem userItem = mUserItemList.get(position);
+            final String itemId = userItem.getItemId();
             mClickListener.onItemClick(itemId);
         }
     }

@@ -3,20 +3,20 @@ package com.example.android.placeholder_inventory.Models;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Room {
-    // Room properties
+public class UserItem {
+    // UserItem properties
     private String name;
     private String itemId;
     private String itemDescription;
 
-    public Room() {
+    public UserItem() {
         // Default public constructor
     }
 
     // Two constructors one for "Rooms" and one for other objects?
     // Or one for those that have no children and another for containers
-    public Room(String roomName, String itemId, String itemDescription) {
-        this.name = roomName;
+    public UserItem(String itemName, String itemId, String itemDescription) {
+        this.name = itemName;
         this.itemId = itemId;
         this.itemDescription = itemDescription;
     }

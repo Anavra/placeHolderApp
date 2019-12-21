@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.android.placeholder_inventory.BaseFragment;
-import com.example.android.placeholder_inventory.Models.Room;
+import com.example.android.placeholder_inventory.Models.UserItem;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -134,14 +134,14 @@ public class AddItemFragment extends BaseFragment {
                             "Error: could not fetch user.",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    // Actually adding a new room to the database:
+                    // Actually adding a new userItem to the database:
                     final String itemId = mDatabase.child("rooms").push().getKey();
                     Toast.makeText(getActivity(), "Posting...", Toast.LENGTH_SHORT).show();
-                    Room room = new Room(roomName, itemId, itemDescription);
-                    // Making the userID "represent" the room
-                    Map<String, Object> roomProperties = room.makeMap();
+                    UserItem userItem = new UserItem(roomName, itemId, itemDescription);
+                    // Making the userID "represent" the userItem
+                    Map<String, Object> roomProperties = userItem.makeMap();
 
-                    // New room saved to rooms
+                    // New userItem saved to rooms
                     Map<String, Object> childUpdates = new HashMap<>();
                     childUpdates.put("/user-rooms/" + userID + "/" + itemId, roomProperties);
                     mDatabase.updateChildren(childUpdates);
