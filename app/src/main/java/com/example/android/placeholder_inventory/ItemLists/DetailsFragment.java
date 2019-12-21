@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 /**
- * This fragment is contained by RoomListActivity. It is responsible
+ * This fragment is contained by ItemListActivity. It is responsible
  * for retrieving and showing the item details.
  * Receives the item ID on creation and fetches the details from the database.
  */
@@ -35,6 +35,8 @@ public class DetailsFragment extends BaseFragment {
     private TextView mItemNameView;
     private TextView mItemDescriptionView;
     private TextView mItemLocationView;
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,

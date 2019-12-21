@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:theme="@style/PlaceHolderTheme"
-            android:name=".ItemLists.RoomListActivity"
+            android:name=".ItemLists.ItemListActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:label="@string/my_rooms" />
 

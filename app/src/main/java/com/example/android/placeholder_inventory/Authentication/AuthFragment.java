@@ -1,5 +1,6 @@
 package com.example.android.placeholder_inventory.Authentication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -45,7 +46,7 @@ import java.util.Arrays;
  */
 
 public class AuthFragment extends BaseFragment {
-    private OnButtonPressedListener callback;
+    private OnButtonPressedListener mCallback;
 
     // FireBase
     private FirebaseAuth mAuth;
@@ -72,18 +73,15 @@ public class AuthFragment extends BaseFragment {
     }
 
 
-    public void setOnButtonPressedListener(OnButtonPressedListener callback) {
-        this.callback = callback;
-    }
 
-    public interface OnButtonPressedListener {
-        // When switching to Register or Log In
-        void launchLogInFragment();
-        void launchRegisterFragment();
-
-        // When pressing the button skip, log in anonymously.
-        void onValidAuth(FirebaseUser user);
-
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if(context instanceof OnButtonPressedListener){
+            mCallback = (OnButtonPressedListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + "not implemented in context");
+        }
     }
 
     @Override
@@ -155,9 +153,9 @@ public class AuthFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (mAuth.getCurrentUser() != null) {
-                    callback.onValidAuth(getCurrentUser());
+                    mCallback.onValidAuth(getCurrentUser());
                 } else {
-                    callback.launchLogInFragment();
+                    mCallback.launchLogInFragment();
                 }
             }
         });
@@ -165,7 +163,7 @@ public class AuthFragment extends BaseFragment {
         SwitchToRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.launchRegisterFragment();
+                mCallback.launchRegisterFragment();
             }
         });
 
@@ -231,7 +229,7 @@ public class AuthFragment extends BaseFragment {
         // Go in automatically if non-anon user logged in
         if (currentUser != null){
             if (!currentUser.isAnonymous()) {
-                callback.onValidAuth(currentUser);
+                mCallback.onValidAuth(currentUser);
             }
         }
 
@@ -263,6 +261,19 @@ public class AuthFragment extends BaseFragment {
             }
             mAuthStateTextView.setText(message);
         }
+    }
+
+    public void setOnButtonPressedListener(OnButtonPressedListener callback) {
+        this.mCallback = callback;
+    }
+
+    public interface OnButtonPressedListener {
+        // When switching to Register or Log In
+        void launchLogInFragment();
+        void launchRegisterFragment();
+
+        // When pressing the button skip, log in anonymously.
+        void onValidAuth(FirebaseUser user);
     }
 
 
@@ -319,7 +330,7 @@ public class AuthFragment extends BaseFragment {
                             bundle.putString(FirebaseAnalytics.Param.METHOD, "Anonymous");
                             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
 
-                            callback.onValidAuth(user);
+                            mCallback.onValidAuth(user);
                         } else {
                             message = "Failed anonymous sign in: " + task.getException();
                         }

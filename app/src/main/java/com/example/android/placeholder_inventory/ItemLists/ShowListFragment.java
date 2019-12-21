@@ -1,5 +1,6 @@
 package com.example.android.placeholder_inventory.ItemLists;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -9,21 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.placeholder_inventory.Adapters.RoomListAdapter;
+import com.example.android.placeholder_inventory.Adapters.ItemListAdapter;
 import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * This fragment is contained by RoomListActivity and its action buttons implemented
+ * This fragment is contained by ItemListActivity and its action buttons implemented
  * by it.
  * This fragment is responsible for showing the items list with its adapter,
  * catching the input and sending it to the parent activity.
  */
 
 public class ShowListFragment extends BaseFragment
-        implements RoomListAdapter.OnAdapterInteractionListener{
+        implements ItemListAdapter.OnAdapterInteractionListener{
 
     private OnFragmentInteractionListener mCallback;
 
@@ -32,9 +33,20 @@ public class ShowListFragment extends BaseFragment
 
     // Getting the room list from the database
     private DatabaseReference mRoomList;
+    private Context mContext;
 
     public ShowListFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if(context instanceof OnFragmentInteractionListener){
+            mCallback = (OnFragmentInteractionListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + "not implemented in context");
+        }
     }
 
     @Override
@@ -70,8 +82,8 @@ public class ShowListFragment extends BaseFragment
         recyclerView.setLayoutManager(layoutManager);
 
         // Adapter for the recyclerView
-        RoomListAdapter mAdapter;
-        mAdapter = new RoomListAdapter(getActivity(), mRoomList, this);
+        ItemListAdapter mAdapter;
+        mAdapter = new ItemListAdapter(getActivity(), mRoomList, this);
         mAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(mAdapter);
     }

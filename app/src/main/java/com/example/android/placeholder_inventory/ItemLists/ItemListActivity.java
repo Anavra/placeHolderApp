@@ -20,6 +20,8 @@ import com.example.android.placeholder_inventory.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import com.example.android.placeholder_inventory.Utils.*;
+
 /**
  * This activity is responsible for handling fragments switching,
  * fragment communication, and the navigation elements (top bar
@@ -27,7 +29,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
  **/
 
 
-public class RoomListActivity extends AppCompatActivity
+public class ItemListActivity extends AppCompatActivity
     implements ShowListFragment.OnFragmentInteractionListener,
         AddItemFragment.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
@@ -184,10 +186,15 @@ public class RoomListActivity extends AppCompatActivity
 
     private void setUpNavigationDrawer(){
         // Creating navigation drawer on the left
+
+        //Utils.
+
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         View headerView = navigationView.inflateHeaderView(R.layout.navigation_header);
         TextView navUser = headerView.findViewById(R.id.nav_user);
+
+
         navUser.setText("Hello User!");
         navigationView.setNavigationItemSelectedListener(this);
 

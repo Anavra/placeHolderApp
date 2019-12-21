@@ -6,12 +6,11 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.android.placeholder_inventory.ItemLists.RoomListActivity;
+import com.example.android.placeholder_inventory.ItemLists.ItemListActivity;
 import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -125,7 +124,7 @@ public class AuthActivity extends AppCompatActivity
     }
 
     private void launchRoomList() {
-        Intent inIntent = new Intent(this, RoomListActivity.class);
+        Intent inIntent = new Intent(this, ItemListActivity.class);
         startActivity(inIntent);
     }
 

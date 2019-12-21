@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 public class RegisterFragment extends BaseFragment {
-    private OnButtonPressedListener callback;
+    private OnButtonPressedListener mCallback;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
@@ -41,7 +41,7 @@ public class RegisterFragment extends BaseFragment {
     }
 
     public void setOnButtonPressedListener(OnButtonPressedListener callback) {
-        this.callback = callback;
+        this.mCallback = callback;
     }
 
     public interface OnButtonPressedListener {
@@ -94,7 +94,7 @@ public class RegisterFragment extends BaseFragment {
         SwitchToLogInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                callback.launchLogInFragment();
+                mCallback.launchLogInFragment();
             }
         });
 
@@ -149,7 +149,7 @@ public class RegisterFragment extends BaseFragment {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
                             message = "This was a triumph, " + user;
-                            callback.onValidAuth(user); //pass user into it later
+                            mCallback.onValidAuth(user); //pass user into it later
                             // Can send it and depending on that it'll show something different
                         } else {
                             message = "Could not link account. " + task.getException();
@@ -172,7 +172,7 @@ public class RegisterFragment extends BaseFragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            callback.onValidAuth(user);
+                            mCallback.onValidAuth(user);
                         } else {
                             Toast.makeText(getContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();

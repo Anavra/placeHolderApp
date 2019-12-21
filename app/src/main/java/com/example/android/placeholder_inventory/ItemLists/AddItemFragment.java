@@ -1,6 +1,7 @@
 package com.example.android.placeholder_inventory.ItemLists;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ import java.util.Map;
  */
 
 public class AddItemFragment extends BaseFragment {
-    private OnFragmentInteractionListener callback;
+    private OnFragmentInteractionListener mCallback;
 
     private DatabaseReference mDatabase;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -48,14 +49,14 @@ public class AddItemFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public void setOnFragmentInteractionListener(OnFragmentInteractionListener callback) {
-        if (callback != null) {
-            this.callback = callback;
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if(context instanceof OnFragmentInteractionListener){
+            mCallback = (OnFragmentInteractionListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + "not implemented in context");
         }
-    }
-
-    public interface OnFragmentInteractionListener {
-        void launchShowListFragment();
     }
 
     @Override
@@ -83,7 +84,7 @@ public class AddItemFragment extends BaseFragment {
                 final String name = mNameField.getText().toString();
                 if (formIsValid(name)) {
                     addNewRoom(name);
-                    callback.launchShowListFragment();
+                    mCallback.launchShowListFragment();
                 }
             }
         });
@@ -91,12 +92,23 @@ public class AddItemFragment extends BaseFragment {
         CancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.launchShowListFragment();
+                mCallback.launchShowListFragment();
             }
         });
 
         return addItemView;
     }
+
+    public void setOnFragmentInteractionListener(OnFragmentInteractionListener callback) {
+        if (callback != null) {
+            this.mCallback = callback;
+        }
+    }
+
+    public interface OnFragmentInteractionListener {
+        void launchShowListFragment();
+    }
+
     private boolean formIsValid(String name){
         if (TextUtils.isEmpty(name)) {
             mNameField.setError(REQUIRED);

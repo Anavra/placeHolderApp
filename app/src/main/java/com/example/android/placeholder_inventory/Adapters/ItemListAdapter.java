@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomViewHolder> {
+public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemViewHolder> {
     /**
      * This Adapter gets a databaseReference from FireBase and adapts it into
      * information that can be shown in the ShowListFragment (its view)
@@ -34,7 +34,7 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     private final List<Room> mRoomList = new ArrayList<>();
 
     // Constructor - argument is db reference with rooms of the user
-    public RoomListAdapter(final Context context, final DatabaseReference mData,
+    public ItemListAdapter(final Context context, final DatabaseReference mData,
                            OnAdapterInteractionListener clickListener) {
         this.mRooms = mData;
         this.mContext = context;
@@ -83,17 +83,17 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
 
     // LayoutManager use. Creates instance of ViewHolder with recyclerViews in it
     @Override
-    public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view;
         view = inflater.inflate(R.layout.recyclerview_item, parent, false);
 
-        return new RoomViewHolder(view);
+        return new ItemViewHolder(view);
     }
 
     // LayoutManager use. Sets content to the recyclerViews in the ViewHolder
     @Override
-    public void onBindViewHolder(RoomViewHolder holder, int position) {
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
         // This function automatically loops through the positions
         Room room = mRoomList.get(position);
         holder.roomNameTextView.setText(room.getName());
@@ -113,11 +113,11 @@ public class RoomListAdapter extends RecyclerView.Adapter<RoomListAdapter.RoomVi
     }
 
     // ViewHolder that contains the recyclerViews given to it with the constructor
-    public class RoomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         final TextView roomNameTextView;
         final ImageView roomImageView;
 
-        RoomViewHolder(View itemView) {
+        ItemViewHolder(View itemView) {
             super(itemView);
             roomNameTextView = itemView.findViewById(R.id.room_text);
             roomImageView = itemView.findViewById(R.id.room_image);

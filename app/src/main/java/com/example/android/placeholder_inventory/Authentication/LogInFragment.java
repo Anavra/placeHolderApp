@@ -1,4 +1,5 @@
 package com.example.android.placeholder_inventory.Authentication;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LogInFragment extends BaseFragment {
-    private OnButtonPressedListener callback;
+    private OnButtonPressedListener mCallback;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
@@ -36,15 +37,15 @@ public class LogInFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    // package-private: no access modifier needs to be declared
-    public void setOnButtonPressedListener(OnButtonPressedListener callback) {
-       this.callback = callback;
-    }
 
-    public interface OnButtonPressedListener {
-        // Interface defined here is implemented in AuthActivity
-        void launchRegisterFragment();
-        void onValidAuth(FirebaseUser user);
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if(context instanceof OnButtonPressedListener){
+            mCallback = (OnButtonPressedListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + "not implemented in context");
+        }
     }
 
     @Override
@@ -84,7 +85,7 @@ public class LogInFragment extends BaseFragment {
         switchToRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                callback.launchRegisterFragment();
+                mCallback.launchRegisterFragment();
             }
         });
 
@@ -104,6 +105,17 @@ public class LogInFragment extends BaseFragment {
         if (mAuthStateListener != null){
             mAuth.removeAuthStateListener(mAuthStateListener);
         }
+    }
+
+    // package-private: no access modifier needs to be declared
+    public void setOnButtonPressedListener(OnButtonPressedListener callback) {
+        this.mCallback = callback;
+    }
+
+    public interface OnButtonPressedListener {
+        // Interface defined here is implemented in AuthActivity
+        void launchRegisterFragment();
+        void onValidAuth(FirebaseUser user);
     }
 
     private void startAuthState(){
@@ -137,7 +149,7 @@ public class LogInFragment extends BaseFragment {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             message = "Huge success, " + user;
-                            callback.onValidAuth(user); //pass user into it later
+                            mCallback.onValidAuth(user); //pass user into it later
                         } else {
                             message = "Could not login: " + task.getException();
                         }
