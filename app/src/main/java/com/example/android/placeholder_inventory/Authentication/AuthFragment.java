@@ -137,7 +137,7 @@ public class AuthFragment extends BaseFragment {
 
         // Facebook login button
         LoginButton loginButton = rootView.findViewById(R.id.facebook_login_button);
-        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        //loginButton.setReadPermissions(Arrays.asList(EMAIL));
         loginButton.setFragment(this);
 
 
