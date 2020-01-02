@@ -3,9 +3,6 @@ package com.example.android.placeholder_inventory.ItemLists;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.example.android.placeholder_inventory.BaseFragment;
-import com.example.android.placeholder_inventory.Models.UserItem;
 import com.example.android.placeholder_inventory.Models.User;
+import com.example.android.placeholder_inventory.Models.UserItem;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
@@ -30,29 +29,27 @@ import java.util.Map;
 
 /**
  * This fragment is responsible for creating a new item on the database
- *  based on the input given by the user,
- *  and sending clicks back to its containing activity.
+ * based on the input given by the user,
+ * and sending clicks back to its containing activity.
  */
 
 public class AddItemFragment extends BaseFragment {
+    private static final String REQUIRED = "Required";
     private OnFragmentInteractionListener mCallback;
-
     private DatabaseReference mDatabase;
     private FirebaseAnalytics mFirebaseAnalytics;
-
     // Text field to add new item
     private EditText mNameField;
     private EditText mDescriptionField;
-    private static final String REQUIRED = "Required";
 
     public AddItemFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof OnFragmentInteractionListener){
+        if (context instanceof OnFragmentInteractionListener) {
             mCallback = (OnFragmentInteractionListener) context;
         } else {
             throw new ClassCastException(context.toString() + "not implemented in context");
@@ -80,7 +77,7 @@ public class AddItemFragment extends BaseFragment {
 
         AddNewButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 final String name = mNameField.getText().toString();
                 if (formIsValid(name)) {
                     addNewRoom(name);
@@ -105,16 +102,11 @@ public class AddItemFragment extends BaseFragment {
         }
     }
 
-    public interface OnFragmentInteractionListener {
-        void launchShowListFragment();
-    }
-
-    private boolean formIsValid(String name){
+    private boolean formIsValid(String name) {
         if (TextUtils.isEmpty(name)) {
             mNameField.setError(REQUIRED);
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -162,5 +154,9 @@ public class AddItemFragment extends BaseFragment {
 
         });
 
+    }
+
+    public interface OnFragmentInteractionListener {
+        void launchShowListFragment();
     }
 }

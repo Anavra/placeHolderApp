@@ -21,6 +21,7 @@ public class NavigationDrawerFragment extends BaseFragment {
     private OnNavItemSelectedListener mCallback;
     private TextView navLogOut;
     private TextView navConvert;
+
     public NavigationDrawerFragment() {
         // Required empty public constructor
     }
@@ -87,16 +88,19 @@ public class NavigationDrawerFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
+        /**
         if (isUserAnonymous()) {
             // Only show log out option if user is not anon to avoid losing access to anon info
             navLogOut.setVisibility(View.GONE);
         } else {
             // Only show register option if user is anon to allow conversion
             navConvert.setVisibility(View.GONE);
-        }
+        }**/
     }
 
     public interface OnNavItemSelectedListener {
         void onNavItemClicked(String navItemId);
     }
 }
+
+

@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include
         layout="@layout/navigation_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </include>
+        android:layout_height="wrap_content"></include>
 
     <TextView
         android:id="@+id/nav_drawer_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="14dp"
-        android:text="@string/home"
-        />
+        android:text="@string/home" />
 
     <TextView
         android:id="@+id/nav_drawer_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="14dp"
-        android:text="@string/user_profile"
-        >
+        android:text="@string/user_profile">
 
     </TextView>
 
@@ -33,14 +30,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="14dp"
-        android:text="@string/log_out"
-        />
+        android:text="@string/log_out" />
 
     <TextView
         android:id="@+id/nav_drawer_convert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="14dp"
-        android:text="@string/register_title"
-        />
+        android:text="@string/register_title" />
 </LinearLayout>

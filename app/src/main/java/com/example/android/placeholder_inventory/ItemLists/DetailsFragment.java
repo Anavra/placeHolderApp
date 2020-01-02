@@ -1,14 +1,14 @@
 package com.example.android.placeholder_inventory.ItemLists;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.Models.UserItem;
@@ -37,7 +37,6 @@ public class DetailsFragment extends BaseFragment {
     private TextView mItemLocationView;
 
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -50,20 +49,19 @@ public class DetailsFragment extends BaseFragment {
 
         // Receiving itemId from arguments
         Bundle args = getArguments();
-        if (args ==  null) {
+        if (args == null) {
             throw new IllegalArgumentException("No arguments were passed.");
         }
 
         String itemId = args.getString(ITEM_ID);
 
         if (itemId == null) {
-            // TODO: Change strings into translatable resources
             throw new IllegalArgumentException("Must pass ITEM_ID");
         }
 
         final String userID = getUserId();
 
-        // TODO: Is this too long? Should room details be stored in another way?
+
         mItemReference = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("user-rooms")
@@ -74,7 +72,7 @@ public class DetailsFragment extends BaseFragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
 
         // Shows database item details on the fragment view
@@ -102,9 +100,9 @@ public class DetailsFragment extends BaseFragment {
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
-        if (mItemListener != null){
+        if (mItemListener != null) {
             mItemReference.removeEventListener(mItemListener);
         }
     }

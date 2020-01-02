@@ -13,8 +13,11 @@ import android.view.ViewGroup;
 import com.example.android.placeholder_inventory.Adapters.ItemListAdapter;
 import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
+import com.example.android.placeholder_inventory.Utils.Utils;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import okhttp3.internal.Util;
 
 /**
  * This fragment is contained by ItemListActivity and its action buttons implemented
@@ -78,7 +81,8 @@ public class ShowListFragment extends BaseFragment
 
         // Using a grid layout manager for the recyclerView
         RecyclerView.LayoutManager layoutManager;
-        layoutManager = new GridLayoutManager(getContext(), 2);
+        int numColumns = Utils.makeColumnsFit(getContext(), 180);
+        layoutManager = new GridLayoutManager(getContext(), numColumns);
         recyclerView.setLayoutManager(layoutManager);
 
         // Adapter for the recyclerView
