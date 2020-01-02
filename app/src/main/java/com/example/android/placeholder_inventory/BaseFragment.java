@@ -39,7 +39,7 @@ public class BaseFragment extends Fragment {
         }
     }
 
-    boolean isUserAnonymous(){
+    public boolean isUserAnonymous(){
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         return mUser.isAnonymous();
     }
