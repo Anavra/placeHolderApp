@@ -37,9 +37,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.util.Arrays;
-
-
 /**
  * This is the first fragment that is shown when opening the app.
  * Contained in activity AuthActivity, which implements interface.

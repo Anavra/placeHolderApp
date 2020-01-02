@@ -19,13 +19,13 @@ import com.example.android.placeholder_inventory.Authentication.AuthActivity;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
-
-import com.example.android.placeholder_inventory.Utils.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * This activity is responsible for handling fragments switching,
  * fragment communication, and the navigation elements (top bar
- * and navigation drawer)
+ * and navigation drawer) for the Main ItemLists package.
  **/
 
 
@@ -73,6 +73,7 @@ public class ItemListActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
+        checkAuthenticationStatus();
     }
 
     @Override
@@ -110,14 +111,14 @@ public class ItemListActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_log_out:{
-                onBackToAuth(true);
+                launchAuthentication(true);
                 break;
             }
             case R.id.nav_convert:{
                 Bundle bundle = new Bundle();
                 bundle.putString("attempt_to_convert", "true");
                 mFirebaseAnalytics.logEvent("attempt_to_convert", bundle);
-                onBackToAuth(false);
+                launchAuthentication(false);
                 break;
             }
             case R.id.nav_home: {
@@ -172,12 +173,6 @@ public class ItemListActivity extends AppCompatActivity
     }
 
 
-    private void onBackToAuth(boolean loggingOut) {
-        Intent intent = new Intent(this, AuthActivity.class);
-        intent.putExtra("loggingOut", loggingOut);
-        startActivity(intent);
-    }
-
     private void setUpTopToolBar(){
         // Creating toolbar at the top
         Toolbar myToolbar = findViewById(R.id.app_toolbar);
@@ -187,7 +182,6 @@ public class ItemListActivity extends AppCompatActivity
     private void setUpNavigationDrawer(){
         // Creating navigation drawer on the left
 
-        //Utils.
 
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
@@ -201,5 +195,22 @@ public class ItemListActivity extends AppCompatActivity
         // Adding a test background image
         drawerLayout.setBackgroundResource(R.drawable.bg_grungy_hor);
     }
+
+    private void checkAuthenticationStatus(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            return;
+        } else {
+            launchAuthentication(false);
+        }
+    }
+
+    /* Communication with the Authentication module in case of login, logout, etc. */
+    private void launchAuthentication(boolean loggingOut) {
+        Intent intent = new Intent(this, AuthActivity.class);
+        intent.putExtra("loggingOut", loggingOut);
+        startActivity(intent);
+    }
+
 
 }

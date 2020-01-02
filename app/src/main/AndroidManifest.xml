@@ -9,22 +9,26 @@
         android:roundIcon="@drawable/ic_box"
         android:supportsRtl="true"
         android:theme="@style/PlaceHolderTheme">
+
+        <!-- Authentication Package -->
         <activity
             android:name=".Authentication.AuthActivity"
             android:theme="@style/PlaceHolderTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
+
+        <!-- Main Item List Package -->
         <activity
             android:theme="@style/PlaceHolderTheme"
             android:name=".ItemLists.ItemListActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:label="@string/my_rooms" />
+            android:label="@string/my_rooms" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>

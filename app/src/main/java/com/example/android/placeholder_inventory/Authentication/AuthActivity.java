@@ -18,10 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-
 /**
- * This activity is responsible for handling fragment switching, fragment
- * communication.
+ * This activity is responsible for handling fragment switching and fragment
+ * communication for the Authentication Package.
  * **/
 
 public class AuthActivity extends AppCompatActivity
