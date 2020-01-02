@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/navigation_header_height"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/navImageView"
+            android:layout_width="@dimen/navigation_header_icon"
+            android:layout_height="@dimen/navigation_header_icon"
+            android:src="@drawable/ic_placeholder_nightstand"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"></TextView>
+
+        <TextView
+            android:id="@+id/nav_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventory App">
+        </TextView>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/nav_drawer_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:text="@string/home"
+        />
+
+    <TextView
+        android:id="@+id/nav_drawer_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:text="@string/user_profile"
+        >
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/nav_drawer_log_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:text="@string/log_out"
+        />
+</LinearLayout>

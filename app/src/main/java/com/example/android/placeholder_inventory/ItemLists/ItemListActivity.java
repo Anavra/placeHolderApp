@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,28 +34,17 @@ import com.google.firebase.auth.FirebaseUser;
 public class ItemListActivity extends AppCompatActivity
     implements ShowListFragment.OnFragmentInteractionListener,
         AddItemFragment.OnFragmentInteractionListener,
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationDrawerFragment.OnNavItemSelectedListener {
 
     private DrawerLayout drawerLayout;
     private FirebaseAnalytics mFirebaseAnalytics;
+    private static final String TAG = "TAG_ITEM_LIST_ACTIVITY";
 
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        if (fragment instanceof ShowListFragment) {
-            ShowListFragment showListFragment = (ShowListFragment) fragment;
-            showListFragment.setOnFragmentInteractionListener(this);
-        }
-        if (fragment instanceof AddItemFragment) {
-            AddItemFragment addItemFragment = (AddItemFragment) fragment;
-            addItemFragment.setOnFragmentInteractionListener(this);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_list);
+        setContentView(R.layout.activity_item_list);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
@@ -81,9 +72,14 @@ public class ItemListActivity extends AppCompatActivity
         super.onPause();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkAuthenticationStatus();
+    }
+
 
     @Override
-
     public boolean onCreateOptionsMenu(Menu menu){
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.toolmenu, menu);
@@ -104,7 +100,6 @@ public class ItemListActivity extends AppCompatActivity
         }
     }
 
-    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_user_profile:{
@@ -128,6 +123,31 @@ public class ItemListActivity extends AppCompatActivity
         menuItem.setChecked(true);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onNavItemClicked(String navItemId){
+        switch (navItemId){
+            case "home":{
+                launchShowListFragment();
+                break;
+            } case "profile": {
+                break;
+            } case "logout": {
+                launchAuthentication(true);
+                break;
+            } case "convert": {
+                Bundle bundle = new Bundle();
+                bundle.putString("attempt_to_convert", "true");
+                mFirebaseAnalytics.logEvent("attempt_to_convert", bundle);
+                launchAuthentication(false);
+                break;
+            }
+
+            default: {
+                Log.d(TAG, "Unknown nav drawer id");
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
     }
 
     @Override
@@ -181,19 +201,24 @@ public class ItemListActivity extends AppCompatActivity
 
     private void setUpNavigationDrawer(){
         // Creating navigation drawer on the left
-
-
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        View headerView = navigationView.inflateHeaderView(R.layout.navigation_header);
-        TextView navUser = headerView.findViewById(R.id.nav_user);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                return true;
+            }
+        });
 
-
-        navUser.setText("Hello User!");
-        navigationView.setNavigationItemSelectedListener(this);
 
         // Adding a test background image
         drawerLayout.setBackgroundResource(R.drawable.bg_grungy_hor);
+
+        // insert navigation drawer fragment into container
+        NavigationDrawerFragment navFragment = new NavigationDrawerFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.navigation_view, navFragment);
+        transaction.commit();
     }
 
     private void checkAuthenticationStatus(){

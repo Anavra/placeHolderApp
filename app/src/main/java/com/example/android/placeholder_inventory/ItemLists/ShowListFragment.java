@@ -54,7 +54,7 @@ public class ShowListFragment extends BaseFragment
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         // Inflate the layout for this fragment
-        final View roomView = inflater.inflate(R.layout.fragment_room_list, container,
+        final View roomView = inflater.inflate(R.layout.fragment_item_list, container,
                 false);
 
         // [START create_database_reference]
