@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +82,8 @@ public class ShowListFragment extends BaseFragment
 
         // Using a grid layout manager for the recyclerView
         RecyclerView.LayoutManager layoutManager;
-        int numColumns = Utils.makeColumnsFit(getContext(), 180);
+        //int numColumns = Utils.makeColumnsFit(getContext(), 180);
+        int numColumns = calculateColumns();
         layoutManager = new GridLayoutManager(getContext(), numColumns);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -121,6 +123,14 @@ public class ShowListFragment extends BaseFragment
 
     public void onItemClick(String itemId) {
         mCallback.onItemClick(itemId);
+    }
+
+    private int calculateColumns(){
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        float screenWidth = displayMetrics.widthPixels / displayMetrics.density;
+        float screenHeight = displayMetrics.heightPixels / displayMetrics.density;
+        int numColumns = (int) (Math.min(screenWidth, screenHeight) / 180 + 0.5);
+        return numColumns;
     }
 
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -35,6 +36,7 @@ public class ItemListActivity extends AppCompatActivity
 
     private static final String TAG = "TAG_ITEM_LIST_ACTIVITY";
     private DrawerLayout drawerLayout;
+    private FrameLayout detailLayout;
     private Toolbar toolbar;
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -56,6 +58,11 @@ public class ItemListActivity extends AppCompatActivity
             }
             launchInitialFragment();
         }
+
+        // For tablets, the detail_fragment_container will show side by side with
+        // main_fragment_container
+        detailLayout = findViewById(R.id.detail_fragment_container);
+
     }
 
 
@@ -98,7 +105,11 @@ public class ItemListActivity extends AppCompatActivity
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_fragment_container, fragment);
+        if (detailLayout != null) {
+            transaction.replace(R.id.detail_fragment_container, fragment);
+        } else {
+            transaction.replace(R.id.main_fragment_container, fragment);
+        }
         transaction.addToBackStack(null);
         transaction.commit();
     }
@@ -164,6 +175,7 @@ public class ItemListActivity extends AppCompatActivity
 
     }
 
+
     private void setUpNavigationDrawer() {
         // Creating navigation drawer on the left
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -196,25 +208,37 @@ public class ItemListActivity extends AppCompatActivity
 
     public void launchInitialFragment() {
         ShowListFragment firstFragment = new ShowListFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.main_fragment_container, firstFragment)
-                .commit();
+        HelpFragment helpFragment = new HelpFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.main_fragment_container, firstFragment);
+        if (detailLayout != null) {
+            transaction.add(R.id.detail_fragment_container, helpFragment);
+        }
+        transaction.commit();
     }
 
     private void launchAddNewFragment() {
         AddItemFragment fragment = new AddItemFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_fragment_container, fragment);
+
+        if (detailLayout != null) {
+            transaction.replace(R.id.detail_fragment_container, fragment);
+        } else {
+            transaction.replace(R.id.main_fragment_container, fragment);
+        }
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
     public void launchShowListFragment() {
         ShowListFragment fragment = new ShowListFragment();
+        HelpFragment helpFragment = new HelpFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_fragment_container, fragment);
         transaction.addToBackStack(null);
+        if (detailLayout != null) {
+            transaction.add(R.id.detail_fragment_container, helpFragment);
+        }
         transaction.commit();
     }
 

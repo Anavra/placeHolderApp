@@ -1,8 +1,8 @@
 <resources>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="Open">open</string>
-    <string name="Close">close</string>
+    <string name="Open" translatable="false">open</string>
+    <string name="Close" translatable="false">close</string>
+    <string name="help_fragment_text">Add a new item or select an existing one to view it here.</string>
 
 </resources>
