@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/fragment_header"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_header"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -10,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="240dp" />
+        app:layout_constraintGuide_begin="98dp" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -18,111 +19,111 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toStartOf="@+id/vertical_right"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/vertical_left"
         app:layout_constraintTop_toTopOf="@+id/middle">
 
         <TextView
             android:id="@+id/name"
-            android:textAppearance="@style/TextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/item_name" />
+            android:text="@string/email_tag" />
 
         <EditText
-            android:id="@+id/name_field"
+            android:id="@+id/email_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:inputType="textAutoCorrect"
-            android:singleLine="true" />
+            android:inputType="none|textEmailAddress"
+            android:autofillHints="" />
 
         <TextView
-            android:id="@+id/item_description_tag"
-            android:textAppearance="@style/TextAppearance"
+            android:id="@+id/password_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/item_description" />
+            android:text="@string/password_tag" />
 
         <EditText
-            android:id="@+id/item_description_field"
+            android:id="@+id/password_field"
             android:layout_width="match_parent"
-            android:layout_height="93dp"
-            android:inputType="textMultiLine|textAutoCorrect" />
+            android:layout_height="wrap_content"
+            android:hint="@string/password_hint"
+            android:inputType="textPassword" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/add_new_title"
+        android:id="@+id/log_in_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/log_in"
         android:textAppearance="@style/TitleTextAppearance"
-        android:text="@string/add_new"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/top" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerInside"
-        app:layout_constraintBottom_toTopOf="@+id/middle"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_right"
-        app:layout_constraintStart_toStartOf="@+id/vertical_left"
-        app:layout_constraintTop_toBottomOf="@+id/add_new_title"
-        app:srcCompat="@drawable/ic_box" />
+        app:layout_constraintTop_toTopOf="@+id/top" />
 
     <Button
-        android:id="@+id/add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/add_new"
-        app:layout_constraintEnd_toStartOf="@+id/cancel_button"
-        app:layout_constraintStart_toStartOf="@+id/vertical_left"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <Button
-        android:id="@+id/cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/cancel_button"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_right"
-        app:layout_constraintStart_toEndOf="@+id/add_button"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bottom"
+        android:id="@+id/login_auth_button"
+        style="@style/MainButton"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_begin="600dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/log_in"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <Button
+        android:id="@+id/switch_to_register_button"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/register_button"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_right"
+        app:layout_constraintStart_toEndOf="@+id/skip_text_label"
+        app:layout_constraintTop_toBottomOf="@+id/login_auth_button" />
+
+    <TextView
+        android:id="@+id/skip_text_label"
+        style="@style/TextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/register_text"
+        app:layout_constraintEnd_toStartOf="@+id/switch_to_register_button"
+        app:layout_constraintStart_toStartOf="@+id/vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/login_auth_button" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="32dp" />
+        app:layout_constraintGuide_begin="56dp" />
+
+
+    <TextView
+        android:id="@+id/auth_state_text"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/DebugTextAppearance"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_right"
+        app:layout_constraintStart_toStartOf="@+id/vertical_left"
+        app:layout_constraintTop_toBottomOf="@+id/login_auth_button" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="23dp" />
+        app:layout_constraintGuide_percent="0.28" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="389dp" />
-
+        app:layout_constraintGuide_percent="0.72" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
