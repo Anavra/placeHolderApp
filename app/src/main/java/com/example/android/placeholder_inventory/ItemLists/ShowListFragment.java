@@ -2,23 +2,20 @@ package com.example.android.placeholder_inventory.ItemLists;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.android.placeholder_inventory.Adapters.ItemListAdapter;
 import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
-import com.example.android.placeholder_inventory.Utils.Utils;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import okhttp3.internal.Util;
 
 /**
  * This fragment is contained by ItemListActivity and its action buttons implemented
@@ -28,8 +25,9 @@ import okhttp3.internal.Util;
  */
 
 public class ShowListFragment extends BaseFragment
-        implements ItemListAdapter.OnAdapterInteractionListener{
+        implements ItemListAdapter.OnAdapterInteractionListener {
 
+    private static final String TAG = "TAG_SHOW_LIST_FRAGMENT";
     private OnFragmentInteractionListener mCallback;
 
     // RecyclerView to show the list of items
@@ -44,9 +42,9 @@ public class ShowListFragment extends BaseFragment
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof OnFragmentInteractionListener){
+        if (context instanceof OnFragmentInteractionListener) {
             mCallback = (OnFragmentInteractionListener) context;
         } else {
             throw new ClassCastException(context.toString() + "not implemented in context");
@@ -101,10 +99,11 @@ public class ShowListFragment extends BaseFragment
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         //mAdapter.clearListener();
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -117,20 +116,28 @@ public class ShowListFragment extends BaseFragment
         }
     }
 
-    public interface OnFragmentInteractionListener {
-        void onItemClick(String itemId);
-    }
-
     public void onItemClick(String itemId) {
         mCallback.onItemClick(itemId);
     }
 
-    private int calculateColumns(){
+    private int calculateColumns() {
+        int numColumns;
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         float screenWidth = displayMetrics.widthPixels / displayMetrics.density;
         float screenHeight = displayMetrics.heightPixels / displayMetrics.density;
-        int numColumns = (int) (Math.min(screenWidth, screenHeight) / 180 + 0.5);
+        Log.i(TAG, "Width: " + screenWidth);
+        if (screenWidth > 800) {
+            // Tablets will show this as a mostly square display
+            numColumns = (int) (Math.min(screenWidth, screenHeight) / 180 + 0.5);
+        } else {
+            // phones will have a lot more columns on landscape mode
+            numColumns = (int) (screenWidth / 180 + 0.5);
+        }
         return numColumns;
+    }
+
+    public interface OnFragmentInteractionListener {
+        void onItemClick(String itemId);
     }
 
 }
