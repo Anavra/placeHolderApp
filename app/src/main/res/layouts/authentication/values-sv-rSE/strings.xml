@@ -2,4 +2,6 @@
 <resources>
     <string name="help_fragment_text">Klicka på ett objekt för att se detaljerna eller lägg till ett nytt.</string>
     <string name="fetch_remote_welcome_message">fetch remote welcome</string>
+    <string name="close_button_text">Stäng</string>
+    <string name="fetch_remote_config">Hämta fjärrinställningar</string>
 </resources>

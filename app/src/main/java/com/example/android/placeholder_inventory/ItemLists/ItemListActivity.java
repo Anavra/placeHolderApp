@@ -5,9 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,15 +17,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.android.placeholder_inventory.Authentication.AuthActivity;
+import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 /**
  * This activity is responsible for handling fragments switching,
@@ -38,7 +34,8 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 public class ItemListActivity extends AppCompatActivity
         implements ShowListFragment.OnFragmentInteractionListener,
         AddItemFragment.OnFragmentInteractionListener,
-        NavigationDrawerFragment.OnNavItemSelectedListener {
+        NavigationDrawerFragment.OnNavItemSelectedListener,
+        UserProfileFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "TAG_ITEM_LIST_ACTIVITY";
     private DrawerLayout drawerLayout;
@@ -76,6 +73,7 @@ public class ItemListActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
+        changeBackgroundColor(111111);
         checkAuthenticationStatus();
     }
 
@@ -151,6 +149,7 @@ public class ItemListActivity extends AppCompatActivity
                 break;
             }
             case "profile": {
+                launchUserProfileFragment();
                 break;
             }
             case "logout": {
@@ -249,6 +248,14 @@ public class ItemListActivity extends AppCompatActivity
         transaction.commit();
     }
 
+    public void launchUserProfileFragment() {
+        UserProfileFragment fragment = new UserProfileFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
 
     private void checkAuthenticationStatus() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -264,6 +271,11 @@ public class ItemListActivity extends AppCompatActivity
         Intent intent = new Intent(this, AuthActivity.class);
         intent.putExtra("loggingOut", loggingOut);
         startActivity(intent);
+    }
+
+    public void changeBackgroundColor(int color){
+        View view = this.getWindow().getDecorView();
+        view.setBackgroundColor(color);
     }
 
 }

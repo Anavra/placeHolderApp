@@ -2,4 +2,6 @@
 <resources>
     <string name="help_fragment_text">Agrega un objeto nuevo o selecciona uno para verlo aquí.</string>
     <string name="fetch_remote_welcome_message">fetch remote welcome</string>
+    <string name="close_button_text">Cerrar</string>
+    <string name="fetch_remote_config">Activar configuracion remota</string>
 </resources>

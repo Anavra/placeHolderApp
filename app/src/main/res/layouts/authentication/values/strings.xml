@@ -6,4 +6,10 @@
     <string name="help_fragment_text">Add a new item or select an existing one to view it here.</string>
     <string name="fetch_remote_welcome_message">fetch remote welcome</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome">Welcome!</string>
+    <string name="close_button_text">Close</string>
+    <string name="fetch_remote_config">fetch remote config</string>
+
 </resources>

@@ -2,7 +2,7 @@
 <defaultsMap>
     <entry>
         <key>loading_phrase</key>
-        <value>Fetching config…</value>
+        <value>fetching config...</value>
     </entry>
     <entry>
         <key>welcome_message_caps</key>
@@ -10,6 +10,10 @@
     </entry>
     <entry>
         <key>welcome_message</key>
-        <value>Welcome to my awesome app!</value>
+        <value>Welcome to PlaceHolder!</value>
+    </entry>
+    <entry>
+        <key>background_color</key>
+        <value>#272644</value>
     </entry>
 </defaultsMap>
