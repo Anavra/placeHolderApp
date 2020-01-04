@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="help_fragment_text">Agrega un objeto nuevo o selecciona uno para verlo aquí.</string>
+    <string name="fetch_remote_welcome_message">fetch remote welcome</string>
 </resources>

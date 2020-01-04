@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,10 +19,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.android.placeholder_inventory.Authentication.AuthActivity;
 import com.example.android.placeholder_inventory.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 /**
  * This activity is responsible for handling fragments switching,
@@ -40,6 +46,7 @@ public class ItemListActivity extends AppCompatActivity
     private Toolbar toolbar;
     private FirebaseAnalytics mFirebaseAnalytics;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +54,9 @@ public class ItemListActivity extends AppCompatActivity
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-
         setUpTopToolBar();
         setUpNavigationDrawer();
+
 
         // Setting up the first fragment
         if (findViewById(R.id.main_fragment_container) != null) {
@@ -258,6 +265,5 @@ public class ItemListActivity extends AppCompatActivity
         intent.putExtra("loggingOut", loggingOut);
         startActivity(intent);
     }
-
 
 }

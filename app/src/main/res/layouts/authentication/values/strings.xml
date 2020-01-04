@@ -4,5 +4,6 @@
     <string name="Open" translatable="false">open</string>
     <string name="Close" translatable="false">close</string>
     <string name="help_fragment_text">Add a new item or select an existing one to view it here.</string>
+    <string name="fetch_remote_welcome_message">fetch remote welcome</string>
 
 </resources>
