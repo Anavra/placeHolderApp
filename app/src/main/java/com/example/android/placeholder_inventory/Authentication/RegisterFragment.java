@@ -123,9 +123,9 @@ public class RegisterFragment extends BaseFragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 String message;
                 if (user != null) {
-                    message = "signed in: " + user.getUid();
+                    message = getResources().getString(R.string.signed_in) + user.getUid();
                 } else {
-                    message = "not signed in";
+                    message = getResources().getString(R.string.not_signed_in);
                 }
                 mAuthStateTextView.setText(message);
             }
@@ -148,11 +148,11 @@ public class RegisterFragment extends BaseFragment {
                         String message;
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
-                            message = "This was a triumph, " + user;
+                            message =  getResources().getString(R.string.success) + user;
                             mCallback.onValidAuth(user); //pass user into it later
                             // Can send it and depending on that it'll show something different
                         } else {
-                            message = "Could not link account. " + task.getException();
+                            message = getResources().getString(R.string.failed) + task.getException();
                         }
                         mAuthStateTextView.setText(message);
                     }
@@ -174,7 +174,7 @@ public class RegisterFragment extends BaseFragment {
                             FirebaseUser user = mAuth.getCurrentUser();
                             mCallback.onValidAuth(user);
                         } else {
-                            Toast.makeText(getContext(), "Authentication failed.",
+                            Toast.makeText(getContext(), getResources().getString(R.string.failed),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

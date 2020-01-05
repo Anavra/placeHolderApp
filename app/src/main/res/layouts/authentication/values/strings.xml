@@ -1,15 +1,18 @@
 <resources>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="Open" translatable="false">open</string>
     <string name="Close" translatable="false">close</string>
     <string name="help_fragment_text">Add a new item or select an existing one to view it here.</string>
     <string name="fetch_remote_welcome_message">fetch remote welcome</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="welcome">Welcome!</string>
+    <string name="welcome" translatable="false">Welcome!</string>
     <string name="close_button_text">Close</string>
     <string name="fetch_remote_config">fetch remote config</string>
+    <string name="signed_in">signed in as: </string>
+    <string name="not_signed_in">not signed in.</string>
+    <string name="success">success!</string>
+    <string name="failed">failed. </string>
+    <string name="anon_login">signed in anonymously</string>
+    <string name="signed_in_with">signed in with </string>
 
 </resources>

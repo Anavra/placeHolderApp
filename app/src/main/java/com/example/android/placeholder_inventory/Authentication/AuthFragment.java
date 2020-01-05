@@ -208,9 +208,9 @@ public class AuthFragment extends BaseFragment {
                         String message;
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            message = "Signed in with Facebook";
+                            message = getResources().getString(R.string.signed_in_with) + " Facebook";
                         } else {
-                            message = "Facebook sign in Failed";
+                            message = getResources().getString(R.string.failed);
                         }
                         mAuthStateTextView.setText(message);
                     }
@@ -255,9 +255,9 @@ public class AuthFragment extends BaseFragment {
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-                message = "Signed in with Google";
+                message = getResources().getString(R.string.signed_in_with) + "Google";
             } catch (ApiException e) {
-                message = "Google sign in failed";
+                message = getResources().getString(R.string.failed);
             }
             mAuthStateTextView.setText(message);
         }
@@ -294,9 +294,9 @@ public class AuthFragment extends BaseFragment {
                            Bundle bundle = new Bundle();
                            bundle.putString("sign_up_type", "google");
                            mFirebaseAnalytics.logEvent("sign_up_type", bundle);
-                            message = "signed in successfully";
+                           message = getResources().getString(R.string.success);
                        } else {
-                            message = "Authentication Failed";
+                           message = getResources().getString(R.string.failed);
                        }
                        mAuthStateTextView.setText(message);
                    }
@@ -311,9 +311,9 @@ public class AuthFragment extends BaseFragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 String message;
                 if (user != null) {
-                    message = "signed in: " + user.getUid();
+                    message = getResources().getString(R.string.signed_in) + user.getUid();
                 } else {
-                    message = "not signed in";
+                    message = getResources().getString(R.string.not_signed_in);
                 }
                 mAuthStateTextView.setText(message);
             }
@@ -327,7 +327,7 @@ public class AuthFragment extends BaseFragment {
                         String message;
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            message = "Signed in anonymously";
+                            message = getResources().getString(R.string.anon_login);
 
                             Bundle bundle = new Bundle();
                             bundle.putString(FirebaseAnalytics.Param.METHOD, "Anonymous");
@@ -339,7 +339,7 @@ public class AuthFragment extends BaseFragment {
 
                             mCallback.onValidAuth(user);
                         } else {
-                            message = "Failed anonymous sign in: " + task.getException();
+                            message = getResources().getString(R.string.failed) + task.getException();
                         }
                         mAuthStateTextView.setText(message);
                     }

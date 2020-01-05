@@ -4,4 +4,10 @@
     <string name="fetch_remote_welcome_message">fetch remote welcome</string>
     <string name="close_button_text">Stäng</string>
     <string name="fetch_remote_config">Hämta fjärrinställningar</string>
+    <string name="signed_in">inloggad som: </string>
+    <string name="not_signed_in">utloggad</string>
+    <string name="success">lyckades!</string>
+    <string name="failed">misslyckades </string>
+    <string name="anon_login">inloggad anonymt</string>
+    <string name="signed_in_with">inloggad med </string>
 </resources>

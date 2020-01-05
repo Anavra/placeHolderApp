@@ -4,4 +4,11 @@
     <string name="fetch_remote_welcome_message">fetch remote welcome</string>
     <string name="close_button_text">Cerrar</string>
     <string name="fetch_remote_config">Activar configuracion remota</string>
+
+    <string name="signed_in">Conectado como: </string>
+    <string name="not_signed_in">No has ingresado</string>
+    <string name="success">éxito!</string>
+    <string name="failed">fallo </string>
+    <string name="anon_login">ingreso anónimo</string>
+    <string name="signed_in_with">Ingresado con </string>
 </resources>

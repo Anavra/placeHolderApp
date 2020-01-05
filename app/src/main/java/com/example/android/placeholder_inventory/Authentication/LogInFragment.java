@@ -25,7 +25,7 @@ public class LogInFragment extends BaseFragment {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
-    private static final String LOG_TAG =
+    private static final String TAG =
             LogInFragment.class.getSimpleName();
 
     // LogIn fields:
@@ -125,9 +125,9 @@ public class LogInFragment extends BaseFragment {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 String message;
                 if (user != null) {
-                    message = "signed in: " + user.getUid();
+                    message = getResources().getString(R.string.signed_in) + user.getUid();
                 } else {
-                    message = "not signed in";
+                    message = getResources().getString(R.string.not_signed_in);
                 }
                 mAuthStateTextView.setText(message);
             }
@@ -148,10 +148,10 @@ public class LogInFragment extends BaseFragment {
                         String message;
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            message = "Huge success, " + user;
+                            message =  getResources().getString(R.string.success) + user;
                             mCallback.onValidAuth(user); //pass user into it later
                         } else {
-                            message = "Could not login: " + task.getException();
+                            message = getResources().getString(R.string.failed) + task.getException();
                         }
                         mAuthStateTextView.setText(message);
                     }
