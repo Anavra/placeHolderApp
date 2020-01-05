@@ -5,10 +5,6 @@
         <value>fetching config...</value>
     </entry>
     <entry>
-        <key>welcome_message_caps</key>
-        <value>false</value>
-    </entry>
-    <entry>
         <key>welcome_message</key>
         <value>Welcome to PlaceHolder!</value>
     </entry>

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -34,10 +35,10 @@ public class UserProfileFragment extends Fragment {
     private OnFragmentInteractionListener mCallback;
     private static final String TAG = "UserProfileFragment";
     private TextView mWelcomeTextView;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     private static final String LOADING_PHRASE_CONFIG_KEY = "loading_phrase";
     private static final String WELCOME_MESSAGE_KEY = "welcome_message";
-    private static final String WELCOME_MESSAGE_CAPS_KEY = "welcome_message_caps";
     private static final String BACKGROUND_COLOR = "background_color";
 
     public UserProfileFragment() {
@@ -54,7 +55,6 @@ public class UserProfileFragment extends Fragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class UserProfileFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_user_profile,container,false);
 
         mWelcomeTextView = view.findViewById(R.id.user_welcome);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
         Button CloseButton = view.findViewById(R.id.profile_close_button);
         CloseButton.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +77,9 @@ public class UserProfileFragment extends Fragment {
         fetchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("fetch_remote_config", true);
+                mFirebaseAnalytics.logEvent("fetch_remote_config", bundle);
                 fetchRemoteConfig();
             }
         });
@@ -92,7 +96,7 @@ public class UserProfileFragment extends Fragment {
         // Setting default values as stored
         mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
 
-        fetchRemoteConfig();
+        //fetchRemoteConfig();
     }
 
     private void fetchRemoteConfig() {
@@ -125,15 +129,8 @@ public class UserProfileFragment extends Fragment {
         String backgroundColor = mFirebaseRemoteConfig.getString(BACKGROUND_COLOR);
         int color = Color.parseColor(backgroundColor);
         // [END get_config_values]
-        if (mFirebaseRemoteConfig.getBoolean(WELCOME_MESSAGE_CAPS_KEY)) {
-            mWelcomeTextView.setAllCaps(true);
-        } else {
-            mWelcomeTextView.setAllCaps(false);
-        }
         mWelcomeTextView.setText(welcomeMessage);
 
-        getView().setBackgroundColor(color);
-        getActivity().getWindow().getDecorView().setBackgroundColor(color);
         mCallback.changeBackgroundColor(color);
     }
 

@@ -1,5 +1,6 @@
 package com.example.android.placeholder_inventory.Authentication;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -31,6 +32,7 @@ public class AuthActivity extends AppCompatActivity
     private DatabaseReference mDatabase;
     private FirebaseAnalytics mFirebaseAnalytics;
     private boolean mUserLoggedInWithFacebook;
+    private ConstraintLayout mLayout;
 
 
     @Override
@@ -51,7 +53,10 @@ public class AuthActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
+        mLayout=findViewById(R.id.auth_fragment_container);
+        mLayout.setBackgroundColor(getResources().getColor(R.color.color_primary_variant));
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         mUserLoggedInWithFacebook = accessToken != null && !accessToken.isExpired();

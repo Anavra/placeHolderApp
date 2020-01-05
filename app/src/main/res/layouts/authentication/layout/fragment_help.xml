@@ -32,24 +32,6 @@
             android:text="@string/help_fragment_text"
             android:textAppearance="@style/TitleTextAppearance" />
 
-        <TextView
-            android:id="@+id/welcomeTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_below="@+id/icon"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:text="Welcome..."
-            android:textAppearance="@style/TitleTextAppearance" />
-
-        <Button
-            android:id="@+id/fetchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_weight="1"
-            android:text="@string/fetch_remote_welcome_message" />
     </LinearLayout>
 
 

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.android.placeholder_inventory.Authentication.AuthActivity;
-import com.example.android.placeholder_inventory.Models.User;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -38,9 +36,9 @@ public class ItemListActivity extends AppCompatActivity
         UserProfileFragment.OnFragmentInteractionListener {
 
     private static final String TAG = "TAG_ITEM_LIST_ACTIVITY";
-    private DrawerLayout drawerLayout;
+    private DrawerLayout mDrawerLayout;
     private FrameLayout detailLayout;
-    private Toolbar toolbar;
+    private Toolbar mToolbar;
     private FirebaseAnalytics mFirebaseAnalytics;
 
 
@@ -73,7 +71,6 @@ public class ItemListActivity extends AppCompatActivity
     @Override
     public void onStart() {
         super.onStart();
-        changeBackgroundColor(111111);
         checkAuthenticationStatus();
     }
 
@@ -88,7 +85,7 @@ public class ItemListActivity extends AppCompatActivity
         checkAuthenticationStatus();
     }
 
-    /* Inflating the toolbar menu*/
+    /* Inflating the mToolbar menu*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -126,17 +123,10 @@ public class ItemListActivity extends AppCompatActivity
                 launchAddNewFragment();
                 return true;
             }
-            case R.id.action_remove: {
-                //fragment method
-                return true;
-            }
-
             case R.id.home: {
-                drawerLayout.openDrawer(GravityCompat.START);
+                mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
             }
-
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -145,10 +135,14 @@ public class ItemListActivity extends AppCompatActivity
     public void onNavItemClicked(String navItemId) {
         switch (navItemId) {
             case "home": {
+
                 launchShowListFragment();
                 break;
             }
             case "profile": {
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("user_checks_profile", true);
+                mFirebaseAnalytics.logEvent("user_checks_profile", bundle);
                 launchUserProfileFragment();
                 break;
             }
@@ -168,13 +162,13 @@ public class ItemListActivity extends AppCompatActivity
                 Log.d(TAG, "Unknown nav drawer id");
             }
         }
-        drawerLayout.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
     private void setUpTopToolBar() {
-        // Creating toolbar at the top
-        Toolbar myToolbar = findViewById(R.id.app_toolbar);
-        setSupportActionBar(myToolbar);
+        // Creating mToolbar at the top
+        mToolbar = findViewById(R.id.app_toolbar);
+        setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(null);
@@ -184,16 +178,17 @@ public class ItemListActivity extends AppCompatActivity
 
     private void setUpNavigationDrawer() {
         // Creating navigation drawer on the left
-        drawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.Open, R.string.Close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.Open, R.string.Close);
 
         toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
-        drawerLayout.addDrawerListener(toggle);
+        mDrawerLayout.addDrawerListener(toggle);
 
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setBackgroundColor(getResources().getColor(R.color.color_primary_variant));
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -203,7 +198,8 @@ public class ItemListActivity extends AppCompatActivity
 
 
         // Adding a test background image
-        drawerLayout.setBackgroundResource(R.drawable.bg_grungy_hor);
+        //mDrawerLayout.setBackgroundResource(R.drawable.bg_grungy_hor);
+        mDrawerLayout.setBackgroundColor(getResources().getColor(R.color.color_primary_variant));
 
         // insert navigation drawer fragment into container
         NavigationDrawerFragment navFragment = new NavigationDrawerFragment();
@@ -243,7 +239,7 @@ public class ItemListActivity extends AppCompatActivity
         transaction.replace(R.id.main_fragment_container, fragment);
         transaction.addToBackStack(null);
         if (detailLayout != null) {
-            transaction.add(R.id.detail_fragment_container, helpFragment);
+            transaction.replace(R.id.detail_fragment_container, helpFragment);
         }
         transaction.commit();
     }
@@ -274,8 +270,8 @@ public class ItemListActivity extends AppCompatActivity
     }
 
     public void changeBackgroundColor(int color){
-        View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(color);
+        mToolbar.setBackgroundColor(color);
+        mDrawerLayout.setBackgroundColor(color);
     }
 
 }

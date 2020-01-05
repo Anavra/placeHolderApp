@@ -5,14 +5,14 @@
         <item name="colorPrimaryDark">@color/color_primary_variant</item>
         <item name="colorPrimary">@color/color_primary_variant</item>
 
-        <item name="android:background">@color/color_primary_variant</item>
+
 
         <!-- Text styles -->
         <item name="android:textAppearance">@style/TextAppearance</item>
         <item name="android:textColorPrimary">@color/color_on_primary_variant</item>
 
         <item name="android:editTextColor">@color/color_on_primary_variant</item>
-        <item name="android:editTextBackground">@color/color_background</item>
+
 
         <!-- Button styles -->
         <item name="buttonStyle">@style/MainButton</item>
@@ -47,5 +47,7 @@
     <style name="SecondaryButton" parent="Widget.AppCompat.Button">
         <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
     </style>
+
+
 
 </resources>

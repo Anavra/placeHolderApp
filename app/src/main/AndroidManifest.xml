@@ -26,8 +26,7 @@
         <activity
             android:theme="@style/PlaceHolderTheme"
             android:name=".ItemLists.ItemListActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:label="@string/my_rooms" >
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

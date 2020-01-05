@@ -175,6 +175,9 @@ public class AuthFragment extends BaseFragment {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(LOG_TAG, "facebook:onSuccess:" + loginResult);
+                Bundle bundle = new Bundle();
+                bundle.putString("sign_up_type", "facebook");
+                mFirebaseAnalytics.logEvent("sign_up_type", bundle);
                 firebaseAuthWithFacebook(loginResult.getAccessToken());
             }
 
@@ -288,6 +291,9 @@ public class AuthFragment extends BaseFragment {
                        String message;
                        if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
+                           Bundle bundle = new Bundle();
+                           bundle.putString("sign_up_type", "google");
+                           mFirebaseAnalytics.logEvent("sign_up_type", bundle);
                             message = "signed in successfully";
                        } else {
                             message = "Authentication Failed";
@@ -326,6 +332,10 @@ public class AuthFragment extends BaseFragment {
                             Bundle bundle = new Bundle();
                             bundle.putString(FirebaseAnalytics.Param.METHOD, "Anonymous");
                             mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
+
+                            Bundle bundle2 = new Bundle();
+                            bundle2.putString("sign_up_type", "anon");
+                            mFirebaseAnalytics.logEvent("sign_up_type", bundle2);
 
                             mCallback.onValidAuth(user);
                         } else {
