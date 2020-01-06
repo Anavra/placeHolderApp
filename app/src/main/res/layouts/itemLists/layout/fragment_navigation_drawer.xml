@@ -7,7 +7,7 @@
     <include
         layout="@layout/navigation_header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></include>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/nav_drawer_home"

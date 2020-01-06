@@ -1,5 +1,7 @@
-package com.example.android.placeholder_inventory.Adapters;
+package com.example.android.placeholder_inventory.adapters;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.placeholder_inventory.Models.UserItem;
 import com.example.android.placeholder_inventory.R;
+import com.example.android.placeholder_inventory.models.UserItem;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,15 +30,16 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
      */
 
     private final Context mContext;
-    private final DatabaseReference mRooms;
+    private final DatabaseReference mItems;
     private final ChildEventListener mChildEventListener;
     private final OnAdapterInteractionListener mClickListener;
     private final List<UserItem> mUserItemList = new ArrayList<>();
+    private final String TAG = "ItemListAdapter";
 
     // Constructor - argument is db reference with rooms of the user
     public ItemListAdapter(final Context context, final DatabaseReference mData,
                            OnAdapterInteractionListener clickListener) {
-        this.mRooms = mData;
+        this.mItems = mData;
         this.mContext = context;
         this.mClickListener = clickListener;
 
@@ -44,25 +47,43 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 UserItem userItem = dataSnapshot.getValue(UserItem.class);
-                if (userItem == null){
-                    Toast.makeText(mContext,
-                            "Error: could not fetch userItem.",
-                            Toast.LENGTH_SHORT).show();
+                if (userItem == null) {
+                    Log.e(TAG, "onChildAdded: no userItem.");
                 }
-                //Toast.makeText(mContext, "The userItem is: " + userItem.name, Toast.LENGTH_SHORT).show();
+
                 mUserItemList.add(userItem);
                 notifyItemInserted(mUserItemList.size() - 1);
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                UserItem userItem = dataSnapshot.getValue(UserItem.class);
-                // To implement
+                UserItem newUserItem = dataSnapshot.getValue(UserItem.class);
+                String userKey = dataSnapshot.getKey();
+                if (newUserItem == null) {
+                    Log.e(TAG, "onChildChanged: no newUserItem.");
+                }
+
+                int index = mUserItemList.indexOf(userKey);
+                if (index > -1) {
+                    mUserItemList.set(index, newUserItem);
+                    notifyItemChanged(index);
+                } else {
+                    Log.w(TAG, "onChildChanged: unknown_child:" + userKey);
+                }
+
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                // To implement
+                String userKey = dataSnapshot.getKey();
+
+                int index = mUserItemList.indexOf(userKey);
+                if (index > -1) {
+                    mUserItemList.remove(index);
+                    notifyItemRemoved(index);
+                } else {
+                    Log.w(TAG, "onChildRemoved: unknown_child:" + userKey);
+                }
             }
 
             @Override
@@ -72,11 +93,11 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(mContext, "Failed to load rooms.",
+                Toast.makeText(mContext, "Failed to load items.",
                         Toast.LENGTH_SHORT).show();
             }
         };
-        mRooms.addChildEventListener(childEventListener);
+        mItems.addChildEventListener(childEventListener);
 
         mChildEventListener = childEventListener;
     }
@@ -96,7 +117,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         // This function automatically loops through the positions
         UserItem userItem = mUserItemList.get(position);
-        holder.roomNameTextView.setText(userItem.getName());
+        holder.itemNameTextView.setText(userItem.getName());
     }
 
     // LayoutManager use. Item count.
@@ -106,21 +127,25 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     }
 
 
-    public void clearListener(){
-        if (mChildEventListener != null){
-            mRooms.removeEventListener(mChildEventListener);
+    public void clearListener() {
+        if (mChildEventListener != null) {
+            mItems.removeEventListener(mChildEventListener);
         }
     }
 
+    public interface OnAdapterInteractionListener {
+        void onItemClick(String itemId);
+    }
+
     // ViewHolder that contains the recyclerViews given to it with the constructor
-    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        final TextView roomNameTextView;
-        final ImageView roomImageView;
+    public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        final TextView itemNameTextView;
+        final ImageView itemImageView;
 
         ItemViewHolder(View itemView) {
             super(itemView);
-            roomNameTextView = itemView.findViewById(R.id.room_text);
-            roomImageView = itemView.findViewById(R.id.room_image);
+            itemNameTextView = itemView.findViewById(R.id.room_text);
+            itemImageView = itemView.findViewById(R.id.room_image);
             itemView.setOnClickListener(this);
         }
 
@@ -131,9 +156,6 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
             final String itemId = userItem.getItemId();
             mClickListener.onItemClick(itemId);
         }
-    }
-    public interface OnAdapterInteractionListener {
-        void onItemClick(String itemId);
     }
 
 

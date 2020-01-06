@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.ItemLists;
+package com.example.android.placeholder_inventory.itemLists;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.android.placeholder_inventory.BaseFragment;
-import com.example.android.placeholder_inventory.Models.UserItem;
+import com.example.android.placeholder_inventory.models.UserItem;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,7 +34,6 @@ public class DetailsFragment extends BaseFragment {
 
     private TextView mItemNameView;
     private TextView mItemDescriptionView;
-    private TextView mItemLocationView;
 
 
     @Override
@@ -45,7 +44,6 @@ public class DetailsFragment extends BaseFragment {
                 container, false);
         mItemNameView = detailsView.findViewById(R.id.details_item_name);
         mItemDescriptionView = detailsView.findViewById(R.id.details_item_description);
-        mItemLocationView = detailsView.findViewById(R.id.details_item_location);
 
         // Receiving itemId from arguments
         Bundle args = getArguments();
@@ -83,7 +81,6 @@ public class DetailsFragment extends BaseFragment {
                 UserItem userItem = dataSnapshot.getValue(UserItem.class);
                 mItemNameView.setText(userItem.getName());
                 mItemDescriptionView.setText(userItem.getItemDescription());
-                mItemLocationView.setText("This is one of your rooms.");
             }
 
             @Override

@@ -46,7 +46,7 @@
             android:id="@+id/item_description_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/item_description"
+            android:text="@string/details_content"
             android:textAppearance="@style/TextAppearance" />
 
         <EditText

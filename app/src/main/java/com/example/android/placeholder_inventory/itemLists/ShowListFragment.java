@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.ItemLists;
+package com.example.android.placeholder_inventory.itemLists;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.placeholder_inventory.Adapters.ItemListAdapter;
+import com.example.android.placeholder_inventory.adapters.ItemListAdapter;
 import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.database.DatabaseReference;
@@ -33,9 +33,10 @@ public class ShowListFragment extends BaseFragment
     // RecyclerView to show the list of items
     private RecyclerView recyclerView;
 
-    // Getting the room list from the database
-    private DatabaseReference mRoomList;
-    private Context mContext;
+    // Getting the item list from the database
+    private DatabaseReference mItemList;
+
+    private ItemListAdapter mAdapter;
 
     public ShowListFragment() {
         // Required empty public constructor
@@ -62,7 +63,7 @@ public class ShowListFragment extends BaseFragment
         // [START create_database_reference]
         final String userID = getUserId();
         // Only the list of rooms of that user is acquired.
-        mRoomList = FirebaseDatabase.getInstance()
+        mItemList = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("user-rooms")
                 .child(userID);
@@ -80,28 +81,20 @@ public class ShowListFragment extends BaseFragment
 
         // Using a grid layout manager for the recyclerView
         RecyclerView.LayoutManager layoutManager;
-        //int numColumns = Utils.makeColumnsFit(getContext(), 180);
         int numColumns = calculateColumns();
         layoutManager = new GridLayoutManager(getContext(), numColumns);
         recyclerView.setLayoutManager(layoutManager);
 
         // Adapter for the recyclerView
-        ItemListAdapter mAdapter;
-        mAdapter = new ItemListAdapter(getActivity(), mRoomList, this);
+        mAdapter = new ItemListAdapter(getActivity(), mItemList, this);
         mAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(mAdapter);
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        //mAdapter.clearListener();
+        mAdapter.clearListener();
     }
 
     @Override
@@ -110,11 +103,6 @@ public class ShowListFragment extends BaseFragment
         mCallback = null;
     }
 
-    public void setOnFragmentInteractionListener(OnFragmentInteractionListener callback) {
-        if (callback != null) {
-            this.mCallback = callback;
-        }
-    }
 
     public void onItemClick(String itemId) {
         mCallback.onItemClick(itemId);

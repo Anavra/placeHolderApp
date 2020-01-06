@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.ItemLists;
+package com.example.android.placeholder_inventory.itemLists;
 
 
 import android.content.Context;
@@ -14,7 +14,7 @@ import com.example.android.placeholder_inventory.BaseFragment;
 import com.example.android.placeholder_inventory.R;
 
 /**
- *
+ *  This fragment is responsible for displaying the Navigation Drawer
  */
 
 public class NavigationDrawerFragment extends BaseFragment {

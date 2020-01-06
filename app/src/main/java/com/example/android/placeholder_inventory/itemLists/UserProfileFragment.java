@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.ItemLists;
+package com.example.android.placeholder_inventory.itemLists;
 
 
 import android.content.Context;
@@ -22,8 +22,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
-
-import org.w3c.dom.Text;
 
 /**
  * This fragment is responsible for displaying the user profile information (right now

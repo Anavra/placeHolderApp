@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.Authentication;
+package com.example.android.placeholder_inventory.authentication;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -65,7 +65,7 @@ public class LogInFragment extends BaseFragment {
         final View rootView = inflater.inflate(R.layout.fragment_log_in, container,
                 false);
 
-        // Authentication variables:
+        // authentication variables:
         mEmailField = rootView.findViewById(R.id.email_field);
         mPasswordField = rootView.findViewById(R.id.password_field);
         mAuthStateTextView = rootView.findViewById(R.id.auth_state_text);

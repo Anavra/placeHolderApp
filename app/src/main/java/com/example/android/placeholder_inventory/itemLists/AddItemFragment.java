@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.ItemLists;
+package com.example.android.placeholder_inventory.itemLists;
 
 
 import android.content.Context;
@@ -14,8 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.android.placeholder_inventory.BaseFragment;
-import com.example.android.placeholder_inventory.Models.User;
-import com.example.android.placeholder_inventory.Models.UserItem;
+import com.example.android.placeholder_inventory.models.User;
+import com.example.android.placeholder_inventory.models.UserItem;
 import com.example.android.placeholder_inventory.R;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
@@ -96,11 +96,6 @@ public class AddItemFragment extends BaseFragment {
         return addItemView;
     }
 
-    public void setOnFragmentInteractionListener(OnFragmentInteractionListener callback) {
-        if (callback != null) {
-            this.mCallback = callback;
-        }
-    }
 
     private boolean formIsValid(String name) {
         if (TextUtils.isEmpty(name)) {

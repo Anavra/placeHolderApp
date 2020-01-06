@@ -11,4 +11,5 @@
     <string name="failed">fallo </string>
     <string name="anon_login">ingreso anónimo</string>
     <string name="signed_in_with">Ingresado con </string>
+    <string name="details_content">Content</string>
 </resources>

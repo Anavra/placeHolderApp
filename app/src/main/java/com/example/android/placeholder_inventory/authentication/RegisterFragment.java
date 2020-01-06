@@ -1,5 +1,6 @@
-package com.example.android.placeholder_inventory.Authentication;
+package com.example.android.placeholder_inventory.authentication;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,7 @@ public class RegisterFragment extends BaseFragment {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private TextView mAuthStateTextView;
 
-    // Authentication fields:
+    // authentication fields:
     private EditText mEmailField;
     private EditText mPasswordField;
 
@@ -55,6 +56,16 @@ public class RegisterFragment extends BaseFragment {
             RegisterFragment.class.getSimpleName();
 
     @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        if(context instanceof OnButtonPressedListener){
+            mCallback = (OnButtonPressedListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + "not implemented in context");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -70,7 +81,7 @@ public class RegisterFragment extends BaseFragment {
         final View rootView = inflater.inflate(R.layout.fragment_register, container,
                 false);
 
-        // Authentication variables:
+        // authentication variables:
         mEmailField = rootView.findViewById(R.id.email_field);
         mPasswordField = rootView.findViewById(R.id.password_field);
         mAuthStateTextView = rootView.findViewById(R.id.auth_state_text);

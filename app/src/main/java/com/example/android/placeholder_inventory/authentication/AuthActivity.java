@@ -1,14 +1,13 @@
-package com.example.android.placeholder_inventory.Authentication;
+package com.example.android.placeholder_inventory.authentication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.android.placeholder_inventory.ItemLists.ItemListActivity;
-import com.example.android.placeholder_inventory.Models.User;
+import com.example.android.placeholder_inventory.itemLists.ItemListActivity;
+import com.example.android.placeholder_inventory.models.User;
 import com.example.android.placeholder_inventory.R;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -21,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * This activity is responsible for handling fragment switching and fragment
- * communication for the Authentication Package.
+ * communication for the authentication Package.
  * **/
 
 public class AuthActivity extends AppCompatActivity
@@ -30,36 +29,18 @@ public class AuthActivity extends AppCompatActivity
         AuthFragment.OnButtonPressedListener {
 
     private DatabaseReference mDatabase;
-    private FirebaseAnalytics mFirebaseAnalytics;
-    private boolean mUserLoggedInWithFacebook;
-    private ConstraintLayout mLayout;
 
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        // Implementing the fragment interfaces defined in fragments
-        if (fragment instanceof AuthFragment) {
-            AuthFragment authFragment = (AuthFragment) fragment;
-            authFragment.setOnButtonPressedListener(this);
-        } if (fragment instanceof LogInFragment) {
-            LogInFragment logInFragment = (LogInFragment) fragment;
-            logInFragment.setOnButtonPressedListener(this);
-        } if (fragment instanceof RegisterFragment) {
-            RegisterFragment registerFragment = (RegisterFragment) fragment;
-            registerFragment.setOnButtonPressedListener(this);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-        mLayout=findViewById(R.id.auth_fragment_container);
+        ConstraintLayout mLayout = findViewById(R.id.auth_fragment_container);
         mLayout.setBackgroundColor(getResources().getColor(R.color.color_primary_variant));
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        mUserLoggedInWithFacebook = accessToken != null && !accessToken.isExpired();
+        boolean mUserLoggedInWithFacebook = accessToken != null && !accessToken.isExpired();
 
         Bundle receiveBundle = this.getIntent().getExtras();
         if (receiveBundle != null) {
@@ -75,7 +56,7 @@ public class AuthActivity extends AppCompatActivity
         }
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
         if (findViewById(R.id.auth_fragment_container) != null) {
@@ -87,15 +68,6 @@ public class AuthActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
     public void onValidAuth(FirebaseUser user) {
         addNewUserToDataBase(user.getUid(), user.isAnonymous());

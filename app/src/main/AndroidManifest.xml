@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.placeholder_inventory">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -15,9 +16,9 @@
             android:name="firebase_performance_logcat_enabled"
             android:value="true" >
         </meta-data>
-        <!-- Authentication Package -->
+        <!-- authentication Package -->
         <activity
-            android:name=".Authentication.AuthActivity"
+            android:name=".authentication.AuthActivity"
             android:theme="@style/PlaceHolderTheme"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
@@ -25,7 +26,7 @@
         <!-- Main Item List Package -->
         <activity
             android:theme="@style/PlaceHolderTheme"
-            android:name=".ItemLists.ItemListActivity"
+            android:name=".itemLists.ItemListActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,6 +55,6 @@
 
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+
 
 </manifest>

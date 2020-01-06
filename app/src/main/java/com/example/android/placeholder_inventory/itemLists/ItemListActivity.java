@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.ItemLists;
+package com.example.android.placeholder_inventory.itemLists;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.android.placeholder_inventory.Authentication.AuthActivity;
+import com.example.android.placeholder_inventory.authentication.AuthActivity;
 import com.example.android.placeholder_inventory.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * This activity is responsible for handling fragments switching,
  * fragment communication, and the navigation elements (top bar
- * and navigation drawer) for the Main ItemLists package.
+ * and navigation drawer) for the Main itemLists package.
  **/
 
 
@@ -74,10 +74,6 @@ public class ItemListActivity extends AppCompatActivity
         checkAuthenticationStatus();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
     @Override
     public void onResume() {
@@ -168,11 +164,12 @@ public class ItemListActivity extends AppCompatActivity
     private void setUpTopToolBar() {
         // Creating mToolbar at the top
         mToolbar = findViewById(R.id.app_toolbar);
-        setSupportActionBar(mToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(null);
-
+        if (mToolbar != null){
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(null);
+        }
     }
 
 
@@ -262,7 +259,7 @@ public class ItemListActivity extends AppCompatActivity
         }
     }
 
-    /* Communication with the Authentication module in case of login, logout, etc. */
+    /* Communication with the authentication module in case of login, logout, etc. */
     private void launchAuthentication(boolean loggingOut) {
         Intent intent = new Intent(this, AuthActivity.class);
         intent.putExtra("loggingOut", loggingOut);

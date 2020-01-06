@@ -9,12 +9,12 @@
         android:id="@+id/navImageView"
         android:layout_width="@dimen/navigation_header_icon"
         android:layout_height="@dimen/navigation_header_icon"
-        android:src="@drawable/ic_placeholder_nightstand"></ImageView>
+        android:src="@drawable/ic_placeholder_nightstand" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"></TextView>
+        android:text="@string/app_name" />
 
     <TextView
         android:id="@+id/nav_user"

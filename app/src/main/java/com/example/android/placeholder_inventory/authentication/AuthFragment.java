@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.Authentication;
+package com.example.android.placeholder_inventory.authentication;
 
 import android.content.Context;
 import android.content.Intent;
@@ -47,7 +47,6 @@ public class AuthFragment extends BaseFragment {
 
     // FireBase
     private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
     private TextView mAuthStateTextView;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -68,7 +67,6 @@ public class AuthFragment extends BaseFragment {
     public AuthFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -102,7 +100,6 @@ public class AuthFragment extends BaseFragment {
         Log.i(LOG_TAG, "Created.");
         // Initialize FireBase Auth
         mAuth = getInstance();
-        mUser = getCurrentUser();
         startAuthState();
     }
 
@@ -261,10 +258,6 @@ public class AuthFragment extends BaseFragment {
             }
             mAuthStateTextView.setText(message);
         }
-    }
-
-    public void setOnButtonPressedListener(OnButtonPressedListener callback) {
-        this.mCallback = callback;
     }
 
     public interface OnButtonPressedListener {

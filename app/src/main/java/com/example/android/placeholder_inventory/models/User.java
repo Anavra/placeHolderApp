@@ -1,4 +1,4 @@
-package com.example.android.placeholder_inventory.Models;
+package com.example.android.placeholder_inventory.models;
 
 public class User {
     //public String username;
