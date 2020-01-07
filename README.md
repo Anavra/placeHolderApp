@@ -3,6 +3,7 @@ Android App TDP028
 
 [Kodgenomgång Screencast](https://youtu.be/X4FjEi9NGUU)
 
+[App Demo](https://youtu.be/XSEp_eJf83Y)
 
 [Uppnådda Krav](https://gitlab.ida.liu.se/vanro619/android-app/wikis/Uppn%C3%A5dda-krav)
 
@@ -15,7 +16,7 @@ This information can be saved instead in an app, and it will allow you to search
 
 This means that you have to register your rooms, containers and objects first. You can choose specific icons to easily see which kind of room, container or object it is. You can also add pictures of the object, descriptions and other information.
 
-You can even link some items so they can be shown as "Related items". 
+You can even link some items so they can be shown as "Related items" (not yet implemented). 
 
 
 User Type
@@ -27,10 +28,10 @@ General public, people that need help with organization.
 Specifications
 -------------
 * Objects can be added, with description and other details.
-* Containers can be added, where objects can exist. The depth of containers should be set to 5.
-* Main screen after log in will consist of a list of the higher level containers.
-* Clicking on one of the containers will show the contents.
+* Main screen after log in will consist of a list of the objects.
 * Clicking on an object will show its properties.
+* Can be used anonymously or with an account of either email/password, google or facebook.
+* Anonymous accounts can convert to registered users.
 
 [Differences between Placeholder and the competition] (https://gitlab.ida.liu.se/vanro619/android-app/wikis/Placeholder-vs-konkurrensen)
 
