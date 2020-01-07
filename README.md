@@ -1,5 +1,11 @@
 Android App TDP028
 
+
+[Kodgenomgång Screencast](https://youtu.be/X4FjEi9NGUU)
+
+
+[Uppnådda Krav](https://gitlab.ida.liu.se/vanro619/android-app/wikis/Uppn%C3%A5dda-krav)
+
 Description
 ---------------
 
@@ -29,10 +35,5 @@ Specifications
 [Differences between Placeholder and the competition] (https://gitlab.ida.liu.se/vanro619/android-app/wikis/Placeholder-vs-konkurrensen)
 
 
-Requirements
-------------
-
-[Kravlista](https://gitlab.ida.liu.se/vanro619/android-app/wikis/krav.md)
-[Uppnådda Krav](https://gitlab.ida.liu.se/vanro619/android-app/wikis/Uppn%C3%A5dda-krav)
 
 
